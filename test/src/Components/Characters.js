@@ -1,63 +1,78 @@
-import React, { useEffect, useContext } from 'react';
-import firebase from '../Config/Firebase';
-import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { fetchData } from '../Redux/data/dataActions';
-//import OneCharacter from './OneCharacter';
-import { Button } from '@material-ui/core';
-import { AuthContext } from '../Auth/AuthService';
+import React, { useEffect, useContext } from "react";
+import firebase from "../Config/Firebase";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { fetchData } from "../Redux/data/dataActions";
+import { Button } from "@material-ui/core";
+import { AuthContext } from "../Auth/AuthService";
+import Paper from "@material-ui/core/Paper";
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableBody from "@material-ui/core/TableBody";
+import TableHeader from "./TableHeader";
+import AllCharacters from "./AllCharacters";
 
-const Characters = ({ data, fetchData }) => {
-	useEffect(
-		() => {
-			fetchData();
-		},
-		[ fetchData ]
-	);
+const Characters = () => {
+  const loading = useSelector((state) => state.data.loading);
+  const error = useSelector((state) => state.data.error);
+  const info = useSelector((state) => state.data.info);
 
-	const history = useHistory();
+  const dispatch = useDispatch();
 
-	//use the context created in "AuthService.js" file, to remove the token in case of logOut
-	const context = useContext(AuthContext);
+  useEffect(() => {
+    dispatch(fetchData());
+  }, [dispatch]);
 
-	const handleLogOut = () => {
-		firebase.auth().signOut().then(() => {
-			context.logOut();
-			history.push('/login');
-		});
-	};
+  const history = useHistory();
 
-	return (
-		<div>
-			<h1 style={{ color: 'rebeccapurple' }}>CHARACTERS PAGE</h1>
-			<Button onClick={handleLogOut} variant="contained" color="secondary" style={{ marginTop: '10px' }}>
-				Log out
-			</Button>
-			{/* {data.loading ? (
+  //use the context created in "AuthService.js" file, to remove the token in case of logOut
+  const context = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        context.logOut();
+        history.push("/login");
+      });
+  };
+
+  return (
+    <div>
+      <h1 style={{ color: "rebeccapurple" }}>CHARACTERS PAGE</h1>
+      <Button
+        onClick={handleLogOut}
+        variant="contained"
+        color="secondary"
+        style={{ marginTop: "10px" }}
+      >
+        Log out
+      </Button>
+      <Paper>
+        <Table>
+          <TableHead>
+            <TableHeader />
+          </TableHead>
+          <TableBody>
+            <div>
+              {loading ? (
                 <h4>Loading...</h4>
-            ) : data.error ? (
-                <h4>{data.error}</h4>
-            ) : (
-                data.map((detail) => (
-                    <div key={detail.id}> 
-                        <OneCharacter detail={detail}/>
-                    </div>
+              ) : error ? (
+                <h4>{error}</h4>
+              ) : (
+                info.map((detail) => (
+                  <div key={detail.char_id}>
+                    <AllCharacters detail={detail} />
+                  </div>
                 ))
-            )} */}
-		</div>
-	);
+              )}
+            </div>
+          </TableBody>
+        </Table>
+      </Paper>
+    </div>
+  );
 };
 
-const mapStateToProps = (state) => {
-	return {
-		data: state.data.data
-	};
-};
-
-const mapDispatchToProps = (dispatch) => {
-	return {
-		fetchData: (infoID) => dispatch(fetchData(infoID))
-	};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Characters);
+export default Characters;
