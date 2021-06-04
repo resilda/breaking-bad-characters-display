@@ -4,6 +4,8 @@ const initialState = {
   loading: false,
   info: [],
   error: "",
+  charactersLimit: 10,
+  offset: 0,
 };
 
 const dataReducer = (state = initialState, action) => {
@@ -14,10 +16,13 @@ const dataReducer = (state = initialState, action) => {
         loading: true,
       };
     case actionTypes.FETCH_DATA_SUCCESS:
+      //const infoPagination = state.charactersLimit;
       return {
         ...state,
         loading: false,
-        info: action.payload,
+        info: action.payload.info,
+        charactersLimit: action.payload.limit,
+        offset: action.payload.offset,
         error: "",
       };
     case actionTypes.FETCH_DATA_FAILURE:

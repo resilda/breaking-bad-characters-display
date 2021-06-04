@@ -35,10 +35,18 @@ const Login = () => {
         justifyContent: "space-around",
         alignItems: "center",
         flexDirection: "column",
-        marginTop: "140px",
+        marginTop: "200px",
       }}
     >
-      <h1 style={{ color: "rebeccapurple" }}>LOGIN</h1>
+      <h1
+        style={{
+          color: "rebeccapurple",
+          marginBottom: "30px",
+          fontSize: "28px",
+        }}
+      >
+        LOGIN
+      </h1>
       {error && (
         <p className="error-message" style={{ color: "red" }}>
           {error.message}
@@ -60,7 +68,7 @@ const Login = () => {
           type="text"
           required
           onChange={(e) => setEmail(e.target.value)}
-          style={{ fontSize: "12px" }}
+          style={{ fontSize: "12px", marginBottom: "10px" }}
         />
         <TextField
           label="Password"
@@ -80,13 +88,13 @@ const Login = () => {
             width: "130px",
             height: "35px",
             fontSize: "14px",
-            marginTop: "6px",
+            marginTop: "20px",
           }}
         >
           Login in
         </Button>
       </form>
-      <div style={{ margin: "20px 20px" }}>
+      <div style={{ margin: "30px 20px" }}>
         Don't have an account? {""}
         <Button
           variant="contained"

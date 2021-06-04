@@ -39,10 +39,18 @@ const Register = () => {
         justifyContent: "space-around",
         alignItems: "center",
         flexDirection: "column",
-        marginTop: "80px",
+        marginTop: "200px",
       }}
     >
-      <h1 style={{ color: "rebeccapurple" }}>REGISTER</h1>
+      <h1
+        style={{
+          color: "rebeccapurple",
+          marginBottom: "30px",
+          fontSize: "28px",
+        }}
+      >
+        REGISTER
+      </h1>
       {error && (
         <p className="error-message" style={{ color: "red" }}>
           {error.message}
@@ -64,7 +72,7 @@ const Register = () => {
           type="text"
           required
           onChange={(e) => setUsername(e.target.value)}
-          style={{ fontSize: "12px" }}
+          style={{ fontSize: "12px", marginBottom: "10px" }}
         />
         <TextField
           label="Email"
@@ -74,7 +82,7 @@ const Register = () => {
           type="text"
           required
           onChange={(e) => setEmail(e.target.value)}
-          style={{ fontSize: "12px" }}
+          style={{ fontSize: "12px", marginBottom: "10px" }}
         />
         <TextField
           label="Password"
@@ -94,13 +102,13 @@ const Register = () => {
             width: "130px",
             height: "35px",
             fontSize: "14px",
-            marginTop: "6px",
+            marginTop: "20px",
           }}
         >
           Register
         </Button>
       </form>
-      <div style={{ margin: "20px 20px", fontSize: "13px" }}>
+      <div style={{ margin: "30px 20px", fontSize: "13px" }}>
         Already have an account? {""}
         <Button
           variant="contained"

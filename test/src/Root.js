@@ -1,4 +1,4 @@
-//gather all the routes
+//Gather all the routes
 
 import React, { useContext } from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
