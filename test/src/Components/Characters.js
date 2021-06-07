@@ -32,9 +32,6 @@ const Characters = () => {
 	const info = useSelector((state) => state.data.info);
 
 	const limitPerPage = useSelector((state) => state.data.limitPerPage);
-	const nameInput = useSelector((state) => state.data.nameInput);
-	const name = useSelector((state) => state.data.name);
-	const category = useSelector((state) => state.data.category);
 
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -46,9 +43,9 @@ const Characters = () => {
 
 	useEffect(
 		() => {
-			dispatch(fetchData({ limit: limitPerPage, offset: 0, nameInput, name, category }));
+			dispatch(fetchData({ limit: limitPerPage, offset: 0 }));
 		},
-		[ dispatch, limitPerPage, nameInput, name, category ]
+		[ dispatch, limitPerPage ]
 	);
 
 	const handleLogOut = () => {
@@ -61,9 +58,7 @@ const Characters = () => {
 	return (
 		<div>
 			<div className="wrapper">
-				<h1 className="title">
-					BREAKING BAD
-				</h1>
+				<h1 className="title">BREAKING BAD</h1>
 				<Button
 					onClick={handleLogOut}
 					variant="contained"
@@ -82,6 +77,10 @@ const Characters = () => {
 				<FilterNameCategory />
 			</div>
 			<div className="table-wrapper">
+				{loading && <CircularProgress />}
+
+				{error && <div>{error} </div>}
+
 				<Paper
 					className={classes.root}
 					style={{
@@ -91,10 +90,6 @@ const Characters = () => {
 						alignItems: 'center'
 					}}
 				>
-					{loading && <CircularProgress />}
-
-					{error && <div>{error} </div>}
-
 					<Table className={classes.table}>
 						<TableHead>
 							<TableHeader />

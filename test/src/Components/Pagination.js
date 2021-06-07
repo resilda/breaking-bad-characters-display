@@ -12,12 +12,9 @@ const Pagination = ({ info }) => {
 	const dispatch = useDispatch();
 
 	//Pyet arditin
-	const totalCountCharacters = (count) => {
-		dispatch(setAllCharactersCount(totalCount))
-	}
 
 	//vjen sa vendos limitin
-	const count = info.length;
+	const count = totalCount.length;
 
 	//when the page is changed
 	const onChangePage = (event, page) => {

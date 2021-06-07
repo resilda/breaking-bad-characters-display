@@ -10,7 +10,7 @@ const FilterName = () => {
 
 	const handleChange = (event, nameInput) => {
 		dispatch(setName(event.target.value));
-		dispatch(fetchData({ nameInput: event.target.value }));
+		dispatch(fetchData({ name: event.target.value }));
 	};
 
 	return (

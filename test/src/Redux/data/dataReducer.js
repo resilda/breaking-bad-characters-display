@@ -36,14 +36,14 @@ const dataReducer = (state = initialState, action) => {
 			};
 		case actionTypes.GET_CURRENT_CHARACTER:
 			return {
-				...state, 
+				...state,
 				currentCharacter: action.payload
-			}
+			};
 		case actionTypes.SET_ALL_CHARACTERS_COUNT:
 			return {
 				...state,
 				totalCount: action.payload
-			}
+			};
 		case actionTypes.SET_CURRENT_PAGE:
 			return {
 				...state,
@@ -52,7 +52,7 @@ const dataReducer = (state = initialState, action) => {
 		case actionTypes.SET_LIMIT_PER_PAGE:
 			return {
 				...state,
-				limitPerPage: action.payload, 
+				limitPerPage: action.payload
 			};
 		case actionTypes.SET_NAME:
 			return {
@@ -62,8 +62,7 @@ const dataReducer = (state = initialState, action) => {
 		case actionTypes.SET_NAME_CATEORY:
 			return {
 				...state,
-				name: action.payload.name,
-				category: action.payload.category
+				category: action.payload
 			};
 		default:
 			return state;

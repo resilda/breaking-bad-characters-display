@@ -5,7 +5,7 @@ import axios from 'axios';
 
 //const CHARACTERS_API = process.env.REACT_APP_CHARACTERS_API;
 
-const CHARACTERS_API = 'https://www.breakingbadapi.com/api/characters'
+const CHARACTERS_API = 'https://www.breakingbadapi.com/api/characters';
 
 //FETCHING DATA
 
@@ -35,8 +35,8 @@ export const getCurrentCharacter = (currentCharacter) => {
 	return {
 		type: actionTypes.GET_CURRENT_CHARACTER,
 		payload: currentCharacter
-	}
-}
+	};
+};
 
 //PAGINATION ACTIONS
 
@@ -44,8 +44,8 @@ export const setAllCharactersCount = (totalCount) => {
 	return {
 		type: actionTypes.SET_ALL_CHARACTERS_COUNT,
 		payload: totalCount
-	}
-}
+	};
+};
 
 export const setCurrentPage = (page) => {
 	return {
@@ -72,13 +72,10 @@ export const setName = (nameInput) => {
 
 //FILTER BASED ON NAME INPUT AND CATEGORY
 
-export const setNameCategory = (name, category) => {
+export const setNameCategory = (category) => {
 	return {
 		type: actionTypes.SET_NAME_CATEORY,
-		payload: {
-			name: name,
-			category: category
-		}
+		payload: category
 	};
 };
 
@@ -87,7 +84,7 @@ export function fetchData(params = {}) {
 		dispatch(fetchRequest());
 		try {
 			let response = await axios.get(CHARACTERS_API, { params });
-			console.log(response)
+			console.log(response);
 			dispatch(fetchSuccess(response.data));
 		} catch (error) {
 			const message = error.message;
