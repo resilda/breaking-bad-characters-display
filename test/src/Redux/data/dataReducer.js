@@ -4,6 +4,8 @@ const initialState = {
 	loading: false,
 	info: [],
 	error: '',
+	currentCharacter: null,
+	totalCount: [],
 	currentPage: 0,
 	limitPerPage: 10,
 	nameInput: '',
@@ -32,6 +34,16 @@ const dataReducer = (state = initialState, action) => {
 				info: [],
 				error: action.payload
 			};
+		case actionTypes.GET_CURRENT_CHARACTER:
+			return {
+				...state, 
+				currentCharacter: action.payload
+			}
+		case actionTypes.SET_ALL_CHARACTERS_COUNT:
+			return {
+				...state,
+				totalCount: action.payload
+			}
 		case actionTypes.SET_CURRENT_PAGE:
 			return {
 				...state,
@@ -40,7 +52,7 @@ const dataReducer = (state = initialState, action) => {
 		case actionTypes.SET_LIMIT_PER_PAGE:
 			return {
 				...state,
-				limitPerPage: action.payload
+				limitPerPage: action.payload, 
 			};
 		case actionTypes.SET_NAME:
 			return {

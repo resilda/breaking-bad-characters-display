@@ -2,15 +2,21 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import { fetchData, setCurrentPage, setLimitPerPage } from '../Redux/data/dataActions';
+import { fetchData, setAllCharactersCount, setCurrentPage, setLimitPerPage } from '../Redux/data/dataActions';
 
 const Pagination = ({ info }) => {
+	const totalCount = useSelector((state) => state.data.totalCount);
 	const limitPerPage = useSelector((state) => state.data.limitPerPage);
 	const currentPage = useSelector((state) => state.data.currentPage);
 
 	const dispatch = useDispatch();
 
-	//vjen sa vendosim limitin
+	//Pyet arditin
+	const totalCountCharacters = (count) => {
+		dispatch(setAllCharactersCount(totalCount))
+	}
+
+	//vjen sa vendos limitin
 	const count = info.length;
 
 	//when the page is changed
@@ -21,10 +27,8 @@ const Pagination = ({ info }) => {
 	};
 
 	const onChangeRowsPerPage = (event) => {
-		//update reducer
-		const newLimitPerPage = event.target.value;
-		//start from beggining
-		const defaultPage = 0;
+		const newLimitPerPage = event.target.value; //update reducer
+		const defaultPage = 0; //start from beggining
 		dispatch(setLimitPerPage(newLimitPerPage));
 		dispatch(setCurrentPage(defaultPage));
 		dispatch(fetchData({ limit: newLimitPerPage, offset: defaultPage }));

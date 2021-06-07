@@ -1,10 +1,11 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchData, setNameCategory } from '../Redux/data/dataActions';
+import './style.css';
 
 const FilterNameCategory = () => {
 	const name = useSelector((state) => state.data.name);
-	const category = useSelector((state) => state.data.category);
+	const category = useSelector((state) => state.data.category)
 
 	const dispatch = useDispatch();
 
@@ -19,15 +20,8 @@ const FilterNameCategory = () => {
 				<input
 					className="input"
 					value={name}
-					onChange={handleChange}
-					placeholder={'Search name'}
-					style={{
-						width: '500px',
-						height: '30px',
-						margin: '20px 40px',
-						display: 'flex',
-						alignContent: 'flex-start'
-					}}
+					onChange={(event) => handleChange(event, name, category)}
+					placeholder={'Search name and category'}
 				/>
 			</label>
 		</div>

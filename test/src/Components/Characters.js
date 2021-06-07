@@ -12,11 +12,12 @@ import TableHeader from './TableHeader';
 import TableBody from '@material-ui/core/TableBody';
 import TableFooter from '@material-ui/core/TableFooter';
 import AllCharacters from './AllCharacters';
-import { Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import Pagination from './Pagination';
 import FilterName from './FilterName';
 import FilterNameCategory from './FilterNameCategory';
+import { Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import './style.css';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -31,9 +32,11 @@ const Characters = () => {
 	const info = useSelector((state) => state.data.info);
 
 	const limitPerPage = useSelector((state) => state.data.limitPerPage);
+	const nameInput = useSelector((state) => state.data.nameInput);
+	const name = useSelector((state) => state.data.name);
+	const category = useSelector((state) => state.data.category);
 
 	const dispatch = useDispatch();
-
 	const history = useHistory();
 
 	//use the context created in "AuthService.js" file, to remove the token in case of logOut
@@ -43,9 +46,9 @@ const Characters = () => {
 
 	useEffect(
 		() => {
-			dispatch(fetchData({ limit: limitPerPage, offset: 0 }));
+			dispatch(fetchData({ limit: limitPerPage, offset: 0, nameInput, name, category }));
 		},
-		[ dispatch, limitPerPage ]
+		[ dispatch, limitPerPage, nameInput, name, category ]
 	);
 
 	const handleLogOut = () => {
@@ -57,23 +60,8 @@ const Characters = () => {
 
 	return (
 		<div>
-			<div
-				style={{
-					display: 'flex',
-					flexDirection: 'row',
-					justifyContent: 'space-between',
-					alignItems: 'flex-start',
-					margin: '30px'
-				}}
-			>
-				<h1
-					style={{
-						color: 'rebeccapurple',
-						fontSize: '28px',
-						//marginLeft: '190px'
-						marginLeft: '15px'
-					}}
-				>
+			<div className="wrapper">
+				<h1 className="title">
 					BREAKING BAD
 				</h1>
 				<Button
@@ -81,7 +69,9 @@ const Characters = () => {
 					variant="contained"
 					color="secondary"
 					style={{
-						marginRight: '19px'
+						margin: '19px 19px',
+						width: '100px',
+						height: '40px'
 					}}
 				>
 					Log out
@@ -91,14 +81,7 @@ const Characters = () => {
 				<FilterName />
 				<FilterNameCategory />
 			</div>
-			<div
-				style={{
-					display: 'flex',
-					flexDirection: 'column',
-					justifyContent: 'space-around',
-					alignItems: 'center'
-				}}
-			>
+			<div className="table-wrapper">
 				<Paper
 					className={classes.root}
 					style={{

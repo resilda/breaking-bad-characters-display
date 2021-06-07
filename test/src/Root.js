@@ -6,6 +6,7 @@ import { AuthContext } from "./Auth/AuthService";
 import Register from "./Auth/Register";
 import Login from "./Auth/Login";
 import Characters from "./Components/Characters";
+import Details from "./Components/Details";
 
 //in case of "Private Route", if the refreshToken exists then we pass the children as props,
 //otherwise "redirect" to "login", since we don't have premission to access the "main page"
@@ -67,6 +68,11 @@ const Root = () => {
         <PrivateRoute exact path="/main" refreshToken={context.refreshToken}>
           <Characters />
         </PrivateRoute>
+
+        <Route>
+          <Details exact path="/main/:character/:id"/>
+        </Route>
+
       </Switch>
     </BrowserRouter>
   );

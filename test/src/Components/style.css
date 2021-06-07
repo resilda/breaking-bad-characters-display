@@ -1,0 +1,89 @@
+ * {
+    box-sizing: border-box;
+  }
+
+  /* Characters.js */ 
+
+.wrapper {
+    display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: 'flex-start';
+	margin: '30px';
+}
+
+.title {
+    color: rebeccapurple;
+	font-size: 28px;
+    /* marginLeft: 190px; */
+	margin-left: 15px;
+}
+
+.table-wrapper {
+    display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+    align-items: center;
+}
+
+/* AllCharacters.js */
+
+.img {
+    border: 1px solid rebeccapurple;
+    border-radius: 20px;
+}
+
+/* Details.js */
+
+.wrapper-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 35px 40px;
+}
+
+.img-details {
+    border: 1px solid rebeccapurple;
+}
+
+.section-details {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    border: 1px solid gray;
+    box-shadow: 7px 9px #888888;
+}
+
+.name-details {
+    font-family: 'Limelight', cursive;
+    font-size: 30px;
+    color: rebeccapurple;
+    font-weight: bold;
+}
+
+.nickname-details {
+    font-family: 'Lobster', cursive;    
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.section-components {
+    margin: 5px 10px;
+}
+
+.details-component {
+    font-size: 16px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 5px 10px;
+}
+
+/* FilterName.js && FilterNameCategory.js */
+
+.input {
+    width: 500px;
+	height: 30px;
+    margin: 20px 275px;
+	display: flex;
+    align-items: flex-start;
+}
