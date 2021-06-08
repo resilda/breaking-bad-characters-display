@@ -15,9 +15,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AllCharacters = ({ detail }) => {
-
-	const [backgroundColor, setBackgoundColor] = useState(yellow);
-	const [isColored, setIsColored] = useState(false);
+	const [ backgroundColor, setBackgoundColor ] = useState(yellow);
+	const [ isColored, setIsColored ] = useState(false);
 
 	console.log('backgroundColor', backgroundColor);
 	console.log('isColored', isColored);
@@ -30,27 +29,21 @@ const AllCharacters = ({ detail }) => {
 	const history = useHistory();
 
 	function onNavigate(id) {
-		history.push(`/main/character?id=${id}`)
+		history.push(`/main/character?id=${id}`);
 	}
-	
+
 	const classes = useStyles();
 
 	return (
 		<TableRow
-			className="click" 
+			className="click"
 			key={detail.char_id}
 			value={backgroundColor}
-			onClick={() => changeColor()}
+			onClick={() => changeColor(backgroundColor)}
 			onDoubleClick={() => onNavigate(detail.char_id)}
 		>
 			<TableCell className={classes.cell}>
-				<img
-					className="img"
-					src={detail.img}
-					alt={detail.name}
-					width="60px"
-					height="70px"
-				/>
+				<img className="img" src={detail.img} alt={detail.name} width="60px" height="70px" />
 			</TableCell>
 			<TableCell className={classes.cell}>{detail.name}</TableCell>
 			<TableCell className={classes.cell}>{detail.nickname}</TableCell>

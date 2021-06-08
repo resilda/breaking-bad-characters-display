@@ -4,7 +4,9 @@ const initialState = {
 	loading: false,
 	info: [],
 	error: '',
+	loadingCharacter: false,
 	currentCharacter: [],
+	errorCharacter: '',
 	totalCount: [],
 	currentPage: 0,
 	limitPerPage: 10,
@@ -34,10 +36,24 @@ const dataReducer = (state = initialState, action) => {
 				info: [],
 				error: action.payload
 			};
-		case actionTypes.GET_CURRENT_CHARACTER:
+		case actionTypes.CURRENT_CHARACTER_REQUEST:
 			return {
 				...state,
-				currentCharacter: action.payload
+				loadingCharacter: true
+			};
+		case actionTypes.CURRENT_CHARACTER_SUCCESS:
+			return {
+				...state,
+				loadingCharacter: false,
+				currentCharacter: action.payload,
+				errorCharacter: ''
+			};
+		case actionTypes.CURRENT_CHARACTER_FAILURE:
+			return {
+				...state,
+				loadingCharacter: false,
+				currentCharacter: [],
+				errorCharacter: action.payload
 			};
 		case actionTypes.SET_ALL_CHARACTERS_COUNT:
 			return {

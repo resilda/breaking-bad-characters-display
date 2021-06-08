@@ -4,7 +4,6 @@ import axios from 'axios';
 //GETTING DATA FROM API
 
 const CHARACTERS_API = process.env.REACT_APP_CHARACTERS_API;
-const CHARACTERS_API_ID = process.env.REACT_APP_CHARACTERS_API_ID;
 
 //FETCHING DATA
 
@@ -30,10 +29,23 @@ export const fetchFailure = (error) => {
 
 //CURRENT CHARACTER
 
-export const getCurrentCharacter = (currentCharacter) => {
+export const currentCharacterRequest = () => {
 	return {
-		type: actionTypes.GET_CURRENT_CHARACTER,
+		type: actionTypes.CURRENT_CHARACTER_REQUEST
+	};
+};
+
+export const currentCharacterSuccess = (currentCharacter) => {
+	return {
+		type: actionTypes.CURRENT_CHARACTER_SUCCESS,
 		payload: currentCharacter
+	};
+};
+
+export const currentCharacterFailure = (error) => {
+	return {
+		type: actionTypes.CURRENT_CHARACTER_FAILURE,
+		payload: error
 	};
 };
 
@@ -81,11 +93,13 @@ export const setNameCategory = (name, category) => {
 	};
 };
 
+//FETCH ALL DATA
+
 export function fetchData(params = {}) {
 	return async function(dispatch) {
 		dispatch(fetchRequest());
 		try {
-			let response = await axios.get(CHARACTERS_API, { params });
+			let response = await axios.get(`${CHARACTERS_API}/characters`, { params });
 			console.log('response', response);
 			dispatch(fetchSuccess(response.data));
 		} catch (error) {
@@ -95,27 +109,32 @@ export function fetchData(params = {}) {
 	};
 }
 
+//TOTAL COUNT OF DATA
+
 export function fetchDataAll() {
 	return async function(dispatch) {
 		try {
-			let responseAll = await axios.get(CHARACTERS_API);
-			console.log('responseAll',responseAll)
+			let responseAll = await axios.get(`${CHARACTERS_API}/characters`);
+			console.log('responseAll', responseAll);
 			dispatch(setAllCharactersCount(responseAll.data));
 		} catch (error) {
-			console.log(error)
-		}
-	}
-}
-
-export function fetchCharactersID() {
-	return async function(dispatch) {
-		try {
-			let responseID = await axios.get(CHARACTERS_API_ID);
-			console.log('responseID', responseID);
-			dispatch(getCurrentCharacter(responseID));
-		}
-		catch (error) {
 			console.log(error);
 		}
-	}
+	};
+}
+
+//GET A CHARACTER TO RENDER FOR DETAILS PAGE
+
+export function fetchCharactersID(id) {
+	return async function(dispatch) {
+		dispatch(currentCharacterRequest());
+		try {
+			let responseID = await axios.get(`${CHARACTERS_API}/characters/${id}`);
+			console.log('responseID.data', responseID.data);
+			dispatch(currentCharacterSuccess(responseID.data));
+		} catch (error) {
+			const message = error.message;
+			dispatch(currentCharacterFailure(message));
+		}
+	};
 }
