@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import { fetchData, setAllCharactersCount, setCurrentPage, setLimitPerPage } from '../Redux/data/dataActions';
+import { fetchData, fetchDataAll, setCurrentPage, setLimitPerPage } from '../Redux/data/dataActions';
 
-const Pagination = ({ info }) => {
+const Pagination = () => {
 	const totalCount = useSelector((state) => state.data.totalCount);
 	const limitPerPage = useSelector((state) => state.data.limitPerPage);
 	const currentPage = useSelector((state) => state.data.currentPage);
 
 	const dispatch = useDispatch();
 
-	//Pyet arditin
+	useEffect(() => {
+		dispatch(fetchDataAll());
+	}, [dispatch])
 
-	//vjen sa vendos limitin
-	const count = totalCount.length;
+	//count through all the elements, without passing any params to lower the data we get
+	let count = totalCount.length;
 
 	//when the page is changed
 	const onChangePage = (event, page) => {
@@ -34,7 +36,7 @@ const Pagination = ({ info }) => {
 	return (
 		<TableRow>
 			<TablePagination
-				count={62}
+				count={count}
 				rowsPerPage={limitPerPage}
 				page={currentPage}
 				onChangePage={onChangePage}

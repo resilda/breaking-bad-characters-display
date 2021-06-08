@@ -4,9 +4,6 @@ import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-	row: {
-		//width: 1000
-	},
 	cell: {
 		fontSize: '15px',
 		fontWeight: 'bold',
@@ -19,7 +16,7 @@ const TableHeader = () => {
 	const classes = useStyles();
 
 	return (
-		<TableRow className={classes.row}>
+		<TableRow>
 			<TableCell className={classes.cell}>Character</TableCell>
 			<TableCell className={classes.cell}>Name</TableCell>
 			<TableCell className={classes.cell}>Nickname</TableCell>

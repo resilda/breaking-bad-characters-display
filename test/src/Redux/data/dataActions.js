@@ -3,9 +3,8 @@ import axios from 'axios';
 
 //GETTING DATA FROM API
 
-//const CHARACTERS_API = process.env.REACT_APP_CHARACTERS_API;
-
-const CHARACTERS_API = 'https://www.breakingbadapi.com/api/characters';
+const CHARACTERS_API = process.env.REACT_APP_CHARACTERS_API;
+const CHARACTERS_API_ID = process.env.REACT_APP_CHARACTERS_API_ID;
 
 //FETCHING DATA
 
@@ -72,10 +71,13 @@ export const setName = (nameInput) => {
 
 //FILTER BASED ON NAME INPUT AND CATEGORY
 
-export const setNameCategory = (category) => {
+export const setNameCategory = (name, category) => {
 	return {
 		type: actionTypes.SET_NAME_CATEORY,
-		payload: category
+		payload: {
+			name: name,
+			category: category
+		}
 	};
 };
 
@@ -84,11 +86,36 @@ export function fetchData(params = {}) {
 		dispatch(fetchRequest());
 		try {
 			let response = await axios.get(CHARACTERS_API, { params });
-			console.log(response);
+			console.log('response', response);
 			dispatch(fetchSuccess(response.data));
 		} catch (error) {
 			const message = error.message;
 			dispatch(fetchFailure(message));
 		}
 	};
+}
+
+export function fetchDataAll() {
+	return async function(dispatch) {
+		try {
+			let responseAll = await axios.get(CHARACTERS_API);
+			console.log('responseAll',responseAll)
+			dispatch(setAllCharactersCount(responseAll.data));
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+
+export function fetchCharactersID() {
+	return async function(dispatch) {
+		try {
+			let responseID = await axios.get(CHARACTERS_API_ID);
+			console.log('responseID', responseID);
+			dispatch(getCurrentCharacter(responseID));
+		}
+		catch (error) {
+			console.log(error);
+		}
+	}
 }

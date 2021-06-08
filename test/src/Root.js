@@ -70,7 +70,7 @@ const Root = () => {
         </PrivateRoute>
 
         <Route>
-          <Details exact path="/main/:character/:id"/>
+          <Details exact path="/main/character"/>
         </Route>
 
       </Switch>

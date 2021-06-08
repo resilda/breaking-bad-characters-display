@@ -4,11 +4,11 @@ const initialState = {
 	loading: false,
 	info: [],
 	error: '',
-	currentCharacter: null,
+	currentCharacter: [],
 	totalCount: [],
 	currentPage: 0,
 	limitPerPage: 10,
-	nameInput: '',
+	nameInput: '', //Filter name
 	name: '', //Filter name and category
 	category: ''
 };
@@ -42,6 +42,7 @@ const dataReducer = (state = initialState, action) => {
 		case actionTypes.SET_ALL_CHARACTERS_COUNT:
 			return {
 				...state,
+				loadingCount: false,
 				totalCount: action.payload
 			};
 		case actionTypes.SET_CURRENT_PAGE:
@@ -62,7 +63,8 @@ const dataReducer = (state = initialState, action) => {
 		case actionTypes.SET_NAME_CATEORY:
 			return {
 				...state,
-				category: action.payload
+				name: action.payload.name,
+				category: action.payload.category
 			};
 		default:
 			return state;

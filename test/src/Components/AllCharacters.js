@@ -1,16 +1,13 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import { getCurrentCharacter } from '../Redux/data/dataActions';
 import { makeStyles } from '@material-ui/core/styles';
+//import { css } from '@emotion/css';
+import { yellow } from '@material-ui/core/colors';
 import './style.css';
 
 const useStyles = makeStyles((theme) => ({
-	row: {
-		//width: 1000
-	},
 	cell: {
 		fontSize: '15px',
 		width: 300
@@ -19,12 +16,33 @@ const useStyles = makeStyles((theme) => ({
 
 const AllCharacters = ({ detail }) => {
 
-	const dispatch = useDispatch();
+	const [backgroundColor, setBackgoundColor] = useState(yellow);
+	const [isColored, setIsColored] = useState(false);
 
+	console.log('backgroundColor', backgroundColor);
+	console.log('isColored', isColored);
+
+	function changeColor() {
+		setIsColored(!isColored);
+		setBackgoundColor(backgroundColor);
+	}
+
+	const history = useHistory();
+
+	function onNavigate(id) {
+		history.push(`/main/character?id=${id}`)
+	}
+	
 	const classes = useStyles();
 
 	return (
-		<TableRow key={detail.char_id} className={classes.row}>
+		<TableRow
+			className="click" 
+			key={detail.char_id}
+			value={backgroundColor}
+			onClick={() => changeColor()}
+			onDoubleClick={() => onNavigate(detail.char_id)}
+		>
 			<TableCell className={classes.cell}>
 				<img
 					className="img"
@@ -34,11 +52,7 @@ const AllCharacters = ({ detail }) => {
 					height="70px"
 				/>
 			</TableCell>
-			<TableCell className={classes.cell} onClick={() => dispatch(getCurrentCharacter(detail))}>
-				<Link to={`/main/${detail.name}/${detail.char_id}`}>
-					{detail.name}
-				</Link>
-			</TableCell>
+			<TableCell className={classes.cell}>{detail.name}</TableCell>
 			<TableCell className={classes.cell}>{detail.nickname}</TableCell>
 			<TableCell className={classes.cell}>{detail.category}</TableCell>
 			<TableCell className={classes.cell}>{detail.birthday}</TableCell>
@@ -48,5 +62,3 @@ const AllCharacters = ({ detail }) => {
 };
 
 export default AllCharacters;
-
-//'/main/${character.name}/${character.char_id}'
