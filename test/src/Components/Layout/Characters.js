@@ -1,9 +1,9 @@
 import React, { useEffect, useContext } from 'react';
-import firebase from '../Config/Firebase';
+import firebase from '../../Config/Firebase';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { fetchData } from '../Redux/data/dataActions';
-import { AuthContext } from '../Auth/AuthService';
+import { fetchData } from '../../Redux/data/dataActions';
+import { AuthContext } from '../../Auth/AuthService';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -12,14 +12,14 @@ import TableHeader from './TableHeader';
 import TableBody from '@material-ui/core/TableBody';
 import TableFooter from '@material-ui/core/TableFooter';
 import AllCharacters from './AllCharacters';
-import Pagination from './Pagination';
-import FilterName from './FilterName';
-import FilterNameCategory from './FilterNameCategory';
+import Pagination from '../TableComponents/Pagination';
+import FilterName from '../TableComponents/FilterName';
+import FilterNameCategory from '../TableComponents/FilterNameCategory';
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import './style.css';
+import '../style.css';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	root: {
 		width: 1350,
 		marginBottom: 70

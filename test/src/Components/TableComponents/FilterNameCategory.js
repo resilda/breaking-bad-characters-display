@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchData, setNameCategory } from '../Redux/data/dataActions';
-import './style.css';
+import { fetchData, setNameCategory } from '../../Redux/data/dataActions';
+import '../style.css';
 
 const FilterNameCategory = () => {
 	const name = useSelector((state) => state.data.name);
@@ -21,7 +21,7 @@ const FilterNameCategory = () => {
 					className="input"
 					value={category}
 					onChange={(event) => handleChange(event, category)}
-					placeholder={'Search name and category'}
+					placeholder={'Search category'}
 				/>
 			</label>
 		</div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchData, setName } from '../Redux/data/dataActions';
-import './style.css';
+import { fetchData, setName } from '../../Redux/data/dataActions';
+import '../style.css';
 
 const FilterName = () => {
 	const nameInput = useSelector((state) => state.data.nameInput);

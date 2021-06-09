@@ -17,6 +17,7 @@ const initialState = {
 
 const dataReducer = (state = initialState, action) => {
 	switch (action.type) {
+		//FETCH DATA
 		case actionTypes.FETCH_DATA_REQUEST:
 			return {
 				...state,
@@ -36,6 +37,7 @@ const dataReducer = (state = initialState, action) => {
 				info: [],
 				error: action.payload
 			};
+		//FETCH DATA FOR CURRENT CHARACTER
 		case actionTypes.CURRENT_CHARACTER_REQUEST:
 			return {
 				...state,
@@ -55,12 +57,14 @@ const dataReducer = (state = initialState, action) => {
 				currentCharacter: [],
 				errorCharacter: action.payload
 			};
+		//GET TOTAL CHARACTERS
 		case actionTypes.SET_ALL_CHARACTERS_COUNT:
 			return {
 				...state,
 				loadingCount: false,
 				totalCount: action.payload
 			};
+		//PAGINATION
 		case actionTypes.SET_CURRENT_PAGE:
 			return {
 				...state,
@@ -71,6 +75,7 @@ const dataReducer = (state = initialState, action) => {
 				...state,
 				limitPerPage: action.payload
 			};
+		//FILTER
 		case actionTypes.SET_NAME:
 			return {
 				...state,

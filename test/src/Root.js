@@ -1,12 +1,10 @@
-//Gather all the routes
-
 import React, { useContext } from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { AuthContext } from "./Auth/AuthService";
 import Register from "./Auth/Register";
 import Login from "./Auth/Login";
-import Characters from "./Components/Characters";
-import Details from "./Components/Details";
+import Characters from "./Components/Layout/Characters";
+import Details from "./Components/Details/Details";
 
 //in case of "Private Route", if the refreshToken exists then we pass the children as props,
 //otherwise "redirect" to "login", since we don't have premission to access the "main page"

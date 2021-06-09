@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import { fetchData, fetchDataAll, setCurrentPage, setLimitPerPage } from '../Redux/data/dataActions';
+import { fetchData, fetchDataAll, setCurrentPage, setLimitPerPage } from '../../Redux/data/dataActions';
 
 const Pagination = () => {
 	const totalCount = useSelector((state) => state.data.totalCount);

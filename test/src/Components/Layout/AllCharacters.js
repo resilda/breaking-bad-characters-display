@@ -4,10 +4,10 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
 //import { css } from '@emotion/css';
-import { yellow } from '@material-ui/core/colors';
-import './style.css';
+//import { yellow } from '@material-ui/core/colors';
+import '../style.css';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	cell: {
 		fontSize: '15px',
 		width: 300
@@ -15,15 +15,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AllCharacters = ({ detail }) => {
-	const [ backgroundColor, setBackgoundColor ] = useState(yellow);
-	const [ isColored, setIsColored ] = useState(false);
+	const [ backgroundColor, setBackgoundColor ] = useState('black');
 
 	console.log('backgroundColor', backgroundColor);
-	console.log('isColored', isColored);
 
 	function changeColor() {
-		setIsColored(!isColored);
-		setBackgoundColor(backgroundColor);
+		setBackgoundColor('yellow');
 	}
 
 	const history = useHistory();
@@ -39,7 +36,8 @@ const AllCharacters = ({ detail }) => {
 			className="click"
 			key={detail.char_id}
 			value={backgroundColor}
-			onClick={() => changeColor(backgroundColor)}
+			// style={{backgroundColor: 'yellow'}}
+			onClick={changeColor}
 			onDoubleClick={() => onNavigate(detail.char_id)}
 		>
 			<TableCell className={classes.cell}>
