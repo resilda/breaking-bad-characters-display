@@ -15,7 +15,7 @@ const initialState = {
 	category: ''
 };
 
-const dataReducer = (state = initialState, action) => {
+function dataReducer(state = initialState, action) {
 	switch (action.type) {
 		//FETCH DATA
 		case actionTypes.FETCH_DATA_REQUEST:
@@ -90,6 +90,6 @@ const dataReducer = (state = initialState, action) => {
 		default:
 			return state;
 	}
-};
+}
 
 export default dataReducer;

@@ -5,14 +5,14 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
 	cell: {
-		fontSize: '15px',
+		fontSize: '16px',
 		fontWeight: 'bold',
-		color: 'rebeccapurple',
+		color: 'rgb(160, 47, 47)',
 		width: 300
 	}
 }));
 
-const TableHeader = () => {
+function HeaderCharacters() {
 	const classes = useStyles();
 
 	return (
@@ -25,6 +25,6 @@ const TableHeader = () => {
 			<TableCell className={classes.cell}>Status</TableCell>
 		</TableRow>
 	);
-};
+}
 
-export default TableHeader;
+export default HeaderCharacters;

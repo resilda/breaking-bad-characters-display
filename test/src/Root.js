@@ -1,79 +1,76 @@
-import React, { useContext } from "react";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import { AuthContext } from "./Auth/AuthService";
-import Register from "./Auth/Register";
-import Login from "./Auth/Login";
-import Characters from "./Components/Layout/Characters";
-import Details from "./Components/Details/Details";
+import React, { useContext } from 'react';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { AuthContext } from './Auth/AuthService';
+import Register from './Auth/Register';
+import Login from './Auth/Login';
+import Characters from './Components/Layout/Characters';
+import Details from './Components/Details/Details';
 
 //in case of "Private Route", if the refreshToken exists then we pass the children as props,
 //otherwise "redirect" to "login", since we don't have premission to access the "main page"
 function PrivateRoute({ children, refreshToken, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        refreshToken ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/login",
-              state: { from: location },
-            }}
-          />
-        )
-      }
-    />
-  );
+	return (
+		<Route
+			{...rest}
+			render={({ location }) =>
+				refreshToken ? (
+					children
+				) : (
+					<Redirect
+						to={{
+							pathname: '/login',
+							state: { from: location }
+						}}
+					/>
+				)}
+		/>
+	);
 }
 
 //the opposite of "PrivateRoute"
 function PublicRoute({ children, refreshToken, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        !refreshToken ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/main",
-              state: { from: location },
-            }}
-          />
-        )
-      }
-    />
-  );
+	return (
+		<Route
+			{...rest}
+			render={({ location }) =>
+				!refreshToken ? (
+					children
+				) : (
+					<Redirect
+						to={{
+							pathname: '/main',
+							state: { from: location }
+						}}
+					/>
+				)}
+		/>
+	);
 }
 
-const Root = () => {
-  //"useContext" to pass "refreshToken"
-  const context = useContext(AuthContext);
-  return (
-    <BrowserRouter>
-      <Switch>
-        <PublicRoute exact path="/" refreshToken={context.refreshToken}>
-          <Register />
-        </PublicRoute>
+function Root() {
+	//"useContext" to pass "refreshToken"
+	const context = useContext(AuthContext);
+	return (
+		<BrowserRouter>
+			<Switch>
+				<PublicRoute exact path="/" refreshToken={context.refreshToken}>
+					<Register />
+				</PublicRoute>
 
-        <PublicRoute exact path="/login" refreshToken={context.refreshToken}>
-          <Login />
-        </PublicRoute>
+				<PublicRoute exact path="/login" refreshToken={context.refreshToken}>
+					<Login />
+				</PublicRoute>
 
-        <PrivateRoute exact path="/main" refreshToken={context.refreshToken}>
-          <Characters />
-        </PrivateRoute>
+				<PrivateRoute exact path="/main" refreshToken={context.refreshToken}>
+					<Characters />
+				</PrivateRoute>
 
-        <Route>
-          <Details exact path="/main/character"/>
-        </Route>
-
-      </Switch>
-    </BrowserRouter>
-  );
-};
+				<Route>
+					<Details exact path="/main/character" />
+				</Route>
+			</Switch>
+		</BrowserRouter>
+	);
+}
 
 export default Root;

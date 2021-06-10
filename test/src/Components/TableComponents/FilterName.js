@@ -3,15 +3,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchData, setName } from '../../Redux/data/dataActions';
 import '../style.css';
 
-const FilterName = () => {
+function FilterName() {
 	const nameInput = useSelector((state) => state.data.nameInput);
 
 	const dispatch = useDispatch();
 
-	const handleChange = (event, nameInput) => {
+	function handleChange(event, nameInput) {
 		dispatch(setName(event.target.value));
 		dispatch(fetchData({ name: event.target.value }));
-	};
+	}
 
 	return (
 		<div>
@@ -25,6 +25,6 @@ const FilterName = () => {
 			</label>
 		</div>
 	);
-};
+}
 
 export default FilterName;

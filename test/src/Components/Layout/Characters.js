@@ -1,32 +1,32 @@
-import React, { useEffect, useContext } from 'react';
-import firebase from '../../Config/Firebase';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { fetchData } from '../../Redux/data/dataActions';
-import { AuthContext } from '../../Auth/AuthService';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import TableHead from '@material-ui/core/TableHead';
-import TableHeader from './TableHeader';
+import NavBar from './Navbar';
+import HeaderCharacters from './HeaderCharacters';
 import TableBody from '@material-ui/core/TableBody';
 import TableFooter from '@material-ui/core/TableFooter';
 import AllCharacters from './AllCharacters';
 import Pagination from '../TableComponents/Pagination';
 import FilterName from '../TableComponents/FilterName';
 import FilterNameCategory from '../TableComponents/FilterNameCategory';
-import { Button } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import '../style.css';
 
 const useStyles = makeStyles(() => ({
 	root: {
 		width: 1350,
-		marginBottom: 70
+		marginBottom: 70,
+		boxShadow: '7px 9px #f7efef',
+		color: 'rgba(247, 240, 240, 0.925)',
+		borderRadius: '7px'
 	}
 }));
 
-const Characters = () => {
+function Characters() {
 	const loading = useSelector((state) => state.data.loading);
 	const error = useSelector((state) => state.data.error);
 	const info = useSelector((state) => state.data.info);
@@ -34,12 +34,6 @@ const Characters = () => {
 	const limitPerPage = useSelector((state) => state.data.limitPerPage);
 
 	const dispatch = useDispatch();
-	const history = useHistory();
-
-	//use the context created in "AuthService.js" file, to remove the token in case of logOut
-	const context = useContext(AuthContext);
-
-	const classes = useStyles();
 
 	useEffect(
 		() => {
@@ -48,30 +42,11 @@ const Characters = () => {
 		[ dispatch, limitPerPage ]
 	);
 
-	const handleLogOut = () => {
-		firebase.auth().signOut().then(() => {
-			context.logOut();
-			history.push('/login');
-		});
-	};
+	const classes = useStyles();
 
 	return (
 		<div>
-			<div className="wrapper">
-				<h1 className="title">BREAKING BAD</h1>
-				<Button
-					onClick={handleLogOut}
-					variant="contained"
-					color="secondary"
-					style={{
-						margin: '19px 19px',
-						width: '100px',
-						height: '40px'
-					}}
-				>
-					Log out
-				</Button>
-			</div>
+			<NavBar />
 			<div>
 				<FilterName />
 				<FilterNameCategory />
@@ -92,7 +67,7 @@ const Characters = () => {
 				>
 					<Table className={classes.table}>
 						<TableHead>
-							<TableHeader />
+							<HeaderCharacters />
 						</TableHead>
 						{info.map((detail) => (
 							<TableBody key={detail.char_id}>
@@ -107,6 +82,6 @@ const Characters = () => {
 			</div>
 		</div>
 	);
-};
+}
 
 export default Characters;

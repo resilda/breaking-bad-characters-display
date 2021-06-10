@@ -1,46 +1,51 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext } from 'react';
 
-//kinda like a store to save the token of the user and provide it into different screens
+//'store' to save the user's refreshToken
 const AuthContext = createContext();
 
-const REFRESH_TOKEN = "refreshToken";
+const REFRESH_TOKEN = 'refreshToken';
+const USER = 'user';
 
-//create an initialState to get the users's token
 const getInitialState = () => {
-  const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+	const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+	const user = localStorage.getItem(USER);
 
-  //return it as an 'object' in case we need to store more data of the user
-  return { refreshToken };
+	return { refreshToken, user };
 };
 
-const AuthProvider = ({ children }) => {
-  const initialState = getInitialState();
-  const [refreshToken, setRefreshToken] = useState(initialState.refreshToken);
+function AuthProvider({ children }) {
+	const initialState = getInitialState();
+	const [ refreshToken, setRefreshToken ] = useState(initialState.refreshToken);
+	const [ user, setUser ] = useState(initialState.user);
 
-  //save the token, update it to local storage
-  const logIn = (token) => {
-    setRefreshToken(token);
-    localStorage.setItem(REFRESH_TOKEN, token);
-  };
+	//save token, update it to local storage
+	function logIn(token, userData) {
+		setRefreshToken(token);
+		setUser(userData);
+		localStorage.setItem(REFRESH_TOKEN, token);
+		localStorage.setItem(USER, userData);
+	}
 
-  //remove token after logOut
-  const logOut = () => {
-    setRefreshToken(null);
-    localStorage.removeItem(REFRESH_TOKEN);
-  };
+	//remove token after logOut
+	function logOut() {
+		setRefreshToken(null);
+		setUser(null);
+		localStorage.removeItem(REFRESH_TOKEN);
+		localStorage.removeItem(USER);
+	}
 
-  //the values we need to pass to the "children" from this "parent" component
-  return (
-    <AuthContext.Provider
-      value={{
-        refreshToken,
-        logIn,
-        logOut,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
-};
+	return (
+		<AuthContext.Provider
+			value={{
+				refreshToken,
+				user,
+				logIn,
+				logOut
+			}}
+		>
+			{children}
+		</AuthContext.Provider>
+	);
+}
 
 export { AuthContext, AuthProvider };

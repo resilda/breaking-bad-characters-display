@@ -3,16 +3,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchData, setNameCategory } from '../../Redux/data/dataActions';
 import '../style.css';
 
-const FilterNameCategory = () => {
+function FilterNameCategory() {
 	const name = useSelector((state) => state.data.name);
 	const category = useSelector((state) => state.data.category);
 
 	const dispatch = useDispatch();
 
-	const handleChange = (event) => {
+	function handleChange(event) {
 		dispatch(setNameCategory(event.target.value));
 		dispatch(fetchData({ name, category: event.target.value }));
-	};
+	}
 
 	return (
 		<div>
@@ -26,6 +26,6 @@ const FilterNameCategory = () => {
 			</label>
 		</div>
 	);
-};
+}
 
 export default FilterNameCategory;
