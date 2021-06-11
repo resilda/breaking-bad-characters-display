@@ -2,45 +2,23 @@
     box-sizing: border-box;
   }
 
-  body {
-    background-color: #daded4;
-  }
-
   /* NavBar.js */ 
-
-  /* http://thatnerdshow.com/site/wp-content/uploads/2019/08/videoblocks-breaking-bad-intro-template_rtc1qu8y-__p_thumbnail-full09.png */
-  /* http://bgfons.com/upload/light_texture2246.jpg 
-    https://www.teahub.io/photos/full/39-393926_2048x2048-dark-green-wallpaper-hd-photos-for-smartphone.jpg
-    https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/c74ad832-3001-423e-9ccc-ea3a262e9d80/d20sr0o-f9e87b85-4a7d-4dbd-afd0-57b833d1f0c8.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2M3NGFkODMyLTMwMDEtNDIzZS05Y2NjLWVhM2EyNjJlOWQ4MFwvZDIwc3Iwby1mOWU4N2I4NS00YTdkLTRkYmQtYWZkMC01N2I4MzNkMWYwYzguanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.BQK3vBhnI0no2RcjEjAuhiWnjkCyY0JP6cAi7qksJh8  
-    https://www.xmple.com/wallpaper/linear-black-gradient-green-1920x1080-c2-103719-030604-a-165-f-14.svg
-*/
 
 .wrapper {
     display: flex;
 	flex-direction: row;
-	justify-content: flex-end;
-	/* align-items: flex-end; */
+	justify-content: space-between;
 	margin: '30px';
-    /* background-color: #cde0dc; */
-    opacity: 0.85;
-    background-image: url("https://wallup.net/wp-content/uploads/2016/05/27/36479-Breaking_Bad-Heisenberg-748x421.jpg");
     margin: 9px 12px;
     border-radius: 15px;
 }
 
-/* .title {
+.title {
     color: rebeccapurple;
 	font-size: 28px;
 	margin-left: 15px;
-} */
-
-.button-log-out {
-    color: sandybrown;
 }
 
-.button-log-out:hover {
-    color: rgb(136, 44, 44);
-}
 
   /* Characters.js */ 
 
@@ -56,7 +34,6 @@
 .img {
     border: 1px solid rebeccapurple;
     border-radius: 20px;
-    color:rgb(160, 47, 47)
 }
 
 .click {
@@ -74,7 +51,6 @@
 
 .img-details {
     border: 1px solid rebeccapurple; 
-    /* color: #f7efef */
 }
 
 .section-details {
@@ -88,7 +64,7 @@
 .name-details {
     font-family: 'Limelight', cursive;
     font-size: 30px;
-    color: rgb(160, 47, 47);
+    color: rebeccapurple;
     font-weight: bold;
 }
 
@@ -125,10 +101,20 @@
 
 /* FilterName.js && FilterNameCategory.js */
 
+.filter-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px;
+}
+
+.filter {
+    display: flex;
+    flex-direction: row;
+    margin: 3px;
+}
+
 .input {
-    width: 500px;
-	height: 30px;
-    margin: 20px 275px;
-	display: flex;
-    align-items: flex-start;
+    width: 300px;
+	height: 15px;
 }

@@ -83,11 +83,11 @@ export function setName(nameInput) {
 
 //FILTER BASED ON NAME INPUT AND CATEGORY
 
-export function setNameCategory(name, category) {
+export function setNameCategory(nameInput, category) {
 	return {
 		type: actionTypes.SET_NAME_CATEORY,
 		payload: {
-			name: name,
+			nameInput: nameInput,
 			category: category
 		}
 	};

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import firebase from '../../Config/Firebase';
+import { AuthContext } from '../../Auth/AuthService';
 
 function Operations({ characterID }) {
 	//save the character ID
@@ -12,29 +13,28 @@ function Operations({ characterID }) {
 	// console.log('currentUser', currentUser);
 
 	const [ comment, setComment ] = useState('');
-
 	const [ comments, setComments ] = useState([]);
+	const [ timestamp ] = useState('');
 
 	function handleChange(event) {
 		setComment(event.target.value);
 	}
 
+	// const context = useContext(AuthContext);
+	// const user = context.user;
+	// const username = user.displayName;
+	// const userID = user.userID;
+	// console.log('username', username);
+	// console.log('userID', userID);
+
 	//get data from the firebase
 	async function getData() {
-		const characterCollection = await firebase
+		await firebase
 			.firestore()
 			.collection('Characters')
 			.doc(`${characterID}`)
 			.collection('Comments')
 			.get();
-		//const commentsList = [];
-
-		// characterCollection.forEach((doc) => {
-		// 	// console.log(doc.id, ' => ', doc.data());
-		// 	commentsList.push(doc.data());
-		// });
-
-		//characterCollection.docs.map((doc) => commentsList.push(doc.data()));
 
 		await firebase
 			.firestore()
@@ -42,16 +42,11 @@ function Operations({ characterID }) {
 			.doc(`${characterID}`)
 			.collection('Comments')
 			.onSnapshot((doc) => {
-				console.log('doc', doc.docs);
 				const commentsList = doc.docs.map((item) => ({
 					...item.data()
 				}));
 				setComments(commentsList.reverse());
-				console.log('commentsList', commentsList);
 			});
-
-		// console.log('commentsList', commentsList);
-		// setComments(commentsList);
 	}
 
 	useEffect(() => {
@@ -62,20 +57,37 @@ function Operations({ characterID }) {
 	async function createComment() {
 		const newComment = {
 			body: comment,
+			timestamp: timestamp, 
 			user: {
 				displayName: 'resilda',
 				id: 'u9MacrOOe1c4gfYpF7GcbdLFiw72'
-			}
+			}, 
+			// user: {
+			// 	displayName: `${username}`,
+			// 	id: `${userID}`
+			// }
 		};
-		console.log('newComment', newComment);
 
-		firebase.firestore().collection('Characters').doc(`${characterID}`).collection('Comments').add(newComment);
+		firebase
+		.firestore()
+		.collection('Characters')
+		.doc(`${characterID}`)
+		.collection('Comments')
+		.add(newComment);
+
+		setComment('')
 	}
 
-	// function deleteComment(event) {
-	// 	event.preventDefault();
-	// 	firebase.firestore().collection('Comments').doc().delete();
-	// }
+	async function deleteComment() {
+		// const deleteComment = await firebase.firestore()
+		// .collection('Characters')
+		// .doc(`${characterID}`)
+		// .collection('Comments').where('body','===',comment);
+
+		// deleteComment.delete();
+
+		//console.log('delete', deleteComment)
+	}
 
 	return (
 		<div>
@@ -88,15 +100,18 @@ function Operations({ characterID }) {
 				<input className="text-area" value={comment} type="text" onChange={handleChange} />
 				<button type="submit">Submit</button>
 			</form>
-
-			{comments.map((comment) => (
-				<ol key={comment.id}>
+			{comments.map((comment) => {
+				const postDate = new Date();
+				return (
+					<ul key={comment.id}>
 					<li>{comment.characterID}</li>
 					<li>{comment.user.displayName}</li>
 					<li>{comment.body}</li>
-					{/* <button onClick={deleteComment}>Delete</button> */}
-				</ol>
-			))}
+					<li>{(postDate.getMonth() + 1) + '.' + postDate.getDate() + '.' + postDate.getFullYear()}</li>
+					<li>{postDate.getHours() + ':' + postDate.getMinutes()}</li>
+					<button onClick={(event) => {event.preventDefault(); deleteComment()}}>Delete</button>
+				</ul>)
+			})}
 		</div>
 	);
 }

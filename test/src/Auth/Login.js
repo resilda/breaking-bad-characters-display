@@ -22,7 +22,7 @@ function Login() {
 				context.logIn(user.refreshToken);
 				context.logIn(user);
 				history.push('/main');
-				console.log('user', user);
+				console.log('user', user); 
 				console.log('user.refreshToken', user.refreshToken);
 			})
 			.catch((error) => {

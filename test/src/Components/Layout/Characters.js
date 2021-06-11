@@ -11,7 +11,6 @@ import TableFooter from '@material-ui/core/TableFooter';
 import AllCharacters from './AllCharacters';
 import Pagination from '../TableComponents/Pagination';
 import FilterName from '../TableComponents/FilterName';
-import FilterNameCategory from '../TableComponents/FilterNameCategory';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import '../style.css';
@@ -49,7 +48,6 @@ function Characters() {
 			<NavBar />
 			<div>
 				<FilterName />
-				<FilterNameCategory />
 			</div>
 			<div className="table-wrapper">
 				{loading && <CircularProgress />}

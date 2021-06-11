@@ -3,10 +3,7 @@ import { useHistory } from 'react-router-dom';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
-//import { css } from '@emotion/react';
-//import { yellow } from '@material-ui/core/colors';
 import '../style.css';
-import colors from '../colors';
 
 const useStyles = makeStyles(() => ({
 	cell: {
@@ -16,13 +13,21 @@ const useStyles = makeStyles(() => ({
 }));
 
 function AllCharacters({ detail }) {
-	const [ backgroundColor, setBackgoundColor ] = useState('#fff');
+	const [ backgroundColor, setBackgoundColor ] = useState('yellow');
+	const [ isHighlighted, setIsHighlighted ] = useState(false);
 
 	console.log('backgroundColor', backgroundColor);
 
-	function changeColor() {
-		setBackgoundColor('yellow');
+	function onChange() {
+		setIsHighlighted(!isHighlighted);
 	}
+
+	function changeColor() {
+		if(onChange) {
+			setBackgoundColor(backgroundColor)
+		}
+		return backgroundColor;
+	} 
 
 	const history = useHistory();
 
@@ -37,17 +42,19 @@ function AllCharacters({ detail }) {
 			className="click"
 			key={detail.char_id}
 			value={backgroundColor}
-			onClick={() => setBackgoundColor(colors.secondary)}
-			// css={css`color: ${backgroundColor};`}
+			onClick={() => onChange()}
 			onDoubleClick={() => onNavigate(detail.char_id)}
 		>
 			<TableCell className={classes.cell}>
 				<img className="img" src={detail.img} alt={detail.name} width="60px" height="70px" />
 			</TableCell>
-			<TableCell className={classes.cell} style={{ backgroundColor }}>
+			<TableCell className={classes.cell} 
+				// style={{ onChange ? setBackgoundColor(backgroundColor) : backgroundColor}}
+				style={{ changeColor }}
+			>
 				{detail.name}
 			</TableCell>
-			<TableCell className={classes.cell}>{detail.nickname}</TableCell>
+			<TableCell className={classes.cell} style={{ changeColor }}>{detail.nickname}</TableCell>
 			<TableCell className={classes.cell}>{detail.category}</TableCell>
 			<TableCell className={classes.cell}>{detail.birthday}</TableCell>
 			<TableCell className={classes.cell}>{detail.status}</TableCell>

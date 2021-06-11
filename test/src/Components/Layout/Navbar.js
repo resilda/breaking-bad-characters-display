@@ -17,27 +17,20 @@ function NavBar() {
 		});
 	}
 
-	//https://www.merchandisingplaza.co.uk/194504/3/Money-Boxes-Breaking-Bad-Breaking-Bad-Money-Bank---Bookend-BrBa-Logo-l.jpg
-
 	return (
 		<div className="wrapper">
-			{/* <img
-				src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4hN8ruOHxnJoQsrP8ucbnHHW_8f5bOnVnGIcXSS8_2TiHlqkxeuf2rLSuwTui9KuayTId5z3JEr32Gw&usqp=CAU"
-				alt="logo"
-				width="90px"
-				height="60px"
-			/> */}
+			<h1 className="title">
+				BREAKING BAD
+			</h1>
 			<Button
 				className="button-log-out"
 				onClick={handleLogOut}
 				variant="contained"
-				color="default"
+				color="secondary"
 				style={{
 					margin: '19px 19px',
 					width: '100px',
 					height: '35px',
-					color: 'brown',
-					fontWeight: 'bold'
 				}}
 			>
 				Log out

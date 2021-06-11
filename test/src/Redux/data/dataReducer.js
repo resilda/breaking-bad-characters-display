@@ -11,8 +11,8 @@ const initialState = {
 	currentPage: 0,
 	limitPerPage: 10,
 	nameInput: '', //Filter name
-	name: '', //Filter name and category
-	category: ''
+	//name: '', //Filter name and category
+	//category: ''
 };
 
 function dataReducer(state = initialState, action) {
@@ -81,12 +81,12 @@ function dataReducer(state = initialState, action) {
 				...state,
 				nameInput: action.payload
 			};
-		case actionTypes.SET_NAME_CATEORY:
-			return {
-				...state,
-				name: action.payload.name,
-				category: action.payload.category
-			};
+		// case actionTypes.SET_NAME_CATEORY:
+		// 	return {
+		// 		...state,
+		// 		nameInput: action.payload.nameInput,
+		// 		category: action.payload.category
+		// 	};
 		default:
 			return state;
 	}

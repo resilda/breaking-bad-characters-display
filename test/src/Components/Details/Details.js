@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { fetchCharactersID } from '../../Redux/data/dataActions';
-//import NavBar from '../Layout/Navbar';
 import Comments from './Comments';
 import '../style.css';
 
