@@ -65,7 +65,7 @@ function Characters() {
 				>
 					<Table className={classes.table}>
 						<TableHead>
-							<HeaderCharacters />
+							<HeaderCharacters info={info}/>
 						</TableHead>
 						{info.map((detail) => (
 							<TableBody key={detail.char_id}>
@@ -73,7 +73,7 @@ function Characters() {
 							</TableBody>
 						))}
 						<TableFooter>
-							<Pagination info={info} />
+							<Pagination />
 						</TableFooter>
 					</Table>
 				</Paper>

@@ -4,15 +4,6 @@ import 'firebase/firestore';
 
 // Your web app's Firebase configuration
 
-// var firebaseConfig = {
-// 	apiKey: 'AIzaSyA8FW4GHHpxXjPEUTASFLUOnHZSvwCZE1o',
-// 	authDomain: 'movie-box-4a7ce.firebaseapp.com',
-// 	projectId: 'movie-box-4a7ce',
-// 	storageBucket: 'movie-box-4a7ce.appspot.com',
-// 	messagingSenderId: '850952764763',
-// 	appId: '1:850952764763:web:ac2b3d471d85792145ae7e'
-// };
-
 var firebaseConfig = {
 	apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
 	authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,

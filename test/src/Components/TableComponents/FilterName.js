@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchData, setName } from '../../Redux/data/dataActions';
 //import FilterNameCategory from './FilterNameCategory';
-import { TextField, Button } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import SearchIcon from '@material-ui/icons/Search';
 import '../style.css';
 
 function FilterName() {
@@ -45,16 +46,17 @@ function FilterName() {
 					placeholder={'Search name'}
 					variant="outlined"
 				/>
-				<Button 
+				<SearchIcon 
+					className="buttons"
 					onClick={(event) => handleSubmitName(event)}
 					variant="contained"
 					color="primary"
 					style={{
-						margin: '19px 19px',
-						width: '90px',
+						marginTop: '5px',
+						width: '50px',
 						height: '30px',
 					}}
-				>Search</Button>
+				/>
 				{/* <FilterNameCategory nameInput={nameInput}/> */}
 			</section>
 			{/* <section className="filter">

@@ -10,7 +10,7 @@ const getInitialState = () => {
 	const refreshToken = localStorage.getItem(REFRESH_TOKEN);
 	const user = localStorage.getItem(USER);
 
-	return { refreshToken, user };
+	return { refreshToken, user: user ? JSON.parse(user) : user };
 };
 
 function AuthProvider({ children }) {
@@ -23,7 +23,9 @@ function AuthProvider({ children }) {
 		setRefreshToken(token);
 		setUser(userData);
 		localStorage.setItem(REFRESH_TOKEN, token);
-		localStorage.setItem(USER, userData);
+		console.log('token', token);
+		console.log('user', user);
+		localStorage.setItem(USER, JSON.stringify(userData));
 	}
 
 	//remove token after logOut

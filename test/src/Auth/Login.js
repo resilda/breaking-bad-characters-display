@@ -19,8 +19,7 @@ function Login() {
 			.auth()
 			.signInWithEmailAndPassword(email, password)
 			.then(({ user }) => {
-				context.logIn(user.refreshToken);
-				context.logIn(user);
+				context.logIn(user.refreshToken, user);
 				history.push('/main');
 				console.log('user', user); 
 				console.log('user.refreshToken', user.refreshToken);

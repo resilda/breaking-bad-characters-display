@@ -2,7 +2,6 @@ import React from 'react';
 import Operations from './Operations';
 
 function Comments({ id, nickname }) {
-	console.log('characterID', id);
 	return (
 		<div>
 			<h1>

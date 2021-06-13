@@ -100,7 +100,6 @@ export function fetchData(params = {}) {
 		dispatch(fetchRequest());
 		try {
 			let response = await axios.get(`${CHARACTERS_API}/characters`, { params });
-			console.log('response', response);
 			dispatch(fetchSuccess(response.data));
 		} catch (error) {
 			const message = error.message;
@@ -115,7 +114,6 @@ export function fetchDataAll() {
 	return async function(dispatch) {
 		try {
 			let responseAll = await axios.get(`${CHARACTERS_API}/characters`);
-			console.log('responseAll', responseAll);
 			dispatch(setAllCharactersCount(responseAll.data));
 		} catch (error) {
 			console.log(error);
@@ -130,7 +128,6 @@ export function fetchCharactersID(id) {
 		dispatch(currentCharacterRequest());
 		try {
 			let responseID = await axios.get(`${CHARACTERS_API}/characters/${id}`);
-			console.log('responseID.data', responseID.data);
 			dispatch(currentCharacterSuccess(responseID.data));
 		} catch (error) {
 			const message = error.message;

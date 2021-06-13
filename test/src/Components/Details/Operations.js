@@ -1,117 +1,123 @@
 import React, { useState, useEffect, useContext } from 'react';
 import firebase from '../../Config/Firebase';
 import { AuthContext } from '../../Auth/AuthService';
+import DeleteIcon from '@material-ui/icons/Delete';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 function Operations({ characterID }) {
-	//save the character ID
-
-	//get the user's name
-	// const user = firebase.auth().currentUser;
-	// const currentUser = user.displayName;
-
-	// console.log('user', user);
-	// console.log('currentUser', currentUser);
-
 	const [ comment, setComment ] = useState('');
 	const [ comments, setComments ] = useState([]);
-	const [ timestamp ] = useState('');
+	const [ timestamp ] = useState(Date);
+
+	const database = firebase.firestore().collection('Characters').doc(`${characterID}`).collection('Comments');
 
 	function handleChange(event) {
 		setComment(event.target.value);
 	}
 
-	// const context = useContext(AuthContext);
-	// const user = context.user;
-	// const username = user.displayName;
-	// const userID = user.userID;
-	// console.log('username', username);
-	// console.log('userID', userID);
+	//get user's data
+	const context = useContext(AuthContext);
+	const user = context.user;
+	const username = user.displayName;
+	const userID = user.uid;
 
 	//get data from the firebase
 	async function getData() {
-		await firebase
-			.firestore()
-			.collection('Characters')
-			.doc(`${characterID}`)
-			.collection('Comments')
-			.get();
+		await database.orderBy('timestamp', 'desc').get();
 
-		await firebase
-			.firestore()
-			.collection('Characters')
-			.doc(`${characterID}`)
-			.collection('Comments')
-			.onSnapshot((doc) => {
-				const commentsList = doc.docs.map((item) => ({
-					...item.data()
-				}));
-				setComments(commentsList.reverse());
-			});
+		await database.onSnapshot((doc) => {
+			const commentsList = doc.docs.map((item) => ({
+				id: item.id,
+				...item.data()
+			}));
+			setComments(commentsList);
+		});
 	}
 
 	useEffect(() => {
 		getData();
-	});
+	}, []);
 
 	//create new comments
 	async function createComment() {
 		const newComment = {
+			timestamp: timestamp, //database.ServerValue.TIMESTAMP
 			body: comment,
-			timestamp: timestamp, 
 			user: {
-				displayName: 'resilda',
-				id: 'u9MacrOOe1c4gfYpF7GcbdLFiw72'
-			}, 
-			// user: {
-			// 	displayName: `${username}`,
-			// 	id: `${userID}`
-			// }
+				displayName: username,
+				id: userID
+			}
 		};
 
-		firebase
-		.firestore()
-		.collection('Characters')
-		.doc(`${characterID}`)
-		.collection('Comments')
-		.add(newComment);
-
-		setComment('')
+		//add comment to firestore
+		database.add(newComment);
+		setComment('');
 	}
 
-	async function deleteComment() {
-		// const deleteComment = await firebase.firestore()
-		// .collection('Characters')
-		// .doc(`${characterID}`)
-		// .collection('Comments').where('body','===',comment);
+	console.log('time', timestamp);
 
-		// deleteComment.delete();
-
-		//console.log('delete', deleteComment)
+	//delete comments
+	async function deleteComment(id) {
+		await database.doc(`${id}`).delete();
 	}
 
 	return (
 		<div>
+			{comments.map((comment) => {
+				const postDate = new Date();
+				return (
+					<div key={comment.id} className="comments-wrapper">
+						<h3 className="user">{comment.user.displayName}:</h3>
+						<h2 className="comment">{comment.body}</h2>
+						<div className="date-details">
+							{/* <h4>{comment.timestamp}</h4> */}
+							<h4 className="date-time">
+								{postDate.getMonth() + 1 + '.' + postDate.getDate() + '.' + postDate.getFullYear()}
+							</h4>
+						</div>
+						<DeleteIcon
+							className="buttons"
+							variant="outlined"
+							color="secondary"
+							onClick={() => {
+								deleteComment(comment.id);
+							}}
+						/>
+					</div>
+				);
+			})}
 			<form
 				onSubmit={(event) => {
 					event.preventDefault();
 					createComment();
 				}}
 			>
-				<input className="text-area" value={comment} type="text" onChange={handleChange} />
-				<button type="submit">Submit</button>
+				<TextField
+					value={comment}
+					type="text"
+					placeholder="Share your thoughts"
+					onChange={handleChange}
+					style={{
+						width: '500px',
+						height: '150px',
+						marginTop: '20px'
+					}}
+				/>
+				<Button
+					className="buttons"
+					type="submit"
+					variant="contained"
+					color="primary"
+					style={{
+						margin: '19px 20px',
+						width: '90px',
+						height: '30px'
+					}}
+				>
+					Share
+				</Button>
 			</form>
-			{comments.map((comment) => {
-				const postDate = new Date();
-				return (
-					<ul key={comment.id}>
-					<li>{comment.characterID}</li>
-					<li>{comment.user.displayName}</li>
-					<li>{comment.body}</li>
-					<li>{(postDate.getMonth() + 1) + '.' + postDate.getDate() + '.' + postDate.getFullYear()}</li>
-					<li>{postDate.getHours() + ':' + postDate.getMinutes()}</li>
-					<button onClick={(event) => {event.preventDefault(); deleteComment()}}>Delete</button>
-				</ul>)
-			})}
 		</div>
 	);
 }
