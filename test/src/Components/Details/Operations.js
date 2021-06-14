@@ -55,8 +55,6 @@ function Operations({ characterID }) {
 		setComment('');
 	}
 
-	console.log('time', timestamp);
-
 	//delete comments
 	async function deleteComment(id) {
 		await database.doc(`${id}`).delete();
@@ -65,16 +63,16 @@ function Operations({ characterID }) {
 	return (
 		<div>
 			{comments.map((comment) => {
-				const postDate = new Date();
+				//const postDate = new Date();
 				return (
 					<div key={comment.id} className="comments-wrapper">
 						<h3 className="user">{comment.user.displayName}:</h3>
 						<h2 className="comment">{comment.body}</h2>
 						<div className="date-details">
-							{/* <h4>{comment.timestamp}</h4> */}
-							<h4 className="date-time">
+							<h4 className="date-time">{timestamp}</h4>
+							{/* <h4 className="date-time">
 								{postDate.getMonth() + 1 + '.' + postDate.getDate() + '.' + postDate.getFullYear()}
-							</h4>
+							</h4> */}
 						</div>
 						<DeleteIcon
 							className="buttons"

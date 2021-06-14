@@ -126,6 +126,7 @@
 }
 
 .date-time {
+    font-size: 10px;
     padding-right: 7px;
     color: gray;
 }

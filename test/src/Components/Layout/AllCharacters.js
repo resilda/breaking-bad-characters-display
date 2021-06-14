@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Avatar from '@material-ui/core/Avatar';
+import GeneratePdf from '../GeneratePDF/GeneratePdf';
+//import DownloadPdf from '../GeneratePDF/DownloadPdf';
 import { makeStyles } from '@material-ui/core/styles';
 import '../style.css';
 
@@ -18,21 +20,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function AllCharacters({ detail }) {
-	const [ backgroundColor, setBackgoundColor ] = useState('yellow');
+	const [ backgroundColor ] = useState('white');
 	const [ isHighlighted, setIsHighlighted ] = useState(false);
+	const [ showButton, setShowButton ] = useState(false)
 
-	console.log('backgroundColor', backgroundColor);
-
-	function onChange() {
+	function onClick() {
+		setShowButton(!showButton);
 		setIsHighlighted(!isHighlighted);
 	}
-
-	function changeColor() {
-		if(onChange) {
-			setBackgoundColor(backgroundColor)
-		}
-		return backgroundColor;
-	} 
 
 	const history = useHistory();
 
@@ -47,22 +42,26 @@ function AllCharacters({ detail }) {
 			className="click"
 			key={detail.char_id}
 			value={backgroundColor}
-			onClick={() => onChange()}
+			onClick={() => onClick()}
 			onDoubleClick={() => onNavigate(detail.char_id)}
-		>
+		>			
 			<TableCell className={classes.cell}>
 				<Avatar className={classes.avatar} src={detail.img} alt={detail.name} />
 			</TableCell>
-			<TableCell className={classes.cell} 
-				// style={{ onChange ? setBackgoundColor(backgroundColor) : backgroundColor}}
-				style={{ changeColor }}
-			>
-				{detail.name}
-			</TableCell>
-			<TableCell className={classes.cell} style={{ changeColor }}>{detail.nickname}</TableCell>
+			<TableCell className={classes.cell}>{detail.name}</TableCell>
+			<TableCell className={classes.cell}>{detail.nickname}</TableCell>
 			<TableCell className={classes.cell}>{detail.category}</TableCell>
 			<TableCell className={classes.cell}>{detail.birthday}</TableCell>
 			<TableCell className={classes.cell}>{detail.status}</TableCell>
+			{showButton && isHighlighted 
+					? <TableCell style={{ backgroundColor: 'gray'}}>
+						<GeneratePdf detail={detail}/>
+						{/* <button onClick={(event) => event.target.value}>
+							<DownloadPdf />
+						</button> */}
+					  </TableCell>
+					: null 
+			}
 		</TableRow>
 	);
 }

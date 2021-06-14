@@ -6,8 +6,6 @@ import Login from './Auth/Login';
 import Characters from './Components/Layout/Characters';
 import Details from './Components/Details/Details';
 
-//in case of "Private Route", if the refreshToken exists then we pass the children as props,
-//otherwise "redirect" to "login", since we don't have premission to access the "main page"
 function PrivateRoute({ children, refreshToken, ...rest }) {
 	return (
 		<Route
@@ -27,7 +25,6 @@ function PrivateRoute({ children, refreshToken, ...rest }) {
 	);
 }
 
-//the opposite of "PrivateRoute"
 function PublicRoute({ children, refreshToken, ...rest }) {
 	return (
 		<Route
@@ -48,7 +45,6 @@ function PublicRoute({ children, refreshToken, ...rest }) {
 }
 
 function Root() {
-	//"useContext" to pass "refreshToken"
 	const context = useContext(AuthContext);
 	return (
 		<BrowserRouter>
