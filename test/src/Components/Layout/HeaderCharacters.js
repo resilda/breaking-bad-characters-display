@@ -1,7 +1,6 @@
 import React from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-//import SortName from '../TableComponents/SortName';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
@@ -19,10 +18,7 @@ function HeaderCharacters({ info }) {
 	return (
 		<TableRow>
 			<TableCell className={classes.cell}>Character</TableCell>
-			<TableCell className={classes.cell}>
-				Name
-				{/* <SortName info={info}/> */}
-			</TableCell>
+			<TableCell className={classes.cell}>Name</TableCell>
 			<TableCell className={classes.cell}>Nickname</TableCell>
 			<TableCell className={classes.cell}>Category</TableCell>
 			<TableCell className={classes.cell}>Birthday</TableCell>

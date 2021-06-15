@@ -4,7 +4,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Avatar from '@material-ui/core/Avatar';
 import GeneratePdf from '../GeneratePDF/GeneratePdf';
-//import DownloadPdf from '../GeneratePDF/DownloadPdf';
+import DownloadPdf from '../GeneratePDF/DownloadPdf';
+import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import '../style.css';
 
@@ -22,20 +23,19 @@ const useStyles = makeStyles((theme) => ({
 function AllCharacters({ detail }) {
 	const [ backgroundColor ] = useState('white');
 	const [ isHighlighted, setIsHighlighted ] = useState(false);
-	const [ showButton, setShowButton ] = useState(false)
+	const [ showButton, setShowButton ] = useState(false);
+
+	const history = useHistory();
+	const classes = useStyles();
 
 	function onClick() {
 		setShowButton(!showButton);
 		setIsHighlighted(!isHighlighted);
 	}
 
-	const history = useHistory();
-
 	function onNavigate(id) {
 		history.push(`/main/character?id=${id}`);
 	}
-
-	const classes = useStyles();
 
 	return (
 		<TableRow
@@ -44,7 +44,7 @@ function AllCharacters({ detail }) {
 			value={backgroundColor}
 			onClick={() => onClick()}
 			onDoubleClick={() => onNavigate(detail.char_id)}
-		>			
+		>		
 			<TableCell className={classes.cell}>
 				<Avatar className={classes.avatar} src={detail.img} alt={detail.name} />
 			</TableCell>
@@ -54,11 +54,21 @@ function AllCharacters({ detail }) {
 			<TableCell className={classes.cell}>{detail.birthday}</TableCell>
 			<TableCell className={classes.cell}>{detail.status}</TableCell>
 			{showButton && isHighlighted 
-					? <TableCell style={{ backgroundColor: 'gray'}}>
-						<GeneratePdf detail={detail}/>
-						{/* <button onClick={(event) => event.target.value}>
-							<DownloadPdf />
-						</button> */}
+					? <TableCell style={{ backgroundColor: '#ffffed'}}>
+						<Button 
+							onClick={(event) => event.target.value} 
+							variant="contained"
+							color="default"
+							style={{
+								margin: '19px 20px',
+								width: '90px',
+								height: '30px', 
+								fontSize: '10px',
+								color: 'white'
+							}}
+						>
+							<DownloadPdf detail={detail} renderComponent={<GeneratePdf detail={detail}/>} />
+						</Button>
 					  </TableCell>
 					: null 
 			}
