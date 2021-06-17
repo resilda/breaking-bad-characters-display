@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchData } from '../../Redux/data/dataActions';
 import Paper from '@material-ui/core/Paper';
@@ -14,6 +14,7 @@ import FilterName from '../TableComponents/FilterName';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import '../style.css';
+import FilterCategory from '../TableComponents/FilterCategory';
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -26,6 +27,11 @@ const useStyles = makeStyles(() => ({
 }));
 
 function Characters() {
+	const [ order, setOrder ] = useState('asc');
+	const [ orderBy, setOrderBy ] = useState('name');
+
+	const [ filterCategory, setFilterCategory ] = useState('');
+
 	const loading = useSelector((state) => state.data.loading);
 	const error = useSelector((state) => state.data.error);
 	const info = useSelector((state) => state.data.info);
@@ -41,6 +47,52 @@ function Characters() {
 		[ dispatch, limitPerPage ]
 	);
 
+	//SORT
+
+	function ascendingComparator(a, b, orderBy) {
+		if (b[orderBy] < a[orderBy]) {
+			return 1;
+		}
+		if (b[orderBy] > a[orderBy]) {
+			return -1;
+		}
+		return 0;
+	}
+
+	function descendingComparator(a, b, orderBy) {
+		if (b[orderBy] < a[orderBy]) {
+			return -1;
+		}
+		if (b[orderBy] > a[orderBy]) {
+			return 1;
+		}
+		return 0;
+	}
+
+	function sortTableByOrder(list) {
+		const newTableList = [ ...list ];
+		newTableList.sort((a, b) => {
+			if (order === 'asc') {
+				return ascendingComparator(a, b, orderBy);
+			}
+			return descendingComparator(a, b, orderBy);
+		});
+		return newTableList;
+	}
+
+	function filterTableByCategory() {
+		if (!filterCategory) {
+			return info;
+		}
+		const newTableList = [ ...info ].filter((item) => {
+			return item.category.toLowerCase().includes(filterCategory.toLowerCase());
+		});
+		return newTableList;
+	}
+
+	const filteredList = filterTableByCategory();
+	const tableList = sortTableByOrder(filteredList);
+
 	const classes = useStyles();
 
 	return (
@@ -48,6 +100,7 @@ function Characters() {
 			<NavBar />
 			<div>
 				<FilterName />
+				<FilterCategory setFilterCategory={setFilterCategory} />
 			</div>
 			<div className="table-wrapper">
 				{loading && <CircularProgress />}
@@ -65,9 +118,15 @@ function Characters() {
 				>
 					<Table className={classes.table}>
 						<TableHead>
-							<HeaderCharacters info={info}/>
+							<HeaderCharacters
+								info={info}
+								order={order}
+								orderBy={orderBy}
+								setOrder={setOrder}
+								setOrderBy={setOrderBy}
+							/>
 						</TableHead>
-						{info.map((detail) => (
+						{tableList.map((detail) => (
 							<TableBody key={detail.char_id}>
 								<AllCharacters detail={detail} />
 							</TableBody>

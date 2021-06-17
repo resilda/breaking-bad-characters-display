@@ -1,6 +1,7 @@
 import React from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
@@ -12,18 +13,50 @@ const useStyles = makeStyles(() => ({
 	}
 }));
 
-function HeaderCharacters({ info }) {
+const headerCells = [
+	{ id: 'character', label: 'Character', canSort: false },
+	{ id: 'name', label: 'Name', canSort: true },
+	{ id: 'nickname', label: 'Nickname', canSort: true },
+	{ id: 'category', label: 'Category', canSort: true },
+	{ id: 'birthday', label: 'Birthday', canSort: true },
+	{ id: 'status', label: 'Status', canSort: true },
+	{ id: 'pdf', label: '', canSort: false }
+];
+
+function HeaderCharacters({ info, order, orderBy, setOrder, setOrderBy }) {
+	function handleRequestSort(cellID) {
+		const isAsc = orderBy === cellID && order === 'asc';
+		const newOrder = isAsc ? 'desc' : 'asc';
+		setOrder(newOrder);
+		setOrderBy(cellID); //refering the column we want the elements to be sorted
+	}
+
 	const classes = useStyles();
 
 	return (
 		<TableRow>
-			<TableCell className={classes.cell}>Character</TableCell>
-			<TableCell className={classes.cell}>Name</TableCell>
-			<TableCell className={classes.cell}>Nickname</TableCell>
-			<TableCell className={classes.cell}>Category</TableCell>
-			<TableCell className={classes.cell}>Birthday</TableCell>
-			<TableCell className={classes.cell}>Status</TableCell>
-			<TableCell></TableCell>
+			{headerCells.map(
+				(cell) =>
+					cell.canSort ? (
+						<TableCell
+							key={cell.id}
+							className={classes.cell}
+							sortDirection={orderBy === cell.id ? order : false}
+						>
+							<TableSortLabel
+								active={orderBy === cell.id}
+								direction={orderBy === cell.id ? order : 'asc'}
+								onClick={() => handleRequestSort(cell.id)}
+							>
+								{cell.label}
+							</TableSortLabel>
+						</TableCell>
+					) : (
+						<TableCell key={cell.id} className={classes.cell}>
+							{cell.label}
+						</TableCell>
+					)
+			)}
 		</TableRow>
 	);
 }

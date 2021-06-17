@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	avatar: {
 		width: theme.spacing(8),
-    	height: theme.spacing(10),
+		height: theme.spacing(10)
 	}
 }));
 
@@ -44,7 +44,8 @@ function AllCharacters({ detail }) {
 			value={backgroundColor}
 			onClick={() => onClick()}
 			onDoubleClick={() => onNavigate(detail.char_id)}
-		>		
+			style={isHighlighted ? { backgroundColor: '#ffffed' } : {}}
+		>
 			<TableCell className={classes.cell}>
 				<Avatar className={classes.avatar} src={detail.img} alt={detail.name} />
 			</TableCell>
@@ -53,25 +54,24 @@ function AllCharacters({ detail }) {
 			<TableCell className={classes.cell}>{detail.category}</TableCell>
 			<TableCell className={classes.cell}>{detail.birthday}</TableCell>
 			<TableCell className={classes.cell}>{detail.status}</TableCell>
-			{showButton && isHighlighted 
-					? <TableCell style={{ backgroundColor: '#ffffed'}}>
-						<Button 
-							onClick={(event) => event.target.value} 
-							variant="contained"
-							color="default"
-							style={{
-								margin: '19px 20px',
-								width: '90px',
-								height: '30px', 
-								fontSize: '10px',
-								color: 'white'
-							}}
-						>
-							<DownloadPdf detail={detail} renderComponent={<GeneratePdf detail={detail}/>} />
-						</Button>
-					  </TableCell>
-					: null 
-			}
+			{showButton ? (
+				<TableCell>
+					<Button
+						onClick={(event) => event.target.value}
+						variant="contained"
+						color="default"
+						style={{
+							margin: '19px 20px',
+							width: '90px',
+							height: '30px',
+							fontSize: '10px',
+							color: 'white'
+						}}
+					>
+						<DownloadPdf detail={detail} renderComponent={<GeneratePdf detail={detail} />} />
+					</Button>
+				</TableCell>
+			) : null}
 		</TableRow>
 	);
 }

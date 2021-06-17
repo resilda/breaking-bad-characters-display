@@ -1,38 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchDataAll } from '../../Redux/data/dataActions';
 import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
 
-function FilterCategory() {
+function FilterCategory({ setFilterCategory }) {
+	const totalCount = useSelector((state) => state.data.totalCount);
 
-    const totalCount = useSelector((state) => state.data.totalCount);
+	const [ inputCategory, setInputCategory ] = useState('');
+	const [ filter, setFilter ] = useState({});
 
-    const [ inputCategory, setInputCategory ] = useState('')
+	const dispatch = useDispatch();
 
-    const dispatch = useDispatch();
+	function getInput(event) {
+		setInputCategory(event.target.value);
+	}
 
-    useEffect(() => {
-        dispatch(fetchDataAll())
-    }, [dispatch])
+	// const category = totalCount.map((element) => {
+	//     return element.category;
+	// })
 
-    function getInput(event) {
-        setInputCategory(event.target.value);
-    }
+	// function handleSubmitCategoy(inputCategory) {
+	//     return category.filter(item => item === inputCategory)
+	// }
 
-    const category = totalCount.map((element) => {
-        return element.category;
-    })
+	function handleSubmitCategoy(event) {}
 
-    function handleSubmitCategoy(inputCategory) {
-        return category.filter(item => item === inputCategory)
-    }
+	console.log('filter', handleSubmitCategoy);
 
-    console.log('filter', handleSubmitCategoy);
-    
-    return (
-        <div>
-            <section className="filter">
+	return (
+		<div>
+			<section className="filter">
 				<TextField
 					className="input"
 					value={inputCategory}
@@ -40,20 +37,20 @@ function FilterCategory() {
 					placeholder={'Search name'}
 					variant="outlined"
 				/>
-				<SearchIcon 
+				<SearchIcon
 					className="buttons"
-					onClick={(inputCategory) => handleSubmitCategoy(inputCategory)}
+					onClick={() => setFilterCategory(inputCategory)}
 					variant="contained"
 					color="primary"
 					style={{
 						margin: '12px',
 						width: '50px',
-						height: '30px',
+						height: '30px'
 					}}
 				/>
 			</section>
-        </div>
-    )
+		</div>
+	);
 }
 
 export default FilterCategory;

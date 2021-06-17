@@ -8,7 +8,6 @@ import Button from '@material-ui/core/Button';
 function Operations({ characterID }) {
 	const [ comment, setComment ] = useState('');
 	const [ commentsList, setCommentsList ] = useState([]);
-	const [ createdAt ] = useState(Date);
 
 	const database = firebase.firestore().collection('Characters').doc(`${characterID}`).collection('Comments');
 
@@ -24,9 +23,8 @@ function Operations({ characterID }) {
 
 	//get data from the firebase
 	async function getData() {
-		await database.orderBy('timestamp', 'desc').get();
-
-		await database.onSnapshot((doc) => {
+		await database.orderBy('createdAt', 'asc').onSnapshot((doc) => {
+			console.log('doc', doc.docs);
 			const commentsList = doc.docs.map((item) => ({
 				id: item.id,
 				...item.data()
@@ -41,8 +39,10 @@ function Operations({ characterID }) {
 
 	//create new comments
 	async function createComment() {
+		const createdAt = new Date().getTime();
+		console.log('createdAt', createdAt);
 		const newComment = {
-			createdAt: createdAt, //database.ServerValue.TIMESTAMP
+			createdAt,
 			body: comment,
 			user: {
 				displayName: username,
@@ -63,16 +63,16 @@ function Operations({ characterID }) {
 	return (
 		<div>
 			{commentsList.map((comment) => {
-				//const postDate = new Date(comment.createdAt);
+				const postDate = new Date(comment.createdAt);
 				return (
 					<div key={comment.id} className="comments-wrapper">
 						<h3 className="user">{comment.user.displayName}:</h3>
 						<h2 className="comment">{comment.body}</h2>
 						<div className="date-details">
-							<h4 className="date-time">{createdAt}</h4>
-							{/* <h4 className="date-time">
+							{/* <h4 className="date-time">{createdAt}</h4> */}
+							<h4 className="date-time">
 								{postDate.getMonth() + 1 + '.' + postDate.getDate() + '.' + postDate.getFullYear()}
-							</h4> */}
+							</h4>
 						</div>
 						<DeleteIcon
 							className="buttons"
