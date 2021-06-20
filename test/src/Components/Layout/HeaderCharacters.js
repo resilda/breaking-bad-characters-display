@@ -23,7 +23,7 @@ const headerCells = [
 	{ id: 'pdf', label: '', canSort: false }
 ];
 
-function HeaderCharacters({ info, order, orderBy, setOrder, setOrderBy }) {
+function HeaderCharacters({ order, orderBy, setOrder, setOrderBy }) {
 	function handleRequestSort(cellID) {
 		const isAsc = orderBy === cellID && order === 'asc';
 		const newOrder = isAsc ? 'desc' : 'asc';

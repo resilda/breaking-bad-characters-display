@@ -73,6 +73,9 @@ function Operations({ characterID }) {
 							<h4 className="date-time">
 								{postDate.getMonth() + 1 + '.' + postDate.getDate() + '.' + postDate.getFullYear()}
 							</h4>
+							<h4 className="date-time">
+								{postDate.getHours() + ':' + postDate.getMinutes() + ':' + postDate.getSeconds()}
+							</h4>
 						</div>
 						<DeleteIcon
 							className="buttons"

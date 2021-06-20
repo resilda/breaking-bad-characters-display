@@ -1,34 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(() => ({
+	root: {
+		width: 1350,
+		marginBottom: 70,
+		boxShadow: '7px 9px #f7efef',
+		color: 'rgba(247, 240, 240, 0.925)',
+		borderRadius: '7px'
+	}
+}));
 
 function FilterCategory({ setFilterCategory }) {
-	const totalCount = useSelector((state) => state.data.totalCount);
-
 	const [ inputCategory, setInputCategory ] = useState('');
-	const [ filter, setFilter ] = useState({});
-
-	const dispatch = useDispatch();
 
 	function getInput(event) {
 		setInputCategory(event.target.value);
 	}
 
-	// const category = totalCount.map((element) => {
-	//     return element.category;
-	// })
-
-	// function handleSubmitCategoy(inputCategory) {
-	//     return category.filter(item => item === inputCategory)
-	// }
-
-	function handleSubmitCategoy(event) {}
-
-	console.log('filter', handleSubmitCategoy);
+	const classes = useStyles();
 
 	return (
-		<div>
+		<div className="filter-wrapper">
 			<section className="filter">
 				<TextField
 					className="input"

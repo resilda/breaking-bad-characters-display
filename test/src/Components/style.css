@@ -2,6 +2,10 @@
     box-sizing: border-box;
   }
 
+  body {
+    background-color: '#E8E8E8';
+  }
+
   /* NavBar.js */ 
 
 .wrapper {
@@ -135,22 +139,22 @@
     cursor: pointer;
 }
 
-/* FilterName.js */
+/* FilterName.js && FilterCategory.js */
 
 .filter-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 40px;
+    margin: 20px;
 }
 
 .filter {
     display: flex;
     flex-direction: row;
-    margin: 3px;
+    /* margin: 3px; */
 }
 
 .input {
     width: 300px;
-	height: 9px;
+	/* height: 9px; */
 }

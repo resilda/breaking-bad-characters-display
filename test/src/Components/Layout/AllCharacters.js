@@ -54,8 +54,8 @@ function AllCharacters({ detail }) {
 			<TableCell className={classes.cell}>{detail.category}</TableCell>
 			<TableCell className={classes.cell}>{detail.birthday}</TableCell>
 			<TableCell className={classes.cell}>{detail.status}</TableCell>
-			{showButton ? (
-				<TableCell>
+			<TableCell>
+				{showButton ? (
 					<Button
 						onClick={(event) => event.target.value}
 						variant="contained"
@@ -70,8 +70,8 @@ function AllCharacters({ detail }) {
 					>
 						<DownloadPdf detail={detail} renderComponent={<GeneratePdf detail={detail} />} />
 					</Button>
-				</TableCell>
-			) : null}
+				) : null}
+			</TableCell>
 		</TableRow>
 	);
 }

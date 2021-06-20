@@ -27,14 +27,26 @@ const useStyles = makeStyles(() => ({
 }));
 
 function Characters() {
-	const [ order, setOrder ] = useState('asc');
+	const [ order, setOrder ] = useState('desc');
 	const [ orderBy, setOrderBy ] = useState('name');
+	// const [ orderByBirthday, setOrderByBirthday ] = useState('birthday');
+	// const [ birthdayDate, setBirthdayDate ] = useState([]);
 
 	const [ filterCategory, setFilterCategory ] = useState('');
 
 	const loading = useSelector((state) => state.data.loading);
 	const error = useSelector((state) => state.data.error);
 	const info = useSelector((state) => state.data.info);
+
+	// const getBirthdayDate = info.map((el) => {
+	// 	return el.birthday;
+	// });
+
+	// const sortBirthday = getBirthdayDate.sort(
+	// 	(x, y) => new Date(...x.birthday.split('-').reverse()) - new Date(...y.birthday.split('-').reverse())
+	// );
+
+	//console.log('demo', getBirthdayDate);
 
 	const limitPerPage = useSelector((state) => state.data.limitPerPage);
 
@@ -95,6 +107,8 @@ function Characters() {
 
 	const classes = useStyles();
 
+	console.log('list', tableList);
+
 	return (
 		<div>
 			<NavBar />
@@ -119,7 +133,6 @@ function Characters() {
 					<Table className={classes.table}>
 						<TableHead>
 							<HeaderCharacters
-								info={info}
 								order={order}
 								orderBy={orderBy}
 								setOrder={setOrder}
