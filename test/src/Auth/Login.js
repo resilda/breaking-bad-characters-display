@@ -3,25 +3,15 @@ import firebase from '../Config/Firebase';
 import { useHistory, Link } from 'react-router-dom';
 import { AuthContext } from './AuthService';
 import Button from '@material-ui/core/Button';
-import InputLabel from '@material-ui/core/InputLabel';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
+import FilledInput from '@material-ui/core/FilledInput';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { makeStyles } from '@material-ui/core/styles';
+import './styleAuth.css'
 
 const useStyles = makeStyles({
-	root: {
-		display: 'flex',
-		alignItems: 'center',
-		flexDirection: 'column',
-		backgroundColor: '#E8E8E8'
-	},
-	header: {
-		fontFamily: 'Verndana',
-		fontSize: '50px'
-	},
 	section: {
 		height: '500px',
 		width: '650px',
@@ -30,6 +20,7 @@ const useStyles = makeStyles({
 	},
 	title: {
 		color: '#5F1F03',
+		marginTop: '33px',
 		marginBottom: '45px',
 		fontSize: '28px',
 		fontWeight: 'bold'
@@ -41,9 +32,12 @@ const useStyles = makeStyles({
 	},
 	input: {
 		width: '230px',
-		height: '45px',
-		fontSize: '12px',
-		margin: '20px'
+		height: '53px',
+		fontSize: '16px',
+		margin: '15px',
+	},
+	error: {
+		color: 'red'
 	},
 	firstButton: {
 		border: 0,
@@ -54,6 +48,7 @@ const useStyles = makeStyles({
 		width: '230px',
 		height: '40px',
 		fontSize: '14px',
+		marginTop: '10px',
 		marginBottom: '40px'
 	},
 	secondButton: {
@@ -65,14 +60,8 @@ const useStyles = makeStyles({
 		width: '120px',
 		height: '31px',
 		fontSize: '14px',
-		margin: '20px'
+		margin: '25px',
 	},
-	footer: {
-		color: 'gray',
-		fontSize: '12px',
-		fontFamily: 'Monospace',
-		marginTop: '20px'
-	}
 });
 
 function Login() {
@@ -101,8 +90,6 @@ function Login() {
 			.then(({ user }) => {
 				context.logIn(user.refreshToken, user);
 				history.push('/main');
-				console.log('user', user);
-				console.log('user.refreshToken', user.refreshToken);
 			})
 			.catch((error) => {
 				setError(error);
@@ -112,35 +99,36 @@ function Login() {
 	const classes = useStyles();
 
 	return (
-		<div className={classes.root}>
-			<h1 className={classes.header}>Movie Box Edition</h1>
+		<div className="login-wrapper">
+			<header className="header">Movie Box Edition</header>
 			<section className={classes.section}>
 				<h1 className={classes.title}>LOGIN</h1>
 				{error && (
-					<p className="error-message" style={{ color: 'red' }}>
+					<p className={classes.error}>
 						{error.message}
 					</p>
 				)}
 				<form onSubmit={handleSubmit} className={classes.form}>
-					<InputLabel position="flex-start">Email</InputLabel>
-					<OutlinedInput
+					<FilledInput
 						id="email"
+						label="Email"
+						defaultValue="Email"
 						value={email}
+						placeholder="Email"
 						type="text"
 						required
-						variant="outlined"
 						onChange={(event) => setEmail(event.target.value)}
 						className={classes.input}
 					/>
-					<InputLabel>Password</InputLabel>
-					<OutlinedInput
+					<FilledInput
 						id="password"
+						label="Password"
+						defaultValue="Password"
 						value={password}
+						placeholder="Password"
 						required
-						variant="outlined"
 						onChange={(event) => setPassword(event.target.value)}
-						type={showPassword ? 'password' : 'text'}
-						className={classes.input}
+						type={showPassword ? 'text' : 'password'}
 						endAdornment={
 							<InputAdornment position="end">
 								<IconButton
@@ -148,10 +136,11 @@ function Login() {
 									onClick={handleShowPassword}
 									onMouseDown={handleMouseDownPassword}
 								>
-									{showPassword ? <VisibilityOff /> : <Visibility />}
+									{showPassword ? <Visibility /> :  <VisibilityOff />}
 								</IconButton>
 							</InputAdornment>
 						}
+						className={classes.input}
 					/>
 					<Button type="submit" className={classes.firstButton}>
 						Login
@@ -166,7 +155,12 @@ function Login() {
 					</Button>
 				</div>
 			</section>
-			<footer className={classes.footer}>Movie Box</footer>
+			<footer className="footer">
+				<p>
+					We care about your opinion, so we would like your contribution to our platform.
+				</p>
+				<h4>Contact us: movie_box@yahoo.com</h4>
+			</footer>
 		</div>
 	);
 }

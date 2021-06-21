@@ -2,21 +2,21 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import Avatar from '@material-ui/core/Avatar';
 import GeneratePdf from '../GeneratePDF/GeneratePdf';
 import DownloadPdf from '../GeneratePDF/DownloadPdf';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import '../style.css';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	cell: {
 		fontSize: '15px',
 		width: 300
 	},
-	avatar: {
-		width: theme.spacing(8),
-		height: theme.spacing(10)
+	image: {
+		width: '45px',
+		height: '55px',
+		border: '1px solid rebeccapurple',
 	}
 }));
 
@@ -47,7 +47,7 @@ function AllCharacters({ detail }) {
 			style={isHighlighted ? { backgroundColor: '#ffffed' } : {}}
 		>
 			<TableCell className={classes.cell}>
-				<Avatar className={classes.avatar} src={detail.img} alt={detail.name} />
+				<img className={classes.image} src={detail.img} alt={detail.name} />
 			</TableCell>
 			<TableCell className={classes.cell}>{detail.name}</TableCell>
 			<TableCell className={classes.cell}>{detail.nickname}</TableCell>

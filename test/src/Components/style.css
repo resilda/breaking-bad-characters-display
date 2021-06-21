@@ -2,10 +2,6 @@
     box-sizing: border-box;
   }
 
-  body {
-    background-color: '#E8E8E8';
-  }
-
   /* NavBar.js */ 
 
 .wrapper {
@@ -18,13 +14,36 @@
 }
 
 .title {
-    color: rebeccapurple;
+    color: #5c1f05;
 	font-size: 28px;
 	margin-left: 15px;
 }
 
+ /* Menu.js  */
+
+ .side-menu { 
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+/* @media screen and (max-height: 450px) {
+    .sidebar-menu {padding-top: 15px;}
+    .sidebar-menu {font-size: 18px;}
+  } */
 
   /* Characters.js */ 
+
+/* .main-wrapper {
+    background-color: rgb(248, 252, 248);
+} */
 
 .table-wrapper {
     display: flex;
@@ -34,11 +53,6 @@
 }
 
 /* AllCharacters.js */
-
-.img {
-    border: 1px solid rebeccapurple;
-    border-radius: 20px;
-}
 
 .click {
     cursor: pointer;
@@ -137,24 +151,4 @@
 
 .buttons {
     cursor: pointer;
-}
-
-/* FilterName.js && FilterCategory.js */
-
-.filter-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px;
-}
-
-.filter {
-    display: flex;
-    flex-direction: row;
-    /* margin: 3px; */
-}
-
-.input {
-    width: 300px;
-	/* height: 9px; */
 }

@@ -5,24 +5,28 @@ import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import NavBar from './Navbar';
+//import Menu from './Menu';
 import HeaderCharacters from './HeaderCharacters';
 import TableBody from '@material-ui/core/TableBody';
 import TableFooter from '@material-ui/core/TableFooter';
 import AllCharacters from './AllCharacters';
 import Pagination from '../TableComponents/Pagination';
-import FilterName from '../TableComponents/FilterName';
+import FilterTable from '../TableComponents/FilterTable';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import '../style.css';
-import FilterCategory from '../TableComponents/FilterCategory';
 
 const useStyles = makeStyles(() => ({
 	root: {
-		width: 1350,
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'space-around',
+		alignItems: 'center',
+		width: 1400,
 		marginBottom: 70,
 		boxShadow: '7px 9px #f7efef',
 		color: 'rgba(247, 240, 240, 0.925)',
-		borderRadius: '7px'
+		borderRadius: '7px',
 	}
 }));
 
@@ -33,10 +37,13 @@ function Characters() {
 	// const [ birthdayDate, setBirthdayDate ] = useState([]);
 
 	const [ filterCategory, setFilterCategory ] = useState('');
+	//const [ filterDate, setFilterDate ] = useState('');
 
 	const loading = useSelector((state) => state.data.loading);
 	const error = useSelector((state) => state.data.error);
 	const info = useSelector((state) => state.data.info);
+
+	const limitPerPage = useSelector((state) => state.data.limitPerPage);
 
 	// const getBirthdayDate = info.map((el) => {
 	// 	return el.birthday;
@@ -48,8 +55,6 @@ function Characters() {
 
 	//console.log('demo', getBirthdayDate);
 
-	const limitPerPage = useSelector((state) => state.data.limitPerPage);
-
 	const dispatch = useDispatch();
 
 	useEffect(
@@ -59,7 +64,7 @@ function Characters() {
 		[ dispatch, limitPerPage ]
 	);
 
-	//SORT
+	//SORT TABLE
 
 	function ascendingComparator(a, b, orderBy) {
 		if (b[orderBy] < a[orderBy]) {
@@ -92,6 +97,8 @@ function Characters() {
 		return newTableList;
 	}
 
+	//FILTER CATEGORY
+
 	function filterTableByCategory() {
 		if (!filterCategory) {
 			return info;
@@ -107,29 +114,19 @@ function Characters() {
 
 	const classes = useStyles();
 
-	console.log('list', tableList);
-
 	return (
-		<div>
+		<div className="main-wrapper">
 			<NavBar />
+			{/* <Menu /> */}
 			<div>
-				<FilterName />
-				<FilterCategory setFilterCategory={setFilterCategory} />
+				<FilterTable setFilterCategory={setFilterCategory}  />
 			</div>
 			<div className="table-wrapper">
 				{loading && <CircularProgress />}
 
 				{error && <div>{error} </div>}
 
-				<Paper
-					className={classes.root}
-					style={{
-						display: 'flex',
-						flexDirection: 'column',
-						justifyContent: 'space-around',
-						alignItems: 'center'
-					}}
-				>
+				<Paper className={classes.root}>
 					<Table className={classes.table}>
 						<TableHead>
 							<HeaderCharacters

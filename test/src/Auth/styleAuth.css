@@ -1,12 +1,29 @@
 * {
     box-sizing: border-box;
-    background-color: '#E8E8E8'
   }
 
-/* body {
-    background-color: '#E8E8E8'
-} */
-
-.wrapper-auth {
-    background-color: '#E8E8E8'
+.login-wrapper {
+    display: flex;
+	align-items: center;
+    justify-content: space-between;
+	flex-direction: column;
+    background-color: rgb(248, 252, 248);
+    /* background-color: linear-gradient(#f8fcf8, white); */
 }
+
+.header {
+    font-size: 40px;
+    font-family: 'Indie Flower', cursive;    
+    color: #5c1f05;
+    font-weight: 200;    
+    margin-top: 55px;
+    margin-bottom: 100px;
+}
+
+.footer {
+    color: gray;
+	font-size: 14px;
+	font-family: 'monospace';
+	margin-top: 120px;
+}
+
