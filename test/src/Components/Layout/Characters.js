@@ -26,13 +26,14 @@ const useStyles = makeStyles(() => ({
 		marginBottom: 70,
 		boxShadow: '7px 9px #f7efef',
 		color: 'rgba(247, 240, 240, 0.925)',
-		borderRadius: '7px',
+		borderRadius: '7px'
 	}
 }));
 
 function Characters() {
 	const [ order, setOrder ] = useState('desc');
 	const [ orderBy, setOrderBy ] = useState('name');
+	const [ selected, setSelected ] = useState(null);
 	// const [ orderByBirthday, setOrderByBirthday ] = useState('birthday');
 	// const [ birthdayDate, setBirthdayDate ] = useState([]);
 
@@ -119,7 +120,7 @@ function Characters() {
 			<NavBar />
 			{/* <Menu /> */}
 			<div>
-				<FilterTable setFilterCategory={setFilterCategory}  />
+				<FilterTable setFilterCategory={setFilterCategory} />
 			</div>
 			<div className="table-wrapper">
 				{loading && <CircularProgress />}
@@ -138,7 +139,7 @@ function Characters() {
 						</TableHead>
 						{tableList.map((detail) => (
 							<TableBody key={detail.char_id}>
-								<AllCharacters detail={detail} />
+								<AllCharacters detail={detail} selected={selected} setSelected={setSelected} />
 							</TableBody>
 						))}
 						<TableFooter>

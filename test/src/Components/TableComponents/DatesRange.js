@@ -18,7 +18,13 @@ function DatesRange() {
 				onChange={(item) => setSelectDate([ item.selection ])}
 				moveRangeOnFirstSelection={false}
 				ranges={selectDate}
+				startDate={selectDate.startDate}
+				endDate={selectDate.endDate}
 			/>
+			<p>
+				{selectDate.startDate}
+				{selectDate.endDate}
+			</p>
 		</div>
 	);
 }

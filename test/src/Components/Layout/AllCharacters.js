@@ -16,13 +16,12 @@ const useStyles = makeStyles(() => ({
 	image: {
 		width: '45px',
 		height: '55px',
-		border: '1px solid rebeccapurple',
+		border: '1px solid rebeccapurple'
 	}
 }));
 
-function AllCharacters({ detail }) {
+function AllCharacters({ detail, selected, setSelected }) {
 	const [ backgroundColor ] = useState('white');
-	const [ isHighlighted, setIsHighlighted ] = useState(false);
 	const [ showButton, setShowButton ] = useState(false);
 
 	const history = useHistory();
@@ -30,7 +29,7 @@ function AllCharacters({ detail }) {
 
 	function onClick() {
 		setShowButton(!showButton);
-		setIsHighlighted(!isHighlighted);
+		setSelected(detail.char_id);
 	}
 
 	function onNavigate(id) {
@@ -44,7 +43,7 @@ function AllCharacters({ detail }) {
 			value={backgroundColor}
 			onClick={() => onClick()}
 			onDoubleClick={() => onNavigate(detail.char_id)}
-			style={isHighlighted ? { backgroundColor: '#ffffed' } : {}}
+			style={selected === detail.char_id ? { backgroundColor: '#ffffed' } : {}}
 		>
 			<TableCell className={classes.cell}>
 				<img className={classes.image} src={detail.img} alt={detail.name} />
