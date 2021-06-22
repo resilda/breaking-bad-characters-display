@@ -1,9 +1,32 @@
 import React, { useState, useEffect, useContext } from 'react';
 import firebase from '../../Config/Firebase';
 import { AuthContext } from '../../Auth/AuthService';
-import DeleteIcon from '@material-ui/icons/Delete';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+	root: {
+	  minWidth: 275,
+	},
+	bullet: {
+	  display: 'inline-block',
+	  margin: '0 2px',
+	  transform: 'scale(0.8)',
+	},
+	title: {
+	  fontSize: 14,
+	},
+	pos: {
+	  marginBottom: 12,
+	},
+  });
+  
 
 function Operations({ characterID }) {
 	const [ comment, setComment ] = useState('');
@@ -60,32 +83,36 @@ function Operations({ characterID }) {
 		await database.doc(`${id}`).delete();
 	}
 
+	const classes = useStyles();
+
 	return (
-		<div>
+		<Card className={classes.root}>
 			{commentsList.map((comment) => {
 				const postDate = new Date(comment.createdAt);
 				return (
-					<div key={comment.id} className="comments-wrapper">
-						<h3 className="user">{comment.user.displayName}:</h3>
-						<h2 className="comment">{comment.body}</h2>
-						<div className="date-details">
+					<CardContent key={comment.id} className="comments-wrapper">
+						<Typography  className={classes.title}>{comment.user.displayName}:</Typography>
+						<Typography className="comment">{comment.body}</Typography>
+						<CardContent className="date-details">
 							{/* <h4 className="date-time">{createdAt}</h4> */}
-							<h4 className="date-time">
+							<Typography className="date-time">
 								{postDate.getMonth() + 1 + '.' + postDate.getDate() + '.' + postDate.getFullYear()}
-							</h4>
-							<h4 className="date-time">
+							</Typography>
+							<Typography className="date-time">
 								{postDate.getHours() + ':' + postDate.getMinutes() + ':' + postDate.getSeconds()}
-							</h4>
-						</div>
-						<DeleteIcon
-							className="buttons"
-							variant="outlined"
-							color="secondary"
-							onClick={() => {
-								deleteComment(comment.id);
-							}}
-						/>
-					</div>
+							</Typography>
+						</CardContent>
+						<CardActions>
+							<DeleteIcon
+								className="buttons"
+								variant="outlined"
+								color="secondary"
+								onClick={() => {
+									deleteComment(comment.id);
+								}}
+							/>
+						</CardActions>
+					</CardContent>
 				);
 			})}
 			<form
@@ -119,7 +146,7 @@ function Operations({ characterID }) {
 					Share
 				</Button>
 			</form>
-		</div>
+		</Card>
 	);
 }
 

@@ -16,12 +16,13 @@ const useStyles = makeStyles(() => ({
 	image: {
 		width: '45px',
 		height: '55px',
-		border: '1px solid rebeccapurple'
+		border: '1px solid #377867'
 	}
 }));
 
 function AllCharacters({ detail, selected, setSelected }) {
 	const [ backgroundColor ] = useState('white');
+	const [ isHighlighted, setIsHighlighted ] = useState(false);
 	const [ showButton, setShowButton ] = useState(false);
 
 	const history = useHistory();
@@ -29,6 +30,7 @@ function AllCharacters({ detail, selected, setSelected }) {
 
 	function onClick() {
 		setShowButton(!showButton);
+		setIsHighlighted(!isHighlighted);
 		setSelected(detail.char_id);
 	}
 
@@ -43,7 +45,7 @@ function AllCharacters({ detail, selected, setSelected }) {
 			value={backgroundColor}
 			onClick={() => onClick()}
 			onDoubleClick={() => onNavigate(detail.char_id)}
-			style={selected === detail.char_id ? { backgroundColor: '#ffffed' } : {}}
+			style={selected === detail.char_id && isHighlighted ? { backgroundColor: '#ffffed' } : {}}
 		>
 			<TableCell className={classes.cell}>
 				<img className={classes.image} src={detail.img} alt={detail.name} />
@@ -52,9 +54,9 @@ function AllCharacters({ detail, selected, setSelected }) {
 			<TableCell className={classes.cell}>{detail.nickname}</TableCell>
 			<TableCell className={classes.cell}>{detail.category}</TableCell>
 			<TableCell className={classes.cell}>{detail.birthday}</TableCell>
-			<TableCell className={classes.cell}>{detail.status}</TableCell>
+			<TableCell className={classes.cell}>{detail.status}</TableCell> 
 			<TableCell>
-				{showButton ? (
+				{showButton && selected === detail.char_id ? (
 					<Button
 						onClick={(event) => event.target.value}
 						variant="contained"

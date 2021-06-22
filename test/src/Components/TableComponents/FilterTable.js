@@ -1,35 +1,29 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchData, setName } from '../../Redux/data/dataActions';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import DatesRange from './DatesRange';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import SearchIcon from '@material-ui/icons/Search';
+//import DatesRange from './DatesRange';
 import { makeStyles } from '@material-ui/core/styles';
 import '../style.css';
 
 const useStyles = makeStyles(() => ({
 	filter: {
 		display: 'flex',
-		flexDirection: 'column',
-		justifyContent: 'space-between',
-		alignItems: 'center',
-		padding: '20px'
+		flexDirection: 'row',
+		padding: '15px',
 	},
 	input: {
-		width: '350px',
-		padding: '10px'
+		width: '230px',
+		height: '33px',
+		margin: '10px'
 	},
-	button: {
-		border: 0,
-		background: 'linear-gradient(45deg, #6DAAAD 20%, #74C9B2 80%)',
-		borderRadius: 3,
-		boxShadow: '0 2px 3px 2px #6DAAAD',
-		color: 'white',
+	searchIcon: {
+		color: '#377867',
 		width: '120px',
-		height: '30px',
-		fontSize: '14px',
+		height: '33px',
 		marginTop: '10px',
-		marginBottom: '40px'
+		marginBottom: '10px'
 	}
 }));
 
@@ -38,9 +32,7 @@ function FilterTable({ setFilterCategory }) {
 
 	const [ inputName, setInputName ] = useState(nameInput);
 	const [ inputCategory, setInputCategory ] = useState('');
-	const [ inputStartDate, setInputStartDate ] = useState('');
-	const [ inputEndDate, setInputEndDate ] = useState('');
-
+	
 	const dispatch = useDispatch();
 
 	function handleSubmit(event) {
@@ -54,25 +46,21 @@ function FilterTable({ setFilterCategory }) {
 	return (
 		<div>
 			<section className={classes.filter}>
-				<TextField
+				<OutlinedInput
 					className={classes.input}
 					value={inputName}
 					onChange={(event) => setInputName(event.target.value)}
 					placeholder={'Search name'}
-					variant="standard"
 				/>
-				<TextField
+				<OutlinedInput
 					className={classes.input}
 					value={inputCategory}
 					onChange={(event) => setInputCategory(event.target.value)}
 					placeholder={'Search category'}
-					variant="standard"
 				/>
-				<Button className={classes.button} onClick={(event) => handleSubmit(event)}>
-					Search
-				</Button>
+				<SearchIcon className={classes.searchIcon} onClick={(event) => handleSubmit(event)} />
 			</section>
-			<DatesRange />
+			{/* <DatesRange /> */}
 		</div>
 	);
 }

@@ -8,7 +8,7 @@ const useStyles = makeStyles(() => ({
 	cell: {
 		fontSize: '16px',
 		fontWeight: 'bold',
-		color: '#5c1f05',
+		color: '#5F1F04',
 		width: 300
 	}
 }));

@@ -16,12 +16,11 @@ const useStyles = makeStyles({
 		height: '500px',
 		width: '650px',
 		backgroundColor: 'white',
-		boxShadow: '2px 3px 3px 0.5px #F9ECCE'
+		boxShadow: '2px 3px 3px 0.5px #F9ECCF'
 	},
 	title: {
-		color: '#5F1F03',
-		marginTop: '33px',
-		marginBottom: '45px',
+		color: 'linear-gradient(#A4522C, #CA7A55)',
+		marginTop: '43px',
 		fontSize: '28px',
 		fontWeight: 'bold'
 	},
@@ -32,7 +31,7 @@ const useStyles = makeStyles({
 	},
 	input: {
 		width: '230px',
-		height: '53px',
+		height: '52px',
 		fontSize: '16px',
 		margin: '15px',
 	},
@@ -41,9 +40,9 @@ const useStyles = makeStyles({
 	},
 	firstButton: {
 		border: 0,
-		background: 'linear-gradient(45deg, #6DAAAD 20%, #74C9B2 80%)',
+		background: 'linear-gradient(45deg, #5C888B 20%, #71A8A1 80%)',
 		borderRadius: 3,
-		boxShadow: '0 2px 3px 2px #6DAAAD',
+		boxShadow: '0 2px 3px 2px #8ABAAC',
 		color: 'white',
 		width: '230px',
 		height: '40px',
@@ -53,15 +52,18 @@ const useStyles = makeStyles({
 	},
 	secondButton: {
 		border: 0,
-		background: 'linear-gradient(45deg, #74C9B2 20%, #6DAAAD 80%)',
+		background: 'linear-gradient(45deg, #5C888B 20%, #71A8A1 80%)',
 		borderRadius: 3,
-		boxShadow: '0 2px 3px 2px #6DAAAD',
-		color: 'white',
+		boxShadow: '0 2px 3px 2px #8ABAAC',
 		width: '120px',
 		height: '31px',
 		fontSize: '14px',
 		margin: '25px',
 	},
+	link: {
+		color: 'white', 
+		textDecoration: 'none'
+	}
 });
 
 function Login() {
@@ -102,7 +104,8 @@ function Login() {
 		<div className="login-wrapper">
 			<header className="header">Movie Box Edition</header>
 			<section className={classes.section}>
-				<h1 className={classes.title}>LOGIN</h1>
+				{/* <img src="https://cdn3.vectorstock.com/i/1000x1000/10/32/login-form-authentication-icon-on-white-vector-23391032.jpg" alt="auth-form"/> */}
+				<h1 className={classes.title}>Login</h1>
 				{error && (
 					<p className={classes.error}>
 						{error.message}
@@ -149,7 +152,7 @@ function Login() {
 				<div>
 					Don't have an account? {''}
 					<Button className={classes.secondButton}>
-						<Link to="/" style={{ color: 'white', textDecoration: 'none' }}>
+						<Link to="/" className={classes.link}>
 							Register
 						</Link>
 					</Button>

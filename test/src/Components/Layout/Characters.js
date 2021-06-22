@@ -5,7 +5,6 @@ import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import NavBar from './Navbar';
-//import Menu from './Menu';
 import HeaderCharacters from './HeaderCharacters';
 import TableBody from '@material-ui/core/TableBody';
 import TableFooter from '@material-ui/core/TableFooter';
@@ -117,16 +116,11 @@ function Characters() {
 
 	return (
 		<div className="main-wrapper">
-			<NavBar />
-			{/* <Menu /> */}
-			<div>
-				<FilterTable setFilterCategory={setFilterCategory} />
-			</div>
+			<NavBar setFilterCategory={setFilterCategory} />
+			<h1 className="title">Breaking Bad</h1>
 			<div className="table-wrapper">
 				{loading && <CircularProgress />}
-
 				{error && <div>{error} </div>}
-
 				<Paper className={classes.root}>
 					<Table className={classes.table}>
 						<TableHead>

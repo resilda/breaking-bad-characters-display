@@ -15,12 +15,11 @@ const useStyles = makeStyles({
 		height: '550px',
 		width: '650px',
 		backgroundColor: 'white',
-		boxShadow: '2px 3px 3px 0.5px #F9ECCE'
+		boxShadow: '2px 3px 3px 0.5px #F9ECCF'
 	},
 	title: {
-		color: '#5F1F03',
-		marginTop: '33px',
-		marginBottom: '45px',
+		color: 'linear-gradient(#A4522C, #CA7A55)',
+		marginTop: '43px',
 		fontSize: '28px',
 		fontWeight: 'bold'
 	},
@@ -40,9 +39,9 @@ const useStyles = makeStyles({
 	},
 	firstButton: {
 		border: 0,
-		background: 'linear-gradient(45deg, #6DAAAD 20%, #74C9B2 80%)',
+		background: 'linear-gradient(45deg, #5C888B 20%, #71A8A1 80%)',
 		borderRadius: 3,
-		boxShadow: '0 2px 3px 2px #6DAAAD',
+		boxShadow: '0 2px 3px 2px #8ABAAC',
 		color: 'white',
 		width: '230px',
 		height: '40px',
@@ -52,15 +51,19 @@ const useStyles = makeStyles({
 	},
 	secondButton: {
 		border: 0,
-		background: 'linear-gradient(45deg, #74C9B2 20%, #6DAAAD 80%)',
+		background: 'linear-gradient(45deg, #5C888B 20%, #71A8A1 80%)',
 		borderRadius: 3,
-		boxShadow: '0 2px 3px 2px #6DAAAD',
+		boxShadow: '0 2px 3px 2px #8ABAAC',
 		color: 'white',
 		width: '120px',
 		height: '31px',
 		fontSize: '14px',
 		margin: '20px',
 	},
+	link: {
+		color: 'white', 
+		textDecoration: 'none'
+	}
 });
 
 
@@ -109,7 +112,7 @@ function Register() {
 			<header className="header">Movie Box Edition</header>
 			<section className={classes.section}>
 				<h1 className={classes.title}>
-					REGISTER
+					Register
 				</h1>
 				{error && (
 					<p className={classes.error}>
@@ -168,7 +171,7 @@ function Register() {
 				<div>
 					Already have an account? {''}
 					<Button className={classes.secondButton}>
-						<Link to="/login" style={{ color: 'white', textDecoration: 'none' }}>
+						<Link to="/login" className={classes.link}>
 							Login
 						</Link>
 					</Button>
