@@ -8,17 +8,17 @@ import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { makeStyles } from '@material-ui/core/styles';
-import './styleAuth.css'
+import './styleAuth.css';
 
 const useStyles = makeStyles({
 	section: {
 		height: '550px',
-		width: '650px',
+		width: '620px',
 		backgroundColor: 'white',
-		boxShadow: '2px 3px 3px 0.5px #F9ECCF'
+		boxShadow: '2px 2px 2px 0.5px #F9ECCF'
 	},
 	title: {
-		color: 'linear-gradient(#A4522C, #CA7A55)',
+		color: '#4A364B',
 		marginTop: '43px',
 		fontSize: '28px',
 		fontWeight: 'bold'
@@ -58,14 +58,13 @@ const useStyles = makeStyles({
 		width: '120px',
 		height: '31px',
 		fontSize: '14px',
-		margin: '20px',
+		margin: '20px'
 	},
 	link: {
-		color: 'white', 
+		color: 'white',
 		textDecoration: 'none'
 	}
 });
-
 
 function Register() {
 	const [ email, setEmail ] = useState('');
@@ -111,14 +110,8 @@ function Register() {
 		<div className="login-wrapper">
 			<header className="header">Movie Box Edition</header>
 			<section className={classes.section}>
-				<h1 className={classes.title}>
-					Register
-				</h1>
-				{error && (
-					<p className={classes.error}>
-						{error.message}
-					</p>
-				)}
+				<h1 className={classes.title}>Register</h1>
+				{error && <p className={classes.error}>{error.message}</p>}
 				<form onSubmit={handleSubmit} className={classes.form}>
 					<FilledInput
 						id="username"
@@ -158,7 +151,7 @@ function Register() {
 									onClick={handleShowPassword}
 									onMouseDown={handleMouseDownPassword}
 								>
-									{showPassword ? <Visibility /> :  <VisibilityOff />}
+									{showPassword ? <Visibility /> : <VisibilityOff />}
 								</IconButton>
 							</InputAdornment>
 						}
@@ -178,9 +171,7 @@ function Register() {
 				</div>
 			</section>
 			<footer className="footer">
-				<p>
-					We care about your opinion, so we would like your contribution to our platform.
-				</p>
+				<p>We care about your opinion, so we would like your contribution to our platform.</p>
 				<h4>Contact us: movie_box@yahoo.com</h4>
 			</footer>
 		</div>

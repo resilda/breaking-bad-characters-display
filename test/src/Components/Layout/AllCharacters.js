@@ -10,7 +10,7 @@ import '../style.css';
 
 const useStyles = makeStyles(() => ({
 	cell: {
-		fontSize: '15px',
+		fontSize: '14.5px',
 		width: 300
 	},
 	image: {
@@ -54,10 +54,23 @@ function AllCharacters({ detail, selected, setSelected }) {
 			<TableCell className={classes.cell}>{detail.nickname}</TableCell>
 			<TableCell className={classes.cell}>{detail.category}</TableCell>
 			<TableCell className={classes.cell}>{detail.birthday}</TableCell>
-			<TableCell className={classes.cell}>{detail.status}</TableCell> 
+			<TableCell
+				className={classes.cell}
+				style={
+					detail.status === 'Alive' ? (
+						{ color: '#7AADA0', fontWeight: 'bolder' }
+					) : detail.status === 'Deceased' ? (
+						{ color: '#E1AB8B', fontWeight: 'bolder' }
+					) : (
+						{ color: '#8E80A9', fontWeight: 'bolder' }
+					)
+				}
+			>
+				{detail.status}
+			</TableCell>
 			<TableCell>
 				{showButton && selected === detail.char_id ? (
-					<Button
+					<div
 						onClick={(event) => event.target.value}
 						variant="contained"
 						color="default"
@@ -70,7 +83,7 @@ function AllCharacters({ detail, selected, setSelected }) {
 						}}
 					>
 						<DownloadPdf detail={detail} renderComponent={<GeneratePdf detail={detail} />} />
-					</Button>
+					</div>
 				) : null}
 			</TableCell>
 		</TableRow>

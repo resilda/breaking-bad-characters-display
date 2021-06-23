@@ -11,22 +11,10 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
-	root: {
-	  minWidth: 275,
-	},
-	bullet: {
-	  display: 'inline-block',
-	  margin: '0 2px',
-	  transform: 'scale(0.8)',
-	},
-	title: {
-	  fontSize: 14,
-	},
-	pos: {
-	  marginBottom: 12,
-	},
-  });
-  
+	commentsPargraph: {
+		fontSize: '20px'
+	}
+});
 
 function Operations({ characterID }) {
 	const [ comment, setComment ] = useState('');
@@ -86,67 +74,69 @@ function Operations({ characterID }) {
 	const classes = useStyles();
 
 	return (
-		<Card className={classes.root}>
-			{commentsList.map((comment) => {
-				const postDate = new Date(comment.createdAt);
-				return (
-					<CardContent key={comment.id} className="comments-wrapper">
-						<Typography  className={classes.title}>{comment.user.displayName}:</Typography>
-						<Typography className="comment">{comment.body}</Typography>
-						<CardContent className="date-details">
-							{/* <h4 className="date-time">{createdAt}</h4> */}
-							<Typography className="date-time">
-								{postDate.getMonth() + 1 + '.' + postDate.getDate() + '.' + postDate.getFullYear()}
-							</Typography>
-							<Typography className="date-time">
-								{postDate.getHours() + ':' + postDate.getMinutes() + ':' + postDate.getSeconds()}
-							</Typography>
+		<div>
+			<Typography className={classes.commentsPargraph}>Share your comments in the section below</Typography>
+			<Card className={classes.root}>
+				{commentsList.map((comment) => {
+					const postDate = new Date(comment.createdAt);
+					return (
+						<CardContent key={comment.id} className="comments-wrapper">
+							<Typography className={classes.title}>{comment.user.displayName}:</Typography>
+							<Typography className="comment">{comment.body}</Typography>
+							<CardContent className="date-details">
+								<Typography className="date-time">
+									{postDate.getMonth() + 1 + '.' + postDate.getDate() + '.' + postDate.getFullYear()}
+								</Typography>
+								<Typography className="date-time">
+									{postDate.getHours() + ':' + postDate.getMinutes() + ':' + postDate.getSeconds()}
+								</Typography>
+							</CardContent>
+							<CardActions>
+								<DeleteIcon
+									className="buttons"
+									variant="outlined"
+									color="secondary"
+									onClick={() => {
+										deleteComment(comment.id);
+									}}
+								/>
+							</CardActions>
 						</CardContent>
-						<CardActions>
-							<DeleteIcon
-								className="buttons"
-								variant="outlined"
-								color="secondary"
-								onClick={() => {
-									deleteComment(comment.id);
-								}}
-							/>
-						</CardActions>
-					</CardContent>
-				);
-			})}
-			<form
-				onSubmit={(event) => {
-					event.preventDefault();
-					createComment();
-				}}
-			>
-				<TextField
-					value={comment}
-					type="text"
-					placeholder="Share your thoughts"
-					onChange={handleChange}
-					style={{
-						width: '500px',
-						height: '150px',
-						marginTop: '20px'
-					}}
-				/>
-				<Button
-					className="buttons"
-					type="submit"
-					variant="contained"
-					color="primary"
-					style={{
-						margin: '19px 20px',
-						width: '90px',
-						height: '30px'
+					);
+				})}
+				<form
+					onSubmit={(event) => {
+						event.preventDefault();
+						createComment();
 					}}
 				>
-					Share
-				</Button>
-			</form>
-		</Card>
+					<TextField
+						value={comment}
+						type="text"
+						placeholder="Share your thoughts"
+						onChange={handleChange}
+						style={{
+							width: '500px',
+							height: '150px',
+							marginTop: '20px'
+						}}
+					/>
+					<Button
+						className="buttons"
+						type="submit"
+						variant="contained"
+						color="primary"
+						style={{
+							margin: '19px 20px',
+							width: '90px',
+							height: '30px'
+						}}
+					>
+						Share
+					</Button>
+				</form>
+			</Card>
+		</div>
 	);
 }
 

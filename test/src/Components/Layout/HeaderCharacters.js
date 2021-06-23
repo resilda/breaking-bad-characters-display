@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
 	cell: {
-		fontSize: '16px',
+		fontSize: '15px',
 		fontWeight: 'bold',
 		color: '#5F1F04',
 		width: 300

@@ -10,7 +10,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableFooter from '@material-ui/core/TableFooter';
 import AllCharacters from './AllCharacters';
 import Pagination from '../TableComponents/Pagination';
-import FilterTable from '../TableComponents/FilterTable';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import '../style.css';
@@ -21,7 +20,7 @@ const useStyles = makeStyles(() => ({
 		flexDirection: 'column',
 		justifyContent: 'space-around',
 		alignItems: 'center',
-		width: 1400,
+		width: 1200,
 		marginBottom: 70,
 		boxShadow: '7px 9px #f7efef',
 		color: 'rgba(247, 240, 240, 0.925)',
@@ -33,6 +32,15 @@ function Characters() {
 	const [ order, setOrder ] = useState('desc');
 	const [ orderBy, setOrderBy ] = useState('name');
 	const [ selected, setSelected ] = useState(null);
+	const [ selectDate, setSelectDate ] = useState([
+		{
+			startDate: new Date(),
+			endDate: null,
+			key: 'selection'
+		}
+	]);
+	const [ selectedRangeFilter, setSelectedRangeFilter ] = useState(null);
+
 	// const [ orderByBirthday, setOrderByBirthday ] = useState('birthday');
 	// const [ birthdayDate, setBirthdayDate ] = useState([]);
 
@@ -109,14 +117,40 @@ function Characters() {
 		return newTableList;
 	}
 
-	const filteredList = filterTableByCategory();
-	const tableList = sortTableByOrder(filteredList);
+	function filterSelectedBirthday(filteredList) {
+		if (!selectedRangeFilter) {
+			return filteredList;
+		}
+		const minimumDate = selectedRangeFilter[0].startDate;
+		const maximumDate = selectedRangeFilter[0].endDate;
+
+		const newTableList = [ ...filteredList ].filter((item) => {
+			const birthdayDate = new Date(item.birthday);
+			const isValidDate = isNaN(birthdayDate.getTime());
+			if (isValidDate) {
+				return false;
+			}
+			return birthdayDate.getTime() > minimumDate.getTime() && birthdayDate.getTime() < maximumDate.getTime();
+		});
+		return newTableList;
+	}
+
+	const generalFilter = filterTableByCategory();
+	const filteredBirthday = filterSelectedBirthday(generalFilter);
+	const tableList = sortTableByOrder(filteredBirthday);
 
 	const classes = useStyles();
 
 	return (
 		<div className="main-wrapper">
-			<NavBar setFilterCategory={setFilterCategory} />
+			<NavBar
+				setFilterCategory={setFilterCategory}
+				selectDate={selectDate}
+				setSelectDate={(newSelectedDate) => {
+					setSelectDate(newSelectedDate);
+					setSelectedRangeFilter(newSelectedDate);
+				}}
+			/>
 			<h1 className="title">Breaking Bad</h1>
 			<div className="table-wrapper">
 				{loading && <CircularProgress />}

@@ -9,17 +9,17 @@ import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { makeStyles } from '@material-ui/core/styles';
-import './styleAuth.css'
+import './styleAuth.css';
 
 const useStyles = makeStyles({
 	section: {
 		height: '500px',
-		width: '650px',
+		width: '600px',
 		backgroundColor: 'white',
-		boxShadow: '2px 3px 3px 0.5px #F9ECCF'
+		boxShadow: '2px 2px 2px 0.5px #F9ECCF'
 	},
 	title: {
-		color: 'linear-gradient(#A4522C, #CA7A55)',
+		color: '#4A364B',
 		marginTop: '43px',
 		fontSize: '28px',
 		fontWeight: 'bold'
@@ -33,7 +33,7 @@ const useStyles = makeStyles({
 		width: '230px',
 		height: '52px',
 		fontSize: '16px',
-		margin: '15px',
+		margin: '15px'
 	},
 	error: {
 		color: 'red'
@@ -42,7 +42,7 @@ const useStyles = makeStyles({
 		border: 0,
 		background: 'linear-gradient(45deg, #5C888B 20%, #71A8A1 80%)',
 		borderRadius: 3,
-		boxShadow: '0 2px 3px 2px #8ABAAC',
+		boxShadow: '0 1px 1px 1px #8ABAAC',
 		color: 'white',
 		width: '230px',
 		height: '40px',
@@ -58,10 +58,10 @@ const useStyles = makeStyles({
 		width: '120px',
 		height: '31px',
 		fontSize: '14px',
-		margin: '25px',
+		margin: '25px'
 	},
 	link: {
-		color: 'white', 
+		color: 'white',
 		textDecoration: 'none'
 	}
 });
@@ -106,11 +106,7 @@ function Login() {
 			<section className={classes.section}>
 				{/* <img src="https://cdn3.vectorstock.com/i/1000x1000/10/32/login-form-authentication-icon-on-white-vector-23391032.jpg" alt="auth-form"/> */}
 				<h1 className={classes.title}>Login</h1>
-				{error && (
-					<p className={classes.error}>
-						{error.message}
-					</p>
-				)}
+				{error && <p className={classes.error}>{error.message}</p>}
 				<form onSubmit={handleSubmit} className={classes.form}>
 					<FilledInput
 						id="email"
@@ -139,7 +135,7 @@ function Login() {
 									onClick={handleShowPassword}
 									onMouseDown={handleMouseDownPassword}
 								>
-									{showPassword ? <Visibility /> :  <VisibilityOff />}
+									{showPassword ? <Visibility /> : <VisibilityOff />}
 								</IconButton>
 							</InputAdornment>
 						}
@@ -159,9 +155,7 @@ function Login() {
 				</div>
 			</section>
 			<footer className="footer">
-				<p>
-					We care about your opinion, so we would like your contribution to our platform.
-				</p>
+				<p>We care about your opinion, so we would like your contribution to our platform.</p>
 				<h4>Contact us: movie_box@yahoo.com</h4>
 			</footer>
 		</div>

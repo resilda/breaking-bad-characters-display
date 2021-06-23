@@ -1,16 +1,43 @@
-import React from 'react';
-import MenuComponent from './MenuComponent';
+import React, { useState } from 'react';
 import FilterTable from '../TableComponents/FilterTable';
 import '../style.css';
+import LogoutWindow from './LogoutWindow';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { makeStyles } from '@material-ui/core/styles';
 
-function NavBar({ setFilterCategory }) {
+const useStyles = makeStyles(() => ({
+	icon: {
+		vertical: 'bottom',
+		horizontal: 'center',
+		margin: '10px',
+		cursor: 'pointer'
+	},
+	item: {
+		width: '130px',
+		height: '60px',
+		textAlign: 'justify',
+		color: 'black',
+		fontSize: '16px',
+		fontFamily: 'Times New Roman'
+	}
+}));
+
+function NavBar({ setFilterCategory, selectDate, setSelectDate }) {
+	const [ windowToggle, setWindowToggle ] = useState(false);
+
+	function handleWindowToggle() {
+		setWindowToggle(!windowToggle);
+	}
+
+	const classes = useStyles();
 
 	return (
 		<div className="wrapper">
-			<section classes="navbar-1">
-				<MenuComponent />
-			</section>
-			<FilterTable setFilterCategory={setFilterCategory}/>
+			<div onClick={handleWindowToggle} className={classes.item}>
+				<ExitToAppIcon className={classes.icon} />
+				{windowToggle ? <LogoutWindow /> : null}
+			</div>
+			<FilterTable setFilterCategory={setFilterCategory} selectDate={selectDate} setSelectDate={setSelectDate} />
 		</div>
 	);
 }
