@@ -81,16 +81,50 @@ export function setName(nameInput) {
 	};
 }
 
-//FILTER BASED ON NAME INPUT AND CATEGORY
+//FILTERS
 
-export function setNameCategory(nameInput, category) {
+export function setNameCharacter(nameCharacter) {
 	return {
-		type: actionTypes.SET_NAME_CATEORY,
-		payload: {
-			nameInput: nameInput,
-			category: category
-		}
-	};
+		type: actionTypes.SET_NAME_CHARACTER, 
+		payload: nameCharacter
+	}
+}
+
+export function setCategory(category) {
+	return {
+		type: actionTypes.SET_CATEGORY, 
+		payload: category
+	}
+}
+
+export function setStartDate(startDate) {
+	return {
+		type: actionTypes.SET_START_DATE,
+		payload: startDate
+	}
+}
+
+export function setEndDate(endDate) {
+	return {
+		type: actionTypes.SET_END_DATE, 
+		payload: endDate
+	}
+}
+
+export function filters() {
+	return function(dispatch, nameCharacter, category, startDate, endDate) {
+		dispatch(setNameCharacter(nameCharacter));
+		dispatch(setCategory(category));
+		dispatch(setStartDate(startDate));
+		dispatch(setEndDate(endDate));
+	}
+}
+
+export function doFilters(filterTable) {
+	return {
+		type: actionTypes.DO_FILTERS,
+		payload: filterTable
+	}
 }
 
 //FETCH ALL DATA

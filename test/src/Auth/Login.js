@@ -14,7 +14,7 @@ import './styleAuth.css';
 const useStyles = makeStyles({
 	section: {
 		height: '500px',
-		width: '600px',
+		width: '500px',
 		backgroundColor: 'white',
 		boxShadow: '2px 2px 2px 0.5px #F9ECCF'
 	},
@@ -104,7 +104,6 @@ function Login() {
 		<div className="login-wrapper">
 			<header className="header">Movie Box Edition</header>
 			<section className={classes.section}>
-				{/* <img src="https://cdn3.vectorstock.com/i/1000x1000/10/32/login-form-authentication-icon-on-white-vector-23391032.jpg" alt="auth-form"/> */}
 				<h1 className={classes.title}>Login</h1>
 				{error && <p className={classes.error}>{error.message}</p>}
 				<form onSubmit={handleSubmit} className={classes.form}>

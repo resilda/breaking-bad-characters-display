@@ -27,7 +27,7 @@ const useStyles = makeStyles(() => ({
 		marginTop: '5px',
 		marginBottom: '5px',
 		cursor: 'pointer'
-	}
+	}, 
 }));
 
 function FilterTable({ setFilterCategory, selectDate, setSelectDate }) {
@@ -35,14 +35,14 @@ function FilterTable({ setFilterCategory, selectDate, setSelectDate }) {
 
 	const [ inputName, setInputName ] = useState(nameInput);
 	const [ inputCategory, setInputCategory ] = useState('');
-
+	
 	const dispatch = useDispatch();
 
 	function handleSubmit(event) {
 		dispatch(setName(inputName)); //update Reducer, name of the character
 		dispatch(fetchData({ name: inputName }));
 		setFilterCategory(inputCategory); //category input
-		setSelectDate(selectDate);
+		//setSelectDate(selectDate);
 	}
 
 	const classes = useStyles();
@@ -69,8 +69,8 @@ function FilterTable({ setFilterCategory, selectDate, setSelectDate }) {
 				onChange={(item) => setSelectDate([ item.selection ])}
 				moveRangeOnFirstSelection={false}
 				ranges={selectDate}
-				startDate={selectDate.startDate}
-				endDate={selectDate.endDate}
+				// startDate={selectDate.startDate}
+				// endDate={selectDate.endDate}
 			/>
 		</div>
 	);

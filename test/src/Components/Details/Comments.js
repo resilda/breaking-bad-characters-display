@@ -1,7 +1,7 @@
 import React from 'react';
 import Operations from './Operations';
 
-function Comments({ id, nickname }) {
+function Comments({ id }) {
 	return (
 		<div>
 			<Operations characterID={id} />

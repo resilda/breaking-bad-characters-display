@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
 		flexDirection: 'column',
 		justifyContent: 'space-around',
 		alignItems: 'center',
-		width: 1200,
+		width: 1500,
 		marginBottom: 70,
 		boxShadow: '7px 9px #f7efef',
 		color: 'rgba(247, 240, 240, 0.925)',
@@ -31,37 +31,22 @@ const useStyles = makeStyles(() => ({
 function Characters() {
 	const [ order, setOrder ] = useState('desc');
 	const [ orderBy, setOrderBy ] = useState('name');
+	const [ filterCategory, setFilterCategory ] = useState('');
 	const [ selected, setSelected ] = useState(null);
+	const [ selectedRangeFilter, setSelectedRangeFilter ] = useState(null);
 	const [ selectDate, setSelectDate ] = useState([
 		{
 			startDate: new Date(),
-			endDate: null,
+			endDate: new Date(),
 			key: 'selection'
 		}
 	]);
-	const [ selectedRangeFilter, setSelectedRangeFilter ] = useState(null);
-
-	// const [ orderByBirthday, setOrderByBirthday ] = useState('birthday');
-	// const [ birthdayDate, setBirthdayDate ] = useState([]);
-
-	const [ filterCategory, setFilterCategory ] = useState('');
-	//const [ filterDate, setFilterDate ] = useState('');
 
 	const loading = useSelector((state) => state.data.loading);
 	const error = useSelector((state) => state.data.error);
 	const info = useSelector((state) => state.data.info);
 
 	const limitPerPage = useSelector((state) => state.data.limitPerPage);
-
-	// const getBirthdayDate = info.map((el) => {
-	// 	return el.birthday;
-	// });
-
-	// const sortBirthday = getBirthdayDate.sort(
-	// 	(x, y) => new Date(...x.birthday.split('-').reverse()) - new Date(...y.birthday.split('-').reverse())
-	// );
-
-	//console.log('demo', getBirthdayDate);
 
 	const dispatch = useDispatch();
 
@@ -104,8 +89,8 @@ function Characters() {
 		});
 		return newTableList;
 	}
-
-	//FILTER CATEGORY
+ 
+	//FILTER TABLE
 
 	function filterTableByCategory() {
 		if (!filterCategory) {

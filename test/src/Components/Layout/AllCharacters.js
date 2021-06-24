@@ -9,6 +9,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import '../style.css';
 
 const useStyles = makeStyles(() => ({
+	row: {
+		cursor: 'pointer'
+	}, 
 	cell: {
 		fontSize: '14.5px',
 		width: 300
@@ -40,7 +43,7 @@ function AllCharacters({ detail, selected, setSelected }) {
 
 	return (
 		<TableRow
-			className="click"
+			className={classes.row}
 			key={detail.char_id}
 			value={backgroundColor}
 			onClick={() => onClick()}
@@ -78,7 +81,7 @@ function AllCharacters({ detail, selected, setSelected }) {
 							margin: '19px 20px',
 							width: '90px',
 							height: '30px',
-							fontSize: '10px',
+							fontSize: '15px',
 							color: 'white'
 						}}
 					>

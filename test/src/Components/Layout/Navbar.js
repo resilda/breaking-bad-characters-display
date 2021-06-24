@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import FilterTable from '../TableComponents/FilterTable';
-import '../style.css';
 import LogoutWindow from './LogoutWindow';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { makeStyles } from '@material-ui/core/styles';
+import '../style.css';
 
 const useStyles = makeStyles(() => ({
 	icon: {
