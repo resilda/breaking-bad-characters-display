@@ -10,12 +10,11 @@ const initialState = {
 	totalCount: [],
 	currentPage: 0,
 	limitPerPage: 10,
-	nameInput: '', //Filter name
 	filters: {
 		characterName: '',
 		category: '',
 		startDate: new Date(), 
-		endDate: new Date(), 
+		endDate: new Date(),
 	}, 
 	filteredCharacters: []
 };
@@ -80,16 +79,21 @@ function dataReducer(state = initialState, action) {
 				...state,
 				limitPerPage: action.payload
 			};
-		//FILTER NAME
-		case actionTypes.SET_NAME:
-			return {
-				...state,
-				nameInput: action.payload
-			};
 		//FILTERS
-		case actionTypes.SET_NAME_CHARACTER: 
+		case actionTypes.SET_FILTERS:
 			return {
 				...state, 
+				filters: {
+					characterName: action.payload.filters.characterName,
+					category: action.payload.filters.category,
+					startDate: action.payload.filters.startDate,
+					endDate: action.payload.filters.endDate
+				}
+			}
+		case actionTypes.FILTERS_RENDER:
+			return {
+				...state, 
+				filteredCharacters: action.payload
 			}
 		default:
 			return state;

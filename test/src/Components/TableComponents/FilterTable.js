@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchData, setName } from '../../Redux/data/dataActions';
+import { useDispatch } from 'react-redux';
+import { fetchData, setFilters } from '../../Redux/data/dataActions';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import SearchIcon from '@material-ui/icons/Search';
 import { DateRange } from 'react-date-range';
@@ -30,19 +30,20 @@ const useStyles = makeStyles(() => ({
 	}, 
 }));
 
-function FilterTable({ setFilterCategory, selectDate, setSelectDate }) {
-	const nameInput = useSelector((state) => state.data.nameInput);
-
-	const [ inputName, setInputName ] = useState(nameInput);
+function FilterTable({ 
+	characterName, 
+	setFilterCategory, 
+	selectDate, 
+	setSelectDate,  
+}) {
+	const [ inputName, setInputName ] = useState(characterName);
 	const [ inputCategory, setInputCategory ] = useState('');
 	
 	const dispatch = useDispatch();
 
-	function handleSubmit(event) {
-		dispatch(setName(inputName)); //update Reducer, name of the character
+	function handleSubmit() {
+		dispatch(setFilters(inputName, setFilterCategory)); //update Reducer
 		dispatch(fetchData({ name: inputName }));
-		setFilterCategory(inputCategory); //category input
-		//setSelectDate(selectDate);
 	}
 
 	const classes = useStyles();
@@ -62,16 +63,14 @@ function FilterTable({ setFilterCategory, selectDate, setSelectDate }) {
 					onChange={(event) => setInputCategory(event.target.value)}
 					placeholder={'Search category'}
 				/>
-				<SearchIcon className={classes.searchIcon} onClick={(event) => handleSubmit(event)} />
+				<DateRange
+					editableDateInputs={true}
+					onChange={(item) => setSelectDate([ item.selection ])}
+					moveRangeOnFirstSelection={false}
+					ranges={selectDate}
+				/>
+				<SearchIcon className={classes.searchIcon} onClick={() => handleSubmit()} />
 			</section>
-			<DateRange
-				editableDateInputs={true}
-				onChange={(item) => setSelectDate([ item.selection ])}
-				moveRangeOnFirstSelection={false}
-				ranges={selectDate}
-				// startDate={selectDate.startDate}
-				// endDate={selectDate.endDate}
-			/>
 		</div>
 	);
 }

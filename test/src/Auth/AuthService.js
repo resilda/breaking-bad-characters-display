@@ -23,8 +23,6 @@ function AuthProvider({ children }) {
 		setRefreshToken(token);
 		setUser(userData);
 		localStorage.setItem(REFRESH_TOKEN, token);
-		console.log('token', token);
-		console.log('user', user);
 		localStorage.setItem(USER, JSON.stringify(userData));
 	}
 

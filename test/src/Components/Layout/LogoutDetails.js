@@ -51,11 +51,11 @@ const useStyles = makeStyles(() => ({
 	}
 }));
 
-function LogoutWindow() {
+function LogoutDetails() {
 	const history = useHistory();
 	const context = useContext(AuthContext);
 
-	function handleLogOut() {
+	function handleLogOutDetails() {
 		firebase.auth().signOut().then(() => {
 			context.logOut();
 			history.push('/login');
@@ -80,7 +80,7 @@ function LogoutWindow() {
 					<Button className={classes.buttonCancel} onClick={cancelLogOut}>
 						No
 					</Button>
-					<Button className={classes.buttonLogOut} onClick={handleLogOut}>
+					<Button className={classes.buttonLogOut} onClick={handleLogOutDetails}>
 						Yes, I'm sure
 					</Button>
 				</section>
@@ -89,4 +89,4 @@ function LogoutWindow() {
 	);
 }
 
-export default LogoutWindow;
+export default LogoutDetails;

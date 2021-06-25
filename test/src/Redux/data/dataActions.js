@@ -72,58 +72,26 @@ export function setLimitPerPage(limit) {
 	};
 }
 
-//FILTER BASED ON NAME INPUT
-
-export function setName(nameInput) {
-	return {
-		type: actionTypes.SET_NAME,
-		payload: nameInput
-	};
-}
-
 //FILTERS
 
-export function setNameCharacter(nameCharacter) {
+export function setFilters(nameCharacter, category, startDate, endDate) {
 	return {
-		type: actionTypes.SET_NAME_CHARACTER, 
-		payload: nameCharacter
+		type: actionTypes.SET_FILTERS, 
+		payload: {
+			filters: {
+				nameCharacter: nameCharacter,
+				category: category,
+				startDate: startDate,
+				endDate: endDate
+			}
+		}
 	}
 }
 
-export function setCategory(category) {
+export function filtersRender(filteredCharacters) {
 	return {
-		type: actionTypes.SET_CATEGORY, 
-		payload: category
-	}
-}
-
-export function setStartDate(startDate) {
-	return {
-		type: actionTypes.SET_START_DATE,
-		payload: startDate
-	}
-}
-
-export function setEndDate(endDate) {
-	return {
-		type: actionTypes.SET_END_DATE, 
-		payload: endDate
-	}
-}
-
-export function filters() {
-	return function(dispatch, nameCharacter, category, startDate, endDate) {
-		dispatch(setNameCharacter(nameCharacter));
-		dispatch(setCategory(category));
-		dispatch(setStartDate(startDate));
-		dispatch(setEndDate(endDate));
-	}
-}
-
-export function doFilters(filterTable) {
-	return {
-		type: actionTypes.DO_FILTERS,
-		payload: filterTable
+		type: actionTypes.FILTERS_RENDER,
+		payload: filteredCharacters
 	}
 }
 

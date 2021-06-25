@@ -4,7 +4,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import GeneratePdf from '../GeneratePDF/GeneratePdf';
 import DownloadPdf from '../GeneratePDF/DownloadPdf';
-import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import '../style.css';
 
@@ -23,7 +22,7 @@ const useStyles = makeStyles(() => ({
 	}
 }));
 
-function AllCharacters({ detail, selected, setSelected }) {
+function AllCharacters({ detail, selectedRow, setSelectedRow }) {
 	const [ backgroundColor ] = useState('white');
 	const [ isHighlighted, setIsHighlighted ] = useState(false);
 	const [ showButton, setShowButton ] = useState(false);
@@ -34,7 +33,7 @@ function AllCharacters({ detail, selected, setSelected }) {
 	function onClick() {
 		setShowButton(!showButton);
 		setIsHighlighted(!isHighlighted);
-		setSelected(detail.char_id);
+		setSelectedRow(detail.char_id);
 	}
 
 	function onNavigate(id) {
@@ -48,7 +47,7 @@ function AllCharacters({ detail, selected, setSelected }) {
 			value={backgroundColor}
 			onClick={() => onClick()}
 			onDoubleClick={() => onNavigate(detail.char_id)}
-			style={selected === detail.char_id && isHighlighted ? { backgroundColor: '#ffffed' } : {}}
+			style={selectedRow === detail.char_id && isHighlighted ? { backgroundColor: '#ffffed' } : {}}
 		>
 			<TableCell className={classes.cell}>
 				<img className={classes.image} src={detail.img} alt={detail.name} />
@@ -72,7 +71,7 @@ function AllCharacters({ detail, selected, setSelected }) {
 				{detail.status}
 			</TableCell>
 			<TableCell>
-				{showButton && selected === detail.char_id ? (
+				{showButton && selectedRow === detail.char_id ? (
 					<div
 						onClick={(event) => event.target.value}
 						variant="contained"

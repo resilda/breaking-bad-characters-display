@@ -29,24 +29,37 @@ const useStyles = makeStyles(() => ({
 }));
 
 function Characters() {
-	const [ order, setOrder ] = useState('desc');
-	const [ orderBy, setOrderBy ] = useState('name');
-	const [ filterCategory, setFilterCategory ] = useState('');
-	const [ selected, setSelected ] = useState(null);
-	const [ selectedRangeFilter, setSelectedRangeFilter ] = useState(null);
-	const [ selectDate, setSelectDate ] = useState([
-		{
-			startDate: new Date(),
-			endDate: new Date(),
-			key: 'selection'
-		}
-	]);
-
 	const loading = useSelector((state) => state.data.loading);
 	const error = useSelector((state) => state.data.error);
 	const info = useSelector((state) => state.data.info);
 
 	const limitPerPage = useSelector((state) => state.data.limitPerPage);
+
+	const characterName = useSelector((state) => state.data.filters.characterName);
+	const category = useSelector((state) => state.data.filters.category);
+	const startDate = useSelector((state) => state.data.filters.startDate);
+	const endDate = useSelector((state) => state.data.filters.endDate);
+	const filteredCharacters = useSelector((state) => state.data.filteredCharacters);
+
+	const [ selectedRow, setSelectedRow ] = useState(null);
+	const [ order, setOrder ] = useState('desc');
+	const [ orderBy, setOrderBy ] = useState('name');
+	const [ filterCategory, setFilterCategory ] = useState(category);
+	//const [ selectedRangeFilter, setSelectedRangeFilter ] = useState(null);
+
+	//*****i bera te ndara kto te selectDate, SORT BIRTHDAY, BUTONI DOWNLOAD, PDF, LOG OUT TEK DETAILS, DHE DESIGN I COM TEK DETAILS, AUTHS NE REDUX
+	const [ selectStartDate, setSelectStartDate ] = useState(null);
+	const [ selectEndDate, setSelectEndDate ] = useState(null)
+	const [ selectDate, setSelectDate ] = useState([
+		{
+			startDate: startDate,
+			endDate: endDate,
+			key: 'selection'
+		}
+	]);
+
+	//is from redux
+	const [ filteredTable, setFilteredTable ] = useState(filteredCharacters);
 
 	const dispatch = useDispatch();
 
@@ -92,24 +105,24 @@ function Characters() {
  
 	//FILTER TABLE
 
-	function filterTableByCategory() {
+	function filterTableByCategory(filteredList) {
 		if (!filterCategory) {
-			return info;
-		}
-		const newTableList = [ ...info ].filter((item) => {
-			return item.category.toLowerCase().includes(filterCategory.toLowerCase());
-		});
-		return newTableList;
-	}
-
-	function filterSelectedBirthday(filteredList) {
-		if (!selectedRangeFilter) {
 			return filteredList;
 		}
-		const minimumDate = selectedRangeFilter[0].startDate;
-		const maximumDate = selectedRangeFilter[0].endDate;
+		const filteredTable = [ ...filteredList ].filter((item) => {
+			return item.category.toLowerCase().includes(filterCategory.toLowerCase());
+		});
+		return filteredTable;
+	}
 
-		const newTableList = [ ...filteredList ].filter((item) => {
+	function filterSelectedBirthday() {
+		if (!selectStartDate && !selectEndDate) {
+			return info;
+		}
+		const minimumDate = selectDate[0].startDate;
+		const maximumDate = selectDate[0].endDate;
+
+		const filteredTable = [ ...info ].filter((item) => {
 			const birthdayDate = new Date(item.birthday);
 			const isValidDate = isNaN(birthdayDate.getTime());
 			if (isValidDate) {
@@ -117,23 +130,25 @@ function Characters() {
 			}
 			return birthdayDate.getTime() > minimumDate.getTime() && birthdayDate.getTime() < maximumDate.getTime();
 		});
-		return newTableList;
+		return filteredTable;
 	}
 
-	const generalFilter = filterTableByCategory();
-	const filteredBirthday = filterSelectedBirthday(generalFilter);
-	const tableList = sortTableByOrder(filteredBirthday);
+	const filteredBirthday = filterSelectedBirthday();
+	const generalFilter = filterTableByCategory(filteredBirthday);
+	const tableList = sortTableByOrder(generalFilter);
 
 	const classes = useStyles();
 
 	return (
 		<div className="main-wrapper">
 			<NavBar
+				characterName={characterName}
 				setFilterCategory={setFilterCategory}
 				selectDate={selectDate}
-				setSelectDate={(newSelectedDate) => {
-					setSelectDate(newSelectedDate);
-					setSelectedRangeFilter(newSelectedDate);
+				setSelectDate={(selectStart, selectEnd ) => {
+					setSelectDate(selectStart, selectEnd);
+					setSelectStartDate(selectStart);
+					setSelectEndDate(selectEnd)
 				}}
 			/>
 			<h1 className="title">Breaking Bad</h1>
@@ -152,7 +167,7 @@ function Characters() {
 						</TableHead>
 						{tableList.map((detail) => (
 							<TableBody key={detail.char_id}>
-								<AllCharacters detail={detail} selected={selected} setSelected={setSelected} />
+								<AllCharacters detail={detail} selectedRow={selectedRow} setSelectedRow={setSelectedRow} />
 							</TableBody>
 						))}
 						<TableFooter>

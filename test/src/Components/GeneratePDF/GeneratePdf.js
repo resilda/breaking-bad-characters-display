@@ -77,7 +77,6 @@ const styles = StyleSheet.create({
 });
   
 function GeneratePdf({ detail }) {
-
     return (
             <Document>
                 <Page size="A4" style={styles.page}>
@@ -107,15 +106,6 @@ function GeneratePdf({ detail }) {
                         </View>
                     </View>
                     </View>
-                    {/* <View style={styles.section}>
-                        <Text style={styles.text}>Name: {detail.name}</Text>
-                        <Text style={styles.text}>Nickname: {detail.nickname}</Text>
-                        <Text style={styles.text}>Category: {detail.category}</Text>
-                        <Text style={styles.text}>Birthday: {detail.birthday}</Text>
-                        <Text style={styles.text}>Status: {detail.status}</Text>
-                        <Text style={styles.text}>Occupation: {detail.occupation}</Text>
-                        <Text style={styles.text}>Portrayed: {detail.portrayed}</Text>
-                    </View> */}
                 </Page>
             </Document>
     )
