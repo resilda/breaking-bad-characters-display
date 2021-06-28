@@ -39,7 +39,7 @@ const useStyles = makeStyles(() => ({
 		cursor: 'pointer',
 		position: 'fixed',
 		right: 'calc(32.2% - 53px)',
-		top: 'calc(113vh - 82.5vh - 33px)',
+		top: 'calc(120vh - 85vh - 5px)',
 		background: '#e8e8e8',
 		color: 'black',
 		width: '25px',

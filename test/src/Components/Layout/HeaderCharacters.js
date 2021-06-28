@@ -18,7 +18,7 @@ const headerCells = [
 	{ id: 'name', label: 'Name', canSort: true },
 	{ id: 'nickname', label: 'Nickname', canSort: true },
 	{ id: 'category', label: 'Category', canSort: true },
-	{ id: 'birthday', label: 'Birthday', canSort: false },
+	{ id: 'birthday', label: 'Birthday', canSort: true },
 	{ id: 'status', label: 'Status', canSort: true },
 	{ id: 'pdf', label: '', canSort: false }
 ];

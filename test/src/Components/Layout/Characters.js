@@ -10,7 +10,9 @@ import TableBody from '@material-ui/core/TableBody';
 import TableFooter from '@material-ui/core/TableFooter';
 import AllCharacters from './AllCharacters';
 import Pagination from '../TableComponents/Pagination';
+import { filterAll } from '../../Utils/helpers';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { sortTableByOrder } from '../../Utils/helpers';
 import { makeStyles } from '@material-ui/core/styles';
 import '../style.css';
 
@@ -20,7 +22,7 @@ const useStyles = makeStyles(() => ({
 		flexDirection: 'column',
 		justifyContent: 'space-around',
 		alignItems: 'center',
-		width: 1500,
+		width: 1200,
 		marginBottom: 70,
 		boxShadow: '7px 9px #f7efef',
 		color: 'rgba(247, 240, 240, 0.925)',
@@ -37,31 +39,24 @@ function Characters() {
 
 	const characterName = useSelector((state) => state.data.filters.characterName);
 	const category = useSelector((state) => state.data.filters.category);
+	console.log('category', category);
 	const startDate = useSelector((state) => state.data.filters.startDate);
 	const endDate = useSelector((state) => state.data.filters.endDate);
-	const filteredCharacters = useSelector((state) => state.data.filteredCharacters);
 
 	const [ selectedRow, setSelectedRow ] = useState(null);
 	const [ order, setOrder ] = useState('desc');
 	const [ orderBy, setOrderBy ] = useState('name');
-	const [ filterCategory, setFilterCategory ] = useState(category);
-	//const [ selectedRangeFilter, setSelectedRangeFilter ] = useState(null);
-
-	//*****i bera te ndara kto te selectDate, SORT BIRTHDAY, BUTONI DOWNLOAD, PDF, LOG OUT TEK DETAILS, DHE DESIGN I COM TEK DETAILS, AUTHS NE REDUX
-	const [ selectStartDate, setSelectStartDate ] = useState(null);
-	const [ selectEndDate, setSelectEndDate ] = useState(null)
+	const [ selectedRangeFilter, setSelectedRangeFilter ] = useState(null);
 	const [ selectDate, setSelectDate ] = useState([
 		{
-			startDate: startDate,
-			endDate: endDate,
+			startDate: new Date(),
+			endDate: new Date(),
 			key: 'selection'
 		}
 	]);
 
-	//is from redux
-	const [ filteredTable, setFilteredTable ] = useState(filteredCharacters);
-
 	const dispatch = useDispatch();
+	const filteredCharacters = filterAll(info, { startDate, endDate }, category);
 
 	useEffect(
 		() => {
@@ -70,85 +65,21 @@ function Characters() {
 		[ dispatch, limitPerPage ]
 	);
 
-	//SORT TABLE
-
-	function ascendingComparator(a, b, orderBy) {
-		if (b[orderBy] < a[orderBy]) {
-			return 1;
-		}
-		if (b[orderBy] > a[orderBy]) {
-			return -1;
-		}
-		return 0;
-	}
-
-	function descendingComparator(a, b, orderBy) {
-		if (b[orderBy] < a[orderBy]) {
-			return -1;
-		}
-		if (b[orderBy] > a[orderBy]) {
-			return 1;
-		}
-		return 0;
-	}
-
-	function sortTableByOrder(list) {
-		const newTableList = [ ...list ];
-		newTableList.sort((a, b) => {
-			if (order === 'asc') {
-				return ascendingComparator(a, b, orderBy);
-			}
-			return descendingComparator(a, b, orderBy);
-		});
-		return newTableList;
-	}
- 
-	//FILTER TABLE
-
-	function filterTableByCategory(filteredList) {
-		if (!filterCategory) {
-			return filteredList;
-		}
-		const filteredTable = [ ...filteredList ].filter((item) => {
-			return item.category.toLowerCase().includes(filterCategory.toLowerCase());
-		});
-		return filteredTable;
-	}
-
-	function filterSelectedBirthday() {
-		if (!selectStartDate && !selectEndDate) {
-			return info;
-		}
-		const minimumDate = selectDate[0].startDate;
-		const maximumDate = selectDate[0].endDate;
-
-		const filteredTable = [ ...info ].filter((item) => {
-			const birthdayDate = new Date(item.birthday);
-			const isValidDate = isNaN(birthdayDate.getTime());
-			if (isValidDate) {
-				return false;
-			}
-			return birthdayDate.getTime() > minimumDate.getTime() && birthdayDate.getTime() < maximumDate.getTime();
-		});
-		return filteredTable;
-	}
-
-	const filteredBirthday = filterSelectedBirthday();
-	const generalFilter = filterTableByCategory(filteredBirthday);
-	const tableList = sortTableByOrder(generalFilter);
+	const tableList = sortTableByOrder(filteredCharacters, order, orderBy);
 
 	const classes = useStyles();
 
 	return (
 		<div className="main-wrapper">
 			<NavBar
+				filteredItems={filteredCharacters}
 				characterName={characterName}
-				setFilterCategory={setFilterCategory}
+				category={category}
 				selectDate={selectDate}
-				setSelectDate={(selectStart, selectEnd ) => {
-					setSelectDate(selectStart, selectEnd);
-					setSelectStartDate(selectStart);
-					setSelectEndDate(selectEnd)
+				selectedRangeFilter={selectedRangeFilter}
+				setSelectDate={(newSelectedDate) => {
+					setSelectDate(newSelectedDate);
+					setSelectedRangeFilter(newSelectedDate);
 				}}
 			/>
 			<h1 className="title">Breaking Bad</h1>
@@ -167,7 +98,11 @@ function Characters() {
 						</TableHead>
 						{tableList.map((detail) => (
 							<TableBody key={detail.char_id}>
-								<AllCharacters detail={detail} selectedRow={selectedRow} setSelectedRow={setSelectedRow} />
+								<AllCharacters
+									detail={detail}
+									selectedRow={selectedRow}
+									setSelectedRow={setSelectedRow}
+								/>
 							</TableBody>
 						))}
 						<TableFooter>

@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import GeneratePdf from '../GeneratePDF/GeneratePdf';
-import DownloadPdf from '../GeneratePDF/DownloadPdf';
+// import GeneratePdf from '../GeneratePDF/GeneratePdf';
+// import DownloadPdf from '../GeneratePDF/DownloadPdf';
+import CreatePdf from '../GeneratePDF/CreatePdf';
+import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import '../style.css';
 
 const useStyles = makeStyles(() => ({
 	row: {
 		cursor: 'pointer'
-	}, 
+	},
 	cell: {
 		fontSize: '14.5px',
 		width: 300
@@ -19,6 +21,14 @@ const useStyles = makeStyles(() => ({
 		width: '45px',
 		height: '55px',
 		border: '1px solid #377867'
+	},
+	pdfButton: {
+		margin: '19px 20px',
+		width: '90px',
+		height: '30px',
+		fontSize: '15px',
+		color: 'linear-gradient(45deg, #5C888B 20%, #71A8A1 80%)',
+		cursor: 'pointer'
 	}
 }));
 
@@ -72,19 +82,11 @@ function AllCharacters({ detail, selectedRow, setSelectedRow }) {
 			</TableCell>
 			<TableCell>
 				{showButton && selectedRow === detail.char_id ? (
-					<div
-						onClick={(event) => event.target.value}
-						variant="contained"
-						color="default"
-						style={{
-							margin: '19px 20px',
-							width: '90px',
-							height: '30px',
-							fontSize: '15px',
-							color: 'white'
-						}}
-					>
-						<DownloadPdf detail={detail} renderComponent={<GeneratePdf detail={detail} />} />
+					<div onClick={(event) => event.target.value} className="pdf">
+						<Button className="pdfButton">
+							{/* <DownloadPdf detail={detail} renderComponent={<GeneratePdf detail={detail} />} /> */}
+							<CreatePdf detail={detail} />
+						</Button>
 					</div>
 				) : null}
 			</TableCell>

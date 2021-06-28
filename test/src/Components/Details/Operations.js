@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import firebase from '../../Config/Firebase';
 import { AuthContext } from '../../Auth/AuthService';
 import Card from '@material-ui/core/Card';
@@ -15,16 +15,16 @@ const useStyles = makeStyles({
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
-		width: '1700px', 
+		width: '1700px',
+		height: '400px',
 		margin: '35px',
-		overflow: 'scroll', 
-		height: '400px', 
-	},	
+		overflow: 'scroll'
+	},
 	commentsPargraph: {
 		fontSize: '20px',
 		fontWeight: 'bold',
 		margin: '35px'
-	}, 
+	},
 	commentsWrapper: {
 		display: 'flex',
 		flexDirection: 'column',
@@ -35,37 +35,38 @@ const useStyles = makeStyles({
 		margin: '10px',
 		paddingRight: '10px',
 		background: '#F0F0F0',
-		boxShadow: '3px 3px #888888',
-	}, 
+		boxShadow: '3px 3px #888888'
+		// borderRadius: '15px'
+	},
 	nameComment: {
 		display: 'flex',
 		flexDirection: 'row',
-		justifyContent: 'flex-start',
+		justifyContent: 'flex-start'
 	},
 	title: {
 		fontSize: '14px',
-		fontWeight: 'bold', 
+		fontWeight: 'bold',
 		fontStyle: 'italic',
 		color: '#354065',
 		paddingRight: '10px'
 	},
 	comment: {
 		fontSize: '20px',
-		paddingRight: '7px',
-	}, 
+		paddingRight: '7px'
+	},
 	dateDetails: {
 		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'flex-end',
 		justifyContent: 'space-between',
 		paddingRight: '16px',
-		fontSize: '12px',
-	}, 
+		fontSize: '12px'
+	},
 	dateTime: {
 		fontSize: '10px',
 		paddingRight: '7px',
-		color: 'gray',
-	}, 
+		color: 'gray'
+	},
 	button: {
 		color: '#B30047',
 		cursor: 'pointer',
@@ -75,12 +76,12 @@ const useStyles = makeStyles({
 		width: '500px',
 		height: '150px',
 		marginTop: '40px'
-	}, 
+	},
 	buttonComment: {
 		margin: '40px 20px',
 		width: '90px',
-		height: '30px', 
-		background: '#465484', 
+		height: '30px',
+		background: '#465484',
 		color: 'white'
 	}
 });
@@ -151,17 +152,19 @@ function Operations({ characterID }) {
 					return (
 						<CardContent key={comment.id} className={classes.commentsWrapper}>
 							<div className={classes.nameComment}>
-								<Typography className={classes.title}>{comment.user.displayName}:{''}</Typography>
+								<Typography className={classes.title}>
+									{comment.user.displayName}:{''}
+								</Typography>
 								<Typography className={classes.comment}>{comment.body}</Typography>
 							</div>
-							<CardActions>
-									<DeleteIcon
-										className={classes.button}
-										onClick={() => {
-											deleteComment(comment.id);
-										}}
-									/>
-								</CardActions>
+							<CardActions className={classes.button}>
+								<DeleteIcon
+									className="delete-comment"
+									onClick={() => {
+										deleteComment(comment.id);
+									}}
+								/>
+							</CardActions>
 							<div className={classes.dateDetails}>
 								<Typography className={classes.dateTime}>
 									{postDate.getMonth() + 1 + '.' + postDate.getDate() + '.' + postDate.getFullYear()}
@@ -173,27 +176,24 @@ function Operations({ characterID }) {
 						</CardContent>
 					);
 				})}
-					</Card>
-				<form
-					onSubmit={(event) => {
-						event.preventDefault();
-						createComment();
-					}}
-				>
-					<TextField
-						value={comment}
-						type="text"
-						placeholder="Share your thoughts"
-						onChange={handleChange}
-						className={classes.commentText}
-					/>
-					<Button
-						type="submit"
-						className={classes.buttonComment}
-					>
-						Share
-					</Button>
-				</form>
+			</Card>
+			<form
+				onSubmit={(event) => {
+					event.preventDefault();
+					createComment();
+				}}
+			>
+				<TextField
+					value={comment}
+					type="text"
+					placeholder="Share your thoughts"
+					onChange={handleChange}
+					className={classes.commentText}
+				/>
+				<Button type="submit" className={classes.buttonComment}>
+					Share
+				</Button>
+			</form>
 		</div>
 	);
 }

@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { fetchCharactersID } from '../../Redux/data/dataActions';
 import Comments from './Comments';
-import LogoutWindow from '../Layout/LogoutWindow';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import '../style.css';
 
@@ -15,7 +14,8 @@ const useStyles = makeStyles({
 	wrapperDetails: {
 		display: 'flex',
 		flexDirection: 'row',
-		justifyContent: 'center'
+		justifyContent: 'center',
+		marginTop: '20px'
 	},
 	avatar: {
 		border: '1px solid #377867',
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 		margin: '15px'
 	},
 	navbarDetails: {
-		display: 'flex', 
+		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'space-between'
 	},
@@ -36,21 +36,27 @@ const useStyles = makeStyles({
 		fontSize: '28px',
 		fontWeight: 'bold',
 		margin: '35px'
-	}, 
+	},
 	item: {
 		width: '130px',
 		height: '60px',
 		textAlign: 'justify',
 		color: 'black',
 		fontSize: '16px',
-		fontFamily: 'Times New Roman'
+		fontFamily: 'Times New Roman',
+		marginRight: '45px'
 	},
-	icon: {
-		width: '25px',
-		height: '25px',
+	button: {
+		width: '85px',
+		height: '35px',
 		vertical: 'bottom',
 		horizontal: 'center',
 		margin: '40px',
+		background: 'linear-gradient(45deg, #5C888B 20%, #71A8A1 80%)',
+		border: 0,
+		borderRadius: 3,
+		color: 'white',
+		fontSize: '13px',
 		cursor: 'pointer'
 	},
 	firstSectionDetails: {
@@ -93,18 +99,18 @@ const useStyles = makeStyles({
 	},
 	firstLogo: {
 		width: '80px',
-		height: '50px', 
+		height: '50px'
 	},
 	secondLogo: {
 		width: '50px',
-		height: '50px', 
+		height: '50px'
 	},
 	nameDetails: {
 		fontFamily: 'Times New Roman',
-		fontSize: '20px', 
+		fontSize: '20px',
 		margin: '5px',
 		fontWeight: 'bolder',
-		color: '#354065',
+		color: '#354065'
 	},
 	detailsComponent: {
 		fontFamily: 'Times New Roman',
@@ -117,7 +123,7 @@ const useStyles = makeStyles({
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center'
-	},
+	}
 });
 
 function Details() {
@@ -129,11 +135,16 @@ function Details() {
 
 	const dispatch = useDispatch();
 	const location = useLocation();
+	const history = useHistory();
 
 	const id = location.search.split('?id=')[1];
 
 	function handleWindowToggle() {
 		setWindowToggle(!windowToggle);
+	}
+
+	function goBackToMain() {
+		history.push('/main');
 	}
 
 	useEffect(
@@ -150,8 +161,8 @@ function Details() {
 			<div className={classes.navbarDetails}>
 				<Typography className={classes.commentsTitle}>Comments Section</Typography>
 				<div onClick={handleWindowToggle} className={classes.item}>
-					<ExitToAppIcon className={classes.icon} />
-					{windowToggle ? <LogoutWindow /> : null}
+					<Button className={classes.button}>Go back</Button>
+					{windowToggle ? goBackToMain() : null}
 				</div>
 			</div>
 			{loadingCharacter ? (

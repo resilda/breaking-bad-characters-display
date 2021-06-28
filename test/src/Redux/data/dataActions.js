@@ -49,12 +49,25 @@ export function currentCharacterFailure(error) {
 	};
 }
 
-//PAGINATION ACTIONS
+//PAGINATION
+
+export function setAllCharactersRequest() {
+	return {
+		type: actionTypes.SET_ALL_CHARACTERS_REQUEST
+	};
+}
 
 export function setAllCharactersCount(totalCount) {
 	return {
 		type: actionTypes.SET_ALL_CHARACTERS_COUNT,
 		payload: totalCount
+	};
+}
+
+export function setAllCharactersFailure(error) {
+	return {
+		type: actionTypes.SET_ALL_CHARACTER_FAILURE,
+		payload: error
 	};
 }
 
@@ -74,25 +87,37 @@ export function setLimitPerPage(limit) {
 
 //FILTERS
 
-export function setFilters(nameCharacter, category, startDate, endDate) {
+export function setCharacterName(characterName) {
 	return {
-		type: actionTypes.SET_FILTERS, 
+		type: actionTypes.SET_CHARACTER_NAME,
+		payload: characterName
+	};
+}
+
+export function setCategory(category) {
+	return {
+		type: actionTypes.SET_CATEGORY,
+		payload: category
+	};
+}
+
+export function setRangeDate({ startDate, endDate }) {
+	return {
+		type: actionTypes.SET_RANGE_DATE,
 		payload: {
-			filters: {
-				nameCharacter: nameCharacter,
-				category: category,
+			rangeDates: {
 				startDate: startDate,
 				endDate: endDate
 			}
 		}
-	}
+	};
 }
 
-export function filtersRender(filteredCharacters) {
+export function setFilters(filteredCharacters) {
 	return {
-		type: actionTypes.FILTERS_RENDER,
+		type: actionTypes.SET_FILTERS,
 		payload: filteredCharacters
-	}
+	};
 }
 
 //FETCH ALL DATA
@@ -102,6 +127,7 @@ export function fetchData(params = {}) {
 		dispatch(fetchRequest());
 		try {
 			let response = await axios.get(`${CHARACTERS_API}/characters`, { params });
+			console.log('response', response);
 			dispatch(fetchSuccess(response.data));
 		} catch (error) {
 			const message = error.message;
@@ -114,11 +140,13 @@ export function fetchData(params = {}) {
 
 export function fetchDataAll() {
 	return async function(dispatch) {
+		dispatch(setAllCharactersRequest());
 		try {
 			let responseAll = await axios.get(`${CHARACTERS_API}/characters`);
 			dispatch(setAllCharactersCount(responseAll.data));
 		} catch (error) {
-			console.log(error);
+			const message = error.message;
+			dispatch(setAllCharactersFailure(message));
 		}
 	};
 }

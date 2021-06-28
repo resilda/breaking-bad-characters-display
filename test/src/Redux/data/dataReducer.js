@@ -7,15 +7,17 @@ const initialState = {
 	loadingCharacter: false,
 	currentCharacter: [],
 	errorCharacter: '',
+	loadingAll: false,
 	totalCount: [],
+	errorAll: '',
 	currentPage: 0,
 	limitPerPage: 10,
 	filters: {
 		characterName: '',
 		category: '',
-		startDate: new Date(), 
-		endDate: new Date(),
-	}, 
+		startDate: null,
+		endDate: null
+	},
 	filteredCharacters: []
 };
 
@@ -32,6 +34,7 @@ function dataReducer(state = initialState, action) {
 				...state,
 				loading: false,
 				info: action.payload,
+				filteredCharacters: action.payload,
 				error: ''
 			};
 		case actionTypes.FETCH_DATA_FAILURE:
@@ -62,11 +65,22 @@ function dataReducer(state = initialState, action) {
 				errorCharacter: action.payload
 			};
 		//GET TOTAL CHARACTERS
+		case actionTypes.SET_ALL_CHARACTERS_REQUEST:
+			return {
+				...state,
+				loadingAll: true
+			};
 		case actionTypes.SET_ALL_CHARACTERS_COUNT:
 			return {
 				...state,
-				loadingCount: false,
+				loadingAll: false,
 				totalCount: action.payload
+			};
+		case actionTypes.SET_ALL_CHARACTER_FAILURE:
+			return {
+				...state,
+				totalCount: [],
+				errorAll: action.payload
 			};
 		//PAGINATION
 		case actionTypes.SET_CURRENT_PAGE:
@@ -80,21 +94,37 @@ function dataReducer(state = initialState, action) {
 				limitPerPage: action.payload
 			};
 		//FILTERS
+		case actionTypes.SET_CHARACTER_NAME:
+			return {
+				...state,
+				filters: {
+					...state.filters,
+					characterName: action.payload
+				}
+			};
+		case actionTypes.SET_CATEGORY:
+			return {
+				...state,
+				filters: {
+					...state.filters,
+					category: action.payload
+				}
+			};
+		case actionTypes.SET_RANGE_DATE:
+			console.log('action.payload', action.payload);
+			return {
+				...state,
+				filters: {
+					...state.filters,
+					startDate: action.payload.rangeDates.startDate,
+					endDate: action.payload.rangeDates.endDate
+				}
+			};
 		case actionTypes.SET_FILTERS:
 			return {
-				...state, 
-				filters: {
-					characterName: action.payload.filters.characterName,
-					category: action.payload.filters.category,
-					startDate: action.payload.filters.startDate,
-					endDate: action.payload.filters.endDate
-				}
-			}
-		case actionTypes.FILTERS_RENDER:
-			return {
-				...state, 
+				...state,
 				filteredCharacters: action.payload
-			}
+			};
 		default:
 			return state;
 	}

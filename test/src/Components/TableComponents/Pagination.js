@@ -9,6 +9,8 @@ function Pagination() {
 	const limitPerPage = useSelector((state) => state.data.limitPerPage);
 	const currentPage = useSelector((state) => state.data.currentPage);
 
+	console.log('totalCount', totalCount);
+
 	const dispatch = useDispatch();
 
 	useEffect(
@@ -19,7 +21,7 @@ function Pagination() {
 	);
 
 	//total amount of data rows
-	let count = totalCount.length;
+	const count = totalCount.length;
 
 	//change page
 	function onChangePage(event, page) {
