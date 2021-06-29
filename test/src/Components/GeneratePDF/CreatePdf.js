@@ -5,10 +5,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
 	pdfButton: {
-		width: '100px', 
-		height: '27px', 
-		color: 'white', 
-		background: '#7198A9', 
+		width: '100px',
+		height: '27px',
+		color: 'white',
+		background: '#7198A9',
 		border: 0,
 		borderRadius: 3,
 		cursor: 'pointer'
@@ -58,14 +58,14 @@ export default function CreatePdf({ detail }) {
 		doc.text(`Character of the Day: "${detail.nickname}"`, 30, 160, 'left');
 
 		const pageWidth = doc.internal.pageSize.getWidth();
-		var imgData = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRa4NhVASihdeFLAr7DSF6O3ld1XJfU7bSyA&usqp=CAU';
+		var imgData =
+			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRa4NhVASihdeFLAr7DSF6O3ld1XJfU7bSyA&usqp=CAU';
 
-		if(detail.img) {
+		if (detail.img) {
 			doc.addImage(detail.img, 'JPEG', pageWidth / 2 - firstImgWidth / 2, margin, firstImgWidth, firstImgHeight);
-		} 
-		// else {
-		// 	doc.addImage(imgData, 'JPEG', pageWidth / 2 - secondImgWidth / 2, margin, secondImgWidth, secondImgHeight)
-		// }
+		} else {
+			doc.addImage(imgData, 'JPEG', pageWidth / 2 - secondImgWidth / 2, margin, secondImgWidth, secondImgHeight);
+		}
 
 		doc.autoTable(columns, rows, {
 			startY: doc.autoTableEndPosY() + 520,
@@ -77,5 +77,9 @@ export default function CreatePdf({ detail }) {
 		doc.save(`${detail.name}.pdf`);
 	}
 
-	return <button className={classes.pdfButton} onClick={generatePdf}>Download</button>;
+	return (
+		<button className={classes.pdfButton} onClick={generatePdf}>
+			Download
+		</button>
+	);
 }

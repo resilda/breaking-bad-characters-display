@@ -64,9 +64,9 @@
 	color: #5f1f04;
 	font-family: 'Monospace';
 	font-size: 30px;
-	margin-left: 210px;
+	/* margin-left: 210px; */
 	/* width: 1500, */
-	/* margin-left: 135px; */
+	margin-left: 135px;
 	margin-bottom: 35px;
 	font-weight: bold;
 }

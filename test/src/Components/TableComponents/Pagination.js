@@ -9,8 +9,6 @@ function Pagination() {
 	const limitPerPage = useSelector((state) => state.data.limitPerPage);
 	const currentPage = useSelector((state) => state.data.currentPage);
 
-	console.log('totalCount', totalCount);
-
 	const dispatch = useDispatch();
 
 	useEffect(

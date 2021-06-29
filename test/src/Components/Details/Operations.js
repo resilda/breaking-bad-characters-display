@@ -104,7 +104,6 @@ function Operations({ characterID }) {
 	//get data from the firebase
 	async function getData() {
 		await database.orderBy('createdAt', 'asc').onSnapshot((doc) => {
-			console.log('doc', doc.docs);
 			const commentsList = doc.docs.map((item) => ({
 				id: item.id,
 				...item.data()
@@ -120,7 +119,6 @@ function Operations({ characterID }) {
 	//create new comments
 	async function createComment() {
 		const createdAt = new Date().getTime();
-		console.log('createdAt', createdAt);
 		const newComment = {
 			createdAt,
 			body: comment,
