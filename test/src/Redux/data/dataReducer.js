@@ -18,7 +18,6 @@ const initialState = {
 		startDate: null,
 		endDate: null
 	},
-	filteredCharacters: []
 };
 
 function dataReducer(state = initialState, action) {
@@ -111,7 +110,6 @@ function dataReducer(state = initialState, action) {
 				}
 			};
 		case actionTypes.SET_RANGE_DATE:
-			console.log('action.payload', action.payload);
 			return {
 				...state,
 				filters: {
@@ -120,11 +118,16 @@ function dataReducer(state = initialState, action) {
 					endDate: action.payload.rangeDates.endDate
 				}
 			};
-		case actionTypes.SET_FILTERS:
+		case actionTypes.RESET_FILTER_VALUES:
 			return {
 				...state,
-				filteredCharacters: action.payload
-			};
+				filters: {
+					characterName: '',
+					category: '',
+					startDate: null,
+					endDate: null
+				}
+			}
 		default:
 			return state;
 	}

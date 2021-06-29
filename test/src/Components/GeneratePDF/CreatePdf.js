@@ -1,6 +1,19 @@
 import React from 'react';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(() => ({
+	pdfButton: {
+		width: '100px', 
+		height: '27px', 
+		color: 'white', 
+		background: '#7198A9', 
+		border: 0,
+		borderRadius: 3,
+		cursor: 'pointer'
+	}
+}));
 
 export default function CreatePdf({ detail }) {
 	var columns = [ { title: 'Characters', dataKey: 'characters' }, { title: 'Details', dataKey: 'details' } ];
@@ -15,17 +28,20 @@ export default function CreatePdf({ detail }) {
 		{ characters: 'Portrayed', details: detail.portrayed }
 	];
 
+	const classes = useStyles();
+
 	function generatePdf() {
 		var doc = new jsPDF('p', 'pt', 'a4');
 
-		const imgWidth = 180;
-		const imgHeight = 250;
-		const margin = 220;
+		const firstImgWidth = 180;
+		const firstImgHeight = 250;
+		const secondImgWidth = 280;
+		const secondImgHeight = 150;
+		const margin = 200;
 
 		doc.setFontSize(12);
 		doc.setTextColor(40);
 		doc.addFont('Times New Roman');
-		// doc.text(293, 20, 'Breaking Bad', 'center');
 		doc.text(180, 60, 'IS BREAKING BAD THE BEST SERIES EVER?');
 		doc.text(
 			'To justify "Breaking Bad" as the best TV show ever, the world of understanding should lay beyond',
@@ -42,19 +58,24 @@ export default function CreatePdf({ detail }) {
 		doc.text(`Character of the Day: "${detail.nickname}"`, 30, 160, 'left');
 
 		const pageWidth = doc.internal.pageSize.getWidth();
-		doc.addImage(detail.img, 'JPEG', pageWidth / 2 - imgWidth / 2, margin, imgWidth, imgHeight);
+		var imgData = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRa4NhVASihdeFLAr7DSF6O3ld1XJfU7bSyA&usqp=CAU';
+
+		if(detail.img) {
+			doc.addImage(detail.img, 'JPEG', pageWidth / 2 - firstImgWidth / 2, margin, firstImgWidth, firstImgHeight);
+		} 
+		// else {
+		// 	doc.addImage(imgData, 'JPEG', pageWidth / 2 - secondImgWidth / 2, margin, secondImgWidth, secondImgHeight)
+		// }
 
 		doc.autoTable(columns, rows, {
 			startY: doc.autoTableEndPosY() + 520,
 			margin: { horizontal: 50 },
 			styles: { overflow: 'linebreak' },
-			// bodyStyles: { valign: 'top' },
 			columnStyles: { email: { columnWidth: 'wrap' } }
-			// theme: 'striped',
 		});
 
 		doc.save(`${detail.name}.pdf`);
 	}
 
-	return <button onClick={generatePdf}>Download</button>;
+	return <button className={classes.pdfButton} onClick={generatePdf}>Download</button>;
 }

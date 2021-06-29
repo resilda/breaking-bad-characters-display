@@ -73,12 +73,9 @@ export function filterSelectedBirthday(tableList, selectDate) {
 
 export function filterAll(filteredItems, selectDate, inputCategory) {
 	let filteredList = [ ...filteredItems ];
-	console.log('selectDate', selectDate);
 	if (selectDate.startDate && selectDate.endDate) {
 		filteredList = filterSelectedBirthday(filteredItems, selectDate);
 	}
-	console.log('inputCategory', filteredList, inputCategory);
 	filteredList = filterTableByCategory(filteredList, inputCategory);
-	console.log('filteredList', filteredList);
 	return filteredList;
 }

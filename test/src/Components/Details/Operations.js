@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import firebase from '../../Config/Firebase';
 import { AuthContext } from '../../Auth/AuthService';
 import Card from '@material-ui/core/Card';
@@ -36,7 +36,6 @@ const useStyles = makeStyles({
 		paddingRight: '10px',
 		background: '#F0F0F0',
 		boxShadow: '3px 3px #888888'
-		// borderRadius: '15px'
 	},
 	nameComment: {
 		display: 'flex',

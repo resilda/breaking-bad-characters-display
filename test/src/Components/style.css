@@ -64,38 +64,12 @@
 	color: #5f1f04;
 	font-family: 'Monospace';
 	font-size: 30px;
-	/* margin-left: 210px; */
+	margin-left: 210px;
 	/* width: 1500, */
-	margin-left: 135px;
+	/* margin-left: 135px; */
 	margin-bottom: 35px;
 	font-weight: bold;
 }
-
-/* All Characters.js */
-
-.pdf {
-	margin: '19px 20px';
-	width: 90px;
-	height: 30px;
-	font-size: 15px;
-	cursor: 'pointer';
-	transform: translateX(1);
-	transition: transform 0.5s ease;
-  }
-
-  .pdfButton {
-	width: calc(20%);
-	margin: 20px 20px;
-	background: #ddd;
-	cursor: pointer;
-	color: #FFF;
-	text-align: center;
-	line-height: 130px;
-  }
-  
-.pdfButton:hover .pdf{
-	transform: translateX(10em);
-  }
 
 /* Operations.js */
 

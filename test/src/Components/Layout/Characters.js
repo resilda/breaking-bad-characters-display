@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
 		flexDirection: 'column',
 		justifyContent: 'space-around',
 		alignItems: 'center',
-		width: 1200,
+		width: 1500,
 		marginBottom: 70,
 		boxShadow: '7px 9px #f7efef',
 		color: 'rgba(247, 240, 240, 0.925)',
@@ -31,22 +31,21 @@ const useStyles = makeStyles(() => ({
 }));
 
 function Characters() {
-	const loading = useSelector((state) => state.data.loading);
+	const loading = useSelector((state) => state.data.loading);  //fetching data
 	const error = useSelector((state) => state.data.error);
 	const info = useSelector((state) => state.data.info);
 
-	const limitPerPage = useSelector((state) => state.data.limitPerPage);
+	const limitPerPage = useSelector((state) => state.data.limitPerPage); //character limit per page
 
-	const characterName = useSelector((state) => state.data.filters.characterName);
+	const characterName = useSelector((state) => state.data.filters.characterName);  //filter components
 	const category = useSelector((state) => state.data.filters.category);
-	console.log('category', category);
 	const startDate = useSelector((state) => state.data.filters.startDate);
 	const endDate = useSelector((state) => state.data.filters.endDate);
 
 	const [ selectedRow, setSelectedRow ] = useState(null);
-	const [ order, setOrder ] = useState('desc');
+	const [ order, setOrder ] = useState('desc');  //sorting hooks
 	const [ orderBy, setOrderBy ] = useState('name');
-	const [ selectedRangeFilter, setSelectedRangeFilter ] = useState(null);
+	const [ selectedRangeFilter, setSelectedRangeFilter ] = useState(null); //filter hooks
 	const [ selectDate, setSelectDate ] = useState([
 		{
 			startDate: new Date(),
@@ -56,7 +55,7 @@ function Characters() {
 	]);
 
 	const dispatch = useDispatch();
-	const filteredCharacters = filterAll(info, { startDate, endDate }, category);
+	const classes = useStyles();
 
 	useEffect(
 		() => {
@@ -65,9 +64,8 @@ function Characters() {
 		[ dispatch, limitPerPage ]
 	);
 
+	const filteredCharacters = filterAll(info, { startDate, endDate }, category);
 	const tableList = sortTableByOrder(filteredCharacters, order, orderBy);
-
-	const classes = useStyles();
 
 	return (
 		<div className="main-wrapper">

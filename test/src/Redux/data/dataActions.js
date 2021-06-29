@@ -113,11 +113,10 @@ export function setRangeDate({ startDate, endDate }) {
 	};
 }
 
-export function setFilters(filteredCharacters) {
+export function resetFilterValues() {
 	return {
-		type: actionTypes.SET_FILTERS,
-		payload: filteredCharacters
-	};
+		type: actionTypes.RESET_FILTER_VALUES
+	}
 }
 
 //FETCH ALL DATA

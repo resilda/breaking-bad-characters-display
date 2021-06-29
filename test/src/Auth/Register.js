@@ -13,7 +13,7 @@ import './styleAuth.css';
 const useStyles = makeStyles({
 	section: {
 		height: '550px',
-		width: '620px',
+		width: '580px',
 		backgroundColor: 'white',
 		boxShadow: '2px 2px 2px 0.5px #F9ECCF'
 	},

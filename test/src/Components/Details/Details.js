@@ -35,7 +35,8 @@ const useStyles = makeStyles({
 	commentsTitle: {
 		fontSize: '28px',
 		fontWeight: 'bold',
-		margin: '35px'
+		margin: '35px',
+		color: '#5f1f04'
 	},
 	item: {
 		width: '130px',
