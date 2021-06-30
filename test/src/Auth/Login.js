@@ -9,9 +9,23 @@ import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { makeStyles } from '@material-ui/core/styles';
-import './styleAuth.css';
 
 const useStyles = makeStyles({
+	loginWrapper: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		flexDirection: 'column',
+		backgroundColor: '#f0f0f0',
+	},
+	header: {
+		fontSize: '37px',
+		fontFamily: 'Bebas Neue',
+		color: '#4a364b',
+		fontWeight: 'bolder',
+		marginTop: '65px',
+		marginBottom: '130px',
+	},
 	section: {
 		height: '500px',
 		width: '500px',
@@ -63,6 +77,12 @@ const useStyles = makeStyles({
 	link: {
 		color: 'white',
 		textDecoration: 'none'
+	},
+	footer: {
+		color: 'gray',
+		fontSize: '14px',
+		fontFamily: 'monospace',
+		marginTop: '150px',
 	}
 });
 
@@ -101,8 +121,8 @@ function Login() {
 	const classes = useStyles();
 
 	return (
-		<div className="login-wrapper">
-			<header className="header">Movie Box Edition</header>
+		<div className={classes.loginWrapper}>
+			<header className={classes.header}>Movie Box Edition</header>
 			<section className={classes.section}>
 				<h1 className={classes.title}>Login</h1>
 				{error && <p className={classes.error}>{error.message}</p>}
@@ -153,7 +173,7 @@ function Login() {
 					</Button>
 				</div>
 			</section>
-			<footer className="footer">
+			<footer className={classes.footer}>
 				<p>We care about your opinion, so we would like your contribution to our platform.</p>
 				<h4>Contact us: movie_box@yahoo.com</h4>
 			</footer>

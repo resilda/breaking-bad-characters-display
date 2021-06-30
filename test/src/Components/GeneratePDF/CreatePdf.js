@@ -61,7 +61,7 @@ export default function CreatePdf({ detail }) {
 		var imgData =
 			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRa4NhVASihdeFLAr7DSF6O3ld1XJfU7bSyA&usqp=CAU';
 
-		if (detail.img) {
+		if(detail.img) {
 			doc.addImage(detail.img, 'JPEG', pageWidth / 2 - firstImgWidth / 2, margin, firstImgWidth, firstImgHeight);
 		} else {
 			doc.addImage(imgData, 'JPEG', pageWidth / 2 - secondImgWidth / 2, margin, secondImgWidth, secondImgHeight);

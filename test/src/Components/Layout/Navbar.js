@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
 	}
 }));
 
-function NavBar({ filteredItems, characterName, category, selectDate, setSelectDate, selectedRangeFilter }) {
+function NavBar({ characterName, selectDate, setSelectDate, selectedRangeFilter }) {
 	const [ windowToggle, setWindowToggle ] = useState(false);
 
 	function handleWindowToggle() {
@@ -38,9 +38,7 @@ function NavBar({ filteredItems, characterName, category, selectDate, setSelectD
 				{windowToggle ? <LogoutWindow /> : null}
 			</div>
 			<FilterTable
-				filteredItems={filteredItems}
 				characterName={characterName}
-				category={category}
 				selectDate={selectDate}
 				selectedRangeFilter={selectedRangeFilter}
 				setSelectDate={setSelectDate}

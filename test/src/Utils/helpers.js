@@ -3,14 +3,14 @@
 function ascendingComparator(a, b, orderBy) {
 	let firstItem = a[orderBy];
 	let secondItem = b[orderBy];
-	if (orderBy === 'birthday') {
+	if(orderBy === 'birthday') {
 		firstItem = new Date(firstItem).getTime();
 		secondItem = new Date(secondItem).getTime();
 	}
-	if (secondItem < firstItem) {
+	if(secondItem < firstItem) {
 		return 1;
 	}
-	if (secondItem > firstItem) {
+	if(secondItem > firstItem) {
 		return -1;
 	}
 	return 0;
@@ -19,14 +19,14 @@ function ascendingComparator(a, b, orderBy) {
 function descendingComparator(a, b, orderBy) {
 	let firstItem = a[orderBy];
 	let secondItem = b[orderBy];
-	if (orderBy === 'birthday') {
+	if(orderBy === 'birthday') {
 		firstItem = new Date(firstItem).getTime();
 		secondItem = new Date(secondItem).getTime();
 	}
-	if (secondItem < firstItem) {
+	if(secondItem < firstItem) {
 		return -1;
 	}
-	if (secondItem > firstItem) {
+	if(secondItem > firstItem) {
 		return 1;
 	}
 	return 0;
@@ -35,7 +35,7 @@ function descendingComparator(a, b, orderBy) {
 export function sortTableByOrder(list, order, orderBy) {
 	const newTableList = [ ...list ];
 	newTableList.sort((a, b) => {
-		if (order === 'asc') {
+		if(order === 'asc') {
 			return ascendingComparator(a, b, orderBy);
 		}
 		return descendingComparator(a, b, orderBy);
@@ -46,8 +46,7 @@ export function sortTableByOrder(list, order, orderBy) {
 //FILTER TABLE
 
 export function filterTableByCategory(filteredList, filterCategory) {
-	console.log('filterTableByCategory', filteredList, filterCategory);
-	if (!filterCategory) {
+	if(!filterCategory) {
 		return filteredList;
 	}
 	const filteredTable = [ ...filteredList ].filter((item) => {
@@ -63,7 +62,7 @@ export function filterSelectedBirthday(tableList, selectDate) {
 	const filteredTable = [ ...tableList ].filter((item) => {
 		const birthdayDate = new Date(item.birthday);
 		const isValidDate = isNaN(birthdayDate.getTime());
-		if (isValidDate) {
+		if(isValidDate) {
 			return false;
 		}
 		return birthdayDate.getTime() > minimumDate.getTime() && birthdayDate.getTime() < maximumDate.getTime();
@@ -73,7 +72,7 @@ export function filterSelectedBirthday(tableList, selectDate) {
 
 export function filterAll(filteredItems, selectDate, inputCategory) {
 	let filteredList = [ ...filteredItems ];
-	if (selectDate.startDate && selectDate.endDate) {
+	if(selectDate.startDate && selectDate.endDate) {
 		filteredList = filterSelectedBirthday(filteredItems, selectDate);
 	}
 	filteredList = filterTableByCategory(filteredList, inputCategory);

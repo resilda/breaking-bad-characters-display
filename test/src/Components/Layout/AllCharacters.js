@@ -59,11 +59,11 @@ function AllCharacters({ detail, selectedRow, setSelectedRow }) {
 				className={classes.cell}
 				style={
 					detail.status === 'Alive' ? (
-						{ color: '#7AADA0', fontWeight: 'bolder' }
+						{ color: '#507B58', fontWeight: 'bolder' }
 					) : detail.status === 'Deceased' ? (
-						{ color: '#E1AB8B', fontWeight: 'bolder' }
+						{ color: '#AC3834', fontWeight: 'bolder' }
 					) : (
-						{ color: '#8E80A9', fontWeight: 'bolder' }
+						{ color: '#635495', fontWeight: 'bolder' }
 					)
 				}
 			>

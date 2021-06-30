@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
 		flexDirection: 'column',
 		justifyContent: 'space-around',
 		alignItems: 'center',
-		width: 1200,
+		width: 1500,
 		marginBottom: 70,
 		boxShadow: '7px 9px #f7efef',
 		color: 'rgba(247, 240, 240, 0.925)',
@@ -70,9 +70,7 @@ function Characters() {
 	return (
 		<div className="main-wrapper">
 			<NavBar
-				filteredItems={filteredCharacters}
 				characterName={characterName}
-				category={category}
 				selectDate={selectDate}
 				selectedRangeFilter={selectedRangeFilter}
 				setSelectDate={(newSelectedDate) => {
@@ -83,7 +81,7 @@ function Characters() {
 			<h1 className="title">Breaking Bad</h1>
 			<div className="table-wrapper">
 				{loading && <CircularProgress />}
-				{error && <div>{error} </div>}
+				{error && <div>{error}</div>}
 				<Paper className={classes.root}>
 					<Table className={classes.table}>
 						<TableHead>

@@ -126,7 +126,6 @@ export function fetchData(params = {}) {
 		dispatch(fetchRequest());
 		try {
 			let response = await axios.get(`${CHARACTERS_API}/characters`, { params });
-			console.log('response', response);
 			dispatch(fetchSuccess(response.data));
 		} catch (error) {
 			const message = error.message;
