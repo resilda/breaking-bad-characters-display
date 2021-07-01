@@ -43,7 +43,8 @@ const useStyles = makeStyles(() => ({
 		marginTop: '3px',
 		marginBottom: '5px',
 		marginRight: '8px',
-		marginLeft: '5px'
+		marginLeft: '5px',
+		cursor: 'pointer'
 	},
 	resetIcon: {
 		color: '#377867',
@@ -70,11 +71,11 @@ function FilterTable({ characterName, selectDate, setSelectDate, selectedRangeFi
 	const [ inputCategory, setInputCategory ] = useState('');
 	const [ anchorEl, setAnchorEl ] = useState(null);
 
-	const handleClick = (event) => {
+	function handleClick(event) {
 		setAnchorEl(event.currentTarget);
 	};
 
-	const handleClose = () => {
+	function handleClose() {
 		setAnchorEl(null);
 	};
 

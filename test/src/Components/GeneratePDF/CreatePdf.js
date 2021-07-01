@@ -8,7 +8,7 @@ const useStyles = makeStyles(() => ({
 		width: '100px',
 		height: '27px',
 		color: 'white',
-		background: '#7198A9',
+		background: '#7AADA0',
 		border: 0,
 		borderRadius: 3,
 		cursor: 'pointer'

@@ -102,6 +102,7 @@ function dataReducer(state = initialState, action) {
 				}
 			};
 		case actionTypes.SET_CATEGORY:
+			console.log('category', action.payload);
 			return {
 				...state,
 				filters: {
